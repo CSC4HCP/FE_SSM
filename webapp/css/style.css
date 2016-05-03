@@ -1,1 +1,32 @@
 /* Enter your custom styles here */
+.header {
+	background-color: #0099CC !important;
+	border-bottom: none !important;
+}
+
+.button .sapMBtnContent {
+	color: white !important;
+}
+
+.button .sapUiIcon {
+	color: white !important;
+}
+
+.panel {
+	background-color: #0099CC;
+	color: white;
+	text-align: center;
+}
+
+.title {
+	font-size: 2.5rem !important;
+	color: white !important;
+}
+
+.search {
+	margin: auto;
+}
+
+.search .sapMSFF {
+	border-radius: 5px;
+}

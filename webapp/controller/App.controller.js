@@ -3,7 +3,7 @@ sap.ui.define([
 ], function(Controller) {
 	"use strict";
 
-	return Controller.extend("ssm.controller.MainView", {
+	return Controller.extend("ssms.controller.App", {
 
 	});
 

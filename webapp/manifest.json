@@ -2,20 +2,19 @@
 	"_version": "1.1.0",
 	"sap.app": {
 		"_version": "1.1.0",
-		"id": "ssm",
+		"id": "ssms",
 		"type": "application",
 		"i18n": "i18n/i18n.properties",
+		"title": "{{appTitle}}",
+		"description": "{{appDescription}}",
 		"applicationVersion": {
 			"version": "1.0.0"
 		},
-		"title": "{{appTitle}}",
-		"description": "{{appDescription}}",
 		"sourceTemplate": {
 			"id": "ui5template.basicSAPUI5ApplicationProject",
 			"version": "1.32.0"
 		}
 	},
-
 	"sap.ui": {
 		"_version": "1.1.0",
 		"technology": "UI5",
@@ -30,18 +29,14 @@
 		"deviceTypes": {
 			"desktop": true,
 			"tablet": true,
-			"phone": true
+			"phone": false
 		},
-		"supportedThemes": [
-			"sap_hcb",
-			"sap_bluecrystal"
-		]
+		"supportedThemes": ["sap_hcb", "sap_bluecrystal"]
 	},
-
 	"sap.ui5": {
 		"_version": "1.1.0",
 		"rootView": {
-			"viewName": "ssm.view.MainView",
+			"viewName": "ssms.view.App",
 			"type": "XML"
 		},
 		"dependencies": {
@@ -60,7 +55,7 @@
 			"i18n": {
 				"type": "sap.ui.model.resource.ResourceModel",
 				"settings": {
-					"bundleName": "ssm.i18n.i18n"
+					"bundleName": "ssms.i18n.i18n"
 				}
 			}
 		},
@@ -68,6 +63,30 @@
 			"css": [{
 				"uri": "css/style.css"
 			}]
+		},
+		"routing": {
+		    "config": {
+		        "routerClass": "sap.m.routing.Router",
+				"viewType": "XML",
+				"viewPath": "ssms.view",
+				"controlId": "app",
+				"controlAggregation": "pages",
+				"transition": "flip"
+		    },
+		    "routes": [
+		        {
+		            "pattern": "",
+		            "name": "application",
+		            "target": "home"
+		        }
+		    ],
+		    "targets": {
+		        "home": {
+		            "viewPath": "ssms.view",
+		            "viewName": "Home",
+		            "viewLevel": 1
+		        }
+		    }
 		}
 	}
 }

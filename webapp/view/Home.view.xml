@@ -1,0 +1,40 @@
+<mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" controllerName="ssms.controller.Home" xmlns:semantic="sap.m.semantic"
+	xmlns:html="http://www.w3.org/1999/xhtml">
+	<Page showHeader="false" enableScrolling="false">
+		<Toolbar class="header">
+			<ToolbarSpacer width="30px"/>
+			<Image class="sapUiSmallMarginTop sapUiSmallMarginBottom" src="img/logo_small.png"/>
+			<ToolbarSpacer/>
+			<Button class="button sapUiSmallMarginEnd" icon="sap-icon://employee" type="Transparent" text="Login" press="handleUserNamePress"></Button>
+		</Toolbar>
+		<Panel backgroundDesign="Transparent" class="panel">
+			<content>
+				<VBox class="sapUiLargeMarginTop sapUiLargeMarginBottom">
+					<Title text="Share Session Management System" class="title sapUiSmallMarginBottom"/>
+					<Text class="sapUiSmallMarginBottom" text="Here you can create and find the sessions you want"/>
+					<SearchField width="40%" class="search" placeholder="Search Session"/>
+				</VBox>
+			</content>
+		</Panel>
+		<HBox justifyContent="Center" class="sapUiMediumMarginTop">
+			<GenericTile id="createSession" class="sapUiSmallMargin" backgroundImage="img/1.jpg" frameType="TwoByOne" press="onPressTile">
+				<tileContent>
+					<TileContent footer="SSMS">
+						<content>
+							<NewsContent contentText="Create your own share session" subheader="Create Session"></NewsContent>
+						</content>
+					</TileContent>
+				</tileContent>
+			</GenericTile>
+			<GenericTile id="sessionList" class="sapUiSmallMargin" backgroundImage="img/2.jpg" frameType="TwoByOne" press="onPressTile">
+				<tileContent>
+					<TileContent footer="SSMS">
+						<content>
+							<NewsContent contentText="You can see all the existed sessions" subheader="Existed Sessions"></NewsContent>
+						</content>
+					</TileContent>
+				</tileContent>
+			</GenericTile>
+		</HBox>
+	</Page>
+</mvc:View>
