@@ -9,9 +9,9 @@
 		</Toolbar>
 		<Panel backgroundDesign="Transparent" class="panel">
 			<content>
-				<VBox class="sapUiLargeMarginTop sapUiLargeMarginBottom">
-					<Title text="Share Session Management System" class="title sapUiSmallMarginBottom"/>
-					<Text class="sapUiSmallMarginBottom" text="Here you can create and find the sessions you want"/>
+				<VBox class="panelBox">
+					<Title class="title" text="Share Session Management System"/>
+					<Text class="description" text="Here you can create and find the sessions you want"/>
 					<SearchField width="40%" class="search" placeholder="Search Session"/>
 				</VBox>
 			</content>

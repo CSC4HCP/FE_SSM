@@ -13,14 +13,25 @@
 }
 
 .panel {
+    display: table;
 	background-color: #0099CC;
 	color: white;
 	text-align: center;
+	height: 50% !important;
+}
+
+.panel .sapMPanelContent {
+    display: table-cell;
+    vertical-align: middle;
 }
 
 .title {
 	font-size: 2.5rem !important;
 	color: white !important;
+}
+
+.description {
+    margin: 2%;
 }
 
 .search {
