@@ -60,9 +60,11 @@
 			}
 		},
 		"resources": {
-			"css": [{
-				"uri": "css/style.css"
-			}]
+			"css": [
+			    {
+				    "uri": "css/homePage.css"
+			    }
+			]
 		},
 		"routing": {
 		    "config": {

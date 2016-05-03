@@ -1,18 +1,18 @@
 <mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" controllerName="ssms.controller.Home" xmlns:semantic="sap.m.semantic"
 	xmlns:html="http://www.w3.org/1999/xhtml">
 	<Page showHeader="false" enableScrolling="false">
-		<Toolbar class="header">
+		<Toolbar class="ssmsHome-Header">
 			<ToolbarSpacer width="30px"/>
 			<Image class="sapUiSmallMarginTop sapUiSmallMarginBottom" src="img/logo_small.png"/>
 			<ToolbarSpacer/>
-			<Button class="button sapUiSmallMarginEnd" icon="sap-icon://employee" type="Transparent" text="Login" press="handleUserNamePress"></Button>
+			<Button class="ssmsHome-Header-Button sapUiSmallMarginEnd" type="Transparent" text="Login" press="onPressLogin"></Button>
 		</Toolbar>
-		<Panel backgroundDesign="Transparent" class="panel">
+		<Panel backgroundDesign="Transparent" class="ssmsHome-Panel">
 			<content>
-				<VBox class="panelBox">
-					<Title class="title" text="Share Session Management System"/>
-					<Text class="description" text="Here you can create and find the sessions you want"/>
-					<SearchField width="40%" class="search" placeholder="Search Session"/>
+				<VBox>
+					<Title class="ssmsHome-Panel-Title" text="Share Session Management System"/>
+					<Text class="ssmsHome-Panel-Description" text="Here you can create and find the sessions you want"/>
+					<SearchField class="ssmsHome-Panel-SearchField" width="40%" placeholder="Search Session" search="onSearch" />
 				</VBox>
 			</content>
 		</Panel>

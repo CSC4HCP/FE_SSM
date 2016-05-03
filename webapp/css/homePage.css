@@ -1,18 +1,18 @@
 /* Enter your custom styles here */
-.header {
+.ssmsHome-Header {
 	background-color: #0099CC !important;
 	border-bottom: none !important;
 }
 
-.button .sapMBtnContent {
+.ssmsHome-Header-Button .sapMBtnContent {
 	color: white !important;
 }
 
-.button .sapUiIcon {
+.ssmsHome-Header-Button .sapUiIcon {
 	color: white !important;
 }
 
-.panel {
+.ssmsHome-Panel {
     display: table;
 	background-color: #0099CC;
 	color: white;
@@ -20,24 +20,24 @@
 	height: 50% !important;
 }
 
-.panel .sapMPanelContent {
+.ssmsHome-Panel .sapMPanelContent {
     display: table-cell;
     vertical-align: middle;
 }
 
-.title {
+.ssmsHome-Panel-Title {
 	font-size: 2.5rem !important;
 	color: white !important;
 }
 
-.description {
+.ssmsHome-Panel-Description {
     margin: 2%;
 }
 
-.search {
+.ssmsHome-Panel-SearchField {
 	margin: auto;
 }
 
-.search .sapMSFF {
+.ssmsHome-Panel-SearchField .sapMSFF {
 	border-radius: 5px;
 }

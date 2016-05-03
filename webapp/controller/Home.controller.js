@@ -8,6 +8,19 @@ sap.ui.define([
 		onInit: function() {
 
 		},
+		
+		onPressLogin: function() {
+		    MessageToast.show("Login");
+		},
+		
+		onSearch: function(oEvent) {
+		    var sQuery = oEvent.getParameter("query");
+		    var bClear = oEvent.getParameter("clearButtonPressed");
+		    
+		    if(sQuery !== "" && !bClear) {
+		        MessageToast.show("You are searching for " + sQuery);
+		    } 
+		},
 
 		onPressTile: function(oEvent) {
 			var sId = oEvent.getSource().getId();
