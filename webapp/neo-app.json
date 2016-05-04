@@ -1,5 +1,5 @@
 {
-	"welcomeFile": "index.html",
+	"welcomeFile": "/index.html",
 	"routes": [{
 		"path": "/resources",
 		"target": {
@@ -17,5 +17,12 @@
 			"entryPath": "/test-resources"
 		},
 		"description": "SAPUI5 Test Resources"
+	}],
+	"securityConstraints": [{
+		"permission": "AccessApplicationDescriptor",
+		"description": "Access application descriptor",
+		"protectedPaths": [
+			"/neo-app.json"
+		]
 	}]
 }
