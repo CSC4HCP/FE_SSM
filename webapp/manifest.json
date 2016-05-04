@@ -31,7 +31,10 @@
 			"tablet": true,
 			"phone": false
 		},
-		"supportedThemes": ["sap_hcb", "sap_bluecrystal"]
+		"supportedThemes": [
+			"sap_hcb",
+			"sap_bluecrystal"
+		]
 	},
 	"sap.ui5": {
 		"_version": "1.1.0",
@@ -61,34 +64,38 @@
 		},
 		"resources": {
 			"css": [
-			    {
-				    "uri": "css/homePage.css"
-			    }
+				{
+					"uri": "css/homePage.css"
+				}
 			]
 		},
 		"routing": {
-		    "config": {
-		        "routerClass": "sap.m.routing.Router",
+			"config": {
+				"routerClass": "sap.m.routing.Router",
 				"viewType": "XML",
 				"viewPath": "ssms.view",
 				"controlId": "app",
 				"controlAggregation": "pages",
 				"transition": "flip"
-		    },
-		    "routes": [
-		        {
-		            "pattern": "",
-		            "name": "application",
-		            "target": "home"
-		        }
-		    ],
-		    "targets": {
-		        "home": {
-		            "viewPath": "ssms.view",
-		            "viewName": "Home",
-		            "viewLevel": 1
-		        }
-		    }
+			},
+			"routes": [
+				{
+					"pattern": "",
+					"name": "application",
+					"target": "home"
+				}
+			],
+			"targets": {
+				"home": {
+					"viewPath": "ssms.view",
+					"viewName": "Home",
+					"viewLevel": 1
+				}
+			}
 		}
+	},
+	"sap.platform.hcp": {
+		"uri": "webapp",
+		"_version": "1.1.0"
 	}
 }
