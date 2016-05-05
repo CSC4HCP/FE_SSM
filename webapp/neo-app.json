@@ -1,5 +1,5 @@
 {
-  "welcomeFile": "/webapp/index.html",
+  "welcomeFile": "/index.html",
   "sendWelcomeFileRedirect": true,
   "routes": [
     {
@@ -45,6 +45,14 @@
         "type": "service",
         "name": "userapi"
       }
+    },
+    {
+      "path": "/destinations/SSM_DEST",
+      "target": {
+        "type": "destination",
+        "name": "SSM_DEST"
+      },
+      "description": "SSM Backend Service"
     }
   ],
   "securityConstraints": [
