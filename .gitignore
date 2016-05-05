@@ -8,5 +8,4 @@ sap-ui-cachebuster-info.json
 
 # config
 /.project.json
-/neo-app.json
 /.user.project.json
