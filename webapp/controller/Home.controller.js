@@ -1,16 +1,18 @@
 sap.ui.define([
-	"ssms/controller/BaseController",
+    "ssms/controller/BaseController",
 	"sap/m/MessageToast"
 ], function(BaseController, MessageToast) {
 	"use strict";
 
 	return BaseController.extend("ssms.controller.Home", {
 		onInit: function() {
-
+            var oModel = new sap.ui.model.json.JSONModel();
+			oModel.loadData("/services/userapi/currentUser");
+			this.getView().setModel(oModel);
 		},
 		
 		onPressLogin: function() {
-		    MessageToast.show("Login");
+		    MessageToast.show("Will go to Personal Center Page");
 		},
 		
 		onSearch: function(oEvent) {
