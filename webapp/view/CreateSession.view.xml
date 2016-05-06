@@ -1,49 +1,49 @@
 <mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" controllerName="ssms.controller.CreateSession"
 	xmlns:f="sap.ui.layout.form" xmlns:html="http://www.w3.org/1999/xhtml">
 	<Page showHeader="false">
-		<core:Fragment fragmentName="ssms.view.Header" type="XML"/>
-		<f:SimpleForm width="97.5%" class="sapUiSmallMargin" title="New Session" editable="true" layout="ResponsiveGridLayout">
-			<f:content>
-				<Label text="Created By"/>
-				<Text text="{/displayName}" />
-				<Label text="Topic *"/>
-				<Input id="topic" value="" change="onCheckTopic"/>
-				<Label/>
-				<!--<MessageStrip text="Please enter the topic" type="Error" showIcon="true" showCloseButton="false"></MessageStrip>-->
-				<Label text="Category *"/>
-				<Select width="100%">
-					<items>
-						<core:Item text="Business"/>
-						<core:Item text="USA"/>
-						<core:Item text="England"/>
-					</items>
-				</Select>
-				<Label text="Planned Time *"/>
-				<DatePicker id="plannedDate" valueFormat="yyyy-MM-dd" displayFormat="long"/>
-				<Label text="Description"/>
-				<TextArea value=""/>
-				<Label text="Attachments"/>
-				<UploadCollection id="UploadCollection" maximumFilenameLength="55" maximumFileSize="10" multiple="true" showSeparators="All"
-					change="onChange" fileDeleted="onFileDeleted" filenameLengthExceed="onFilenameLengthExceed" fileRenamed="onFileRenamed"
-					fileSizeExceed="onFileSizeExceed" selectionChange="onSelectionChange" typeMissmatch="onTypeMissmatch" uploadComplete="onUploadComplete"
-					beforeUploadStarts="onBeforeUploadStarts" uploadTerminated="onUploadTerminated" numberOfAttachmentsText="Uploaded (8)"
-					mode="SingleSelectMaster">
-					<toolbar>
-						<OverflowToolbar id="myId">
-							<UploadCollectionToolbarPlaceholder></UploadCollectionToolbarPlaceholder>
-							<Button id="deleteSelectedButton" text="Delete" press="onDeleteSelectedItems" enabled="false" visible="false" type="Transparent"></Button>
-							<ToolbarSpacer/>
-							<ToggleButton id="selectAllButton" text="Select all" press="onSelectAllPress" enabled="false" visible="false" type="Transparent"></ToggleButton>
-						</OverflowToolbar>
-					</toolbar>
-				</UploadCollection>
-			</f:content>
-		</f:SimpleForm>
+		<subHeader>
+			<core:Fragment fragmentName="ssms.view.Header" type="XML"/>
+		</subHeader>
+		<content>
+			<f:SimpleForm width="95%" class="sapUiMediumMargin" title="New Session" editable="true" layout="ResponsiveGridLayout">
+				<f:content>
+					<Label text="Created By"/>
+					<Text text="{/displayName}"/>
+					<Label text="Visiblity"/>
+					<RadioButtonGroup columns="2">
+						<RadioButton text="Public"/>
+						<RadioButton text="Private"/>
+					</RadioButtonGroup>
+					<Label text="Topic *"/>
+					<Input id="topic" class="ssmsInput" value="" change="onCheckTopic"/>
+					<Label/>
+					<MessageStrip id="topicErrorMsg" text="Please enter the Topic" type="Error" showIcon="true" visible="false"/>
+					<Label text="Category *"/>
+					<Select width="100%">
+						<items>
+							<core:Item text="Business"/>
+							<core:Item text="USA"/>
+							<core:Item text="England"/>
+						</items>
+					</Select>
+					<Label text="Planned Date *"/>
+					<DatePicker id="date" class="ssmsInput" valueFormat="yyyy-MM-dd" displayFormat="long" change="onCheckDate"/>
+					<Label/>
+					<MessageStrip id="dateErrorMsg" text="Please enter the Planned Date" type="Error" showIcon="true" visible="false"/>
+					<Label text="Description"/>
+					<TextArea value=""/>
+					<Label text="Attachments"/>
+					<UploadCollection id="UploadCollection" maximumFilenameLength="55" maximumFileSize="10" multiple="true" instantUpload="false"
+						change="onFileChange" fileDeleted="onFileDeleted" filenameLengthExceed="onFilenameLengthExceed" fileSizeExceed="onFileSizeExceed"
+						typeMissmatch="onTypeMissmatch" uploadComplete="onUploadComplete" beforeUploadStarts="onBeforeUploadStarts"></UploadCollection>
+				</f:content>
+			</f:SimpleForm>
+		</content>
 		<footer>
 			<Bar>
 				<contentRight>
-					<Button id="edit" class="ssmsEmphasizedButton" type="Emphasized" text="Create" press="handleEditPress"/>
-					<Button id="cancel" text="Cancel" press="handleCancelPress"/>
+					<Button id="edit" class="ssmsEmphasizedButton" type="Emphasized" text="Create" press="onPressCreate"/>
+					<Button id="cancel" text="Cancel" press="onPressCancel"/>
 				</contentRight>
 			</Bar>
 		</footer>
