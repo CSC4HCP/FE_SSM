@@ -77,6 +77,10 @@ sap.ui.define([
 			}
 
 			MessageToast.show("Have created a new session");
+		},
+		
+		onPressCancel: function() {
+		    this.onNavBack();
 		}
 	});
 
