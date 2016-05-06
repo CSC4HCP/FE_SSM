@@ -1,6 +1,6 @@
 <mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" controllerName="ssms.controller.CreateSession"
 	xmlns:f="sap.ui.layout.form" xmlns:html="http://www.w3.org/1999/xhtml">
-	<Page showHeader="true">
+	<Page showHeader="false">
 		<core:Fragment fragmentName="ssms.view.Header" type="XML"/>
 		<f:SimpleForm width="97.5%" class="sapUiSmallMargin" title="New Session" editable="true" layout="ResponsiveGridLayout">
 			<f:content>
