@@ -1,0 +1,9 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" controllerName="ssms.controller.Header">
+	<Toolbar class="ssmsHeader">
+		<Image class="sapUiSmallMarginTop sapUiSmallMarginBottom sapUiSmallMarginBegin" src="img/logo_small.png"/>
+		<ToolbarSpacer/>
+		<SearchField class="ssmsSearchField" width="20%" placeholder="Search Session" search="onHeaderSearch"/>
+		<Button class="ssmsEmphasizedButton sapUiSmallMarginEnd sapUiMediumMarginBegin" type="Emphasized" icon="sap-icon://employee" text="{/displayName}"
+			press="onPressUser"></Button>
+	</Toolbar>
+</core:FragmentDefinition>

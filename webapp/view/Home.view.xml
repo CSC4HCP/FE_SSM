@@ -1,18 +1,17 @@
 <mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" controllerName="ssms.controller.Home" xmlns:semantic="sap.m.semantic"
 	xmlns:html="http://www.w3.org/1999/xhtml">
 	<Page showHeader="false" enableScrolling="false">
-		<Toolbar class="ssmsHome-Header">
-			<ToolbarSpacer width="30px"/>
-			<Image class="sapUiSmallMarginTop sapUiSmallMarginBottom" src="img/logo_small.png"/>
+		<Toolbar class="ssmsHeader">
+			<Image class="sapUiSmallMarginTop sapUiSmallMarginBottom sapUiSmallMarginBegin" src="img/logo_small.png"/>
 			<ToolbarSpacer/>
-			<Button class="ssmsHome-Header-Button sapUiSmallMarginEnd" type="Transparent" icon="sap-icon://employee" text="{/displayName}" press="onPressLogin"></Button>
+			<Button class="ssmsEmphasizedButton sapUiSmallMarginEnd" type="Emphasized" icon="sap-icon://employee" text="{/displayName}" press="onPressUser"></Button>
 		</Toolbar>
 		<Panel backgroundDesign="Transparent" class="ssmsHome-Panel">
 			<content>
 				<VBox>
 					<Title class="ssmsHome-Panel-Title" text="Share Session Management System"/>
 					<Text class="ssmsHome-Panel-Description" text="Here you can create and find the sessions you want"/>
-					<SearchField class="ssmsHome-Panel-SearchField" width="40%" placeholder="Search Session" search="onSearch" />
+					<SearchField class="ssmsSearchField ssmsHome-Panel-SearchField" width="40%" placeholder="Search Session" search="onSearch" />
 				</VBox>
 			</content>
 		</Panel>

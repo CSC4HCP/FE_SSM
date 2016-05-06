@@ -64,8 +64,14 @@
 		},
 		"resources": {
 			"css": [
+			    {
+			        "uri": "css/common.css"
+			    },
 				{
-					"uri": "css/homePage.css"
+					"uri": "css/home.css"
+				},
+				{
+				    "uri": "css/createSession.css"
 				}
 			]
 		},
@@ -76,20 +82,26 @@
 				"viewPath": "ssms.view",
 				"controlId": "app",
 				"controlAggregation": "pages",
-				"transition": "flip"
+				"transition": "slide"
 			},
 			"routes": [
 				{
 					"pattern": "",
 					"name": "application",
 					"target": "home"
+				},
+				{
+					"pattern": "createSession",
+					"name": "createSession",
+					"target": "createSession"
 				}
 			],
 			"targets": {
 				"home": {
-					"viewPath": "ssms.view",
-					"viewName": "Home",
-					"viewLevel": 1
+					"viewName": "Home"
+				},
+				"createSession": {
+					"viewName": "CreateSession"
 				}
 			}
 		}

@@ -1,17 +1,4 @@
 /* Enter your custom styles here */
-.ssmsHome-Header {
-	background-color: #0099CC !important;
-	border-bottom: none !important;
-}
-
-.ssmsHome-Header-Button .sapMBtnContent {
-	color: white !important;
-}
-
-.ssmsHome-Header-Button .sapUiIcon {
-	color: white !important;
-}
-
 .ssmsHome-Panel {
     display: table;
 	background-color: #0099CC;
@@ -36,8 +23,4 @@
 
 .ssmsHome-Panel-SearchField {
 	margin: auto;
-}
-
-.ssmsHome-Panel-SearchField .sapMSFF {
-	border-radius: 5px;
 }

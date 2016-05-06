@@ -1,0 +1,51 @@
+<mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" controllerName="ssms.controller.CreateSession"
+	xmlns:f="sap.ui.layout.form" xmlns:html="http://www.w3.org/1999/xhtml">
+	<Page showHeader="true">
+		<core:Fragment fragmentName="ssms.view.Header" type="XML"/>
+		<f:SimpleForm width="97.5%" class="sapUiSmallMargin" title="New Session" editable="true" layout="ResponsiveGridLayout">
+			<f:content>
+				<Label text="Created By"/>
+				<Text text="{/displayName}" />
+				<Label text="Topic *"/>
+				<Input id="topic" value="" change="onCheckTopic"/>
+				<Label/>
+				<!--<MessageStrip text="Please enter the topic" type="Error" showIcon="true" showCloseButton="false"></MessageStrip>-->
+				<Label text="Category *"/>
+				<Select width="100%">
+					<items>
+						<core:Item text="Business"/>
+						<core:Item text="USA"/>
+						<core:Item text="England"/>
+					</items>
+				</Select>
+				<Label text="Planned Time *"/>
+				<DatePicker id="plannedDate" valueFormat="yyyy-MM-dd" displayFormat="long"/>
+				<Label text="Description"/>
+				<TextArea value=""/>
+				<Label text="Attachments"/>
+				<UploadCollection id="UploadCollection" maximumFilenameLength="55" maximumFileSize="10" multiple="true" showSeparators="All"
+					change="onChange" fileDeleted="onFileDeleted" filenameLengthExceed="onFilenameLengthExceed" fileRenamed="onFileRenamed"
+					fileSizeExceed="onFileSizeExceed" selectionChange="onSelectionChange" typeMissmatch="onTypeMissmatch" uploadComplete="onUploadComplete"
+					beforeUploadStarts="onBeforeUploadStarts" uploadTerminated="onUploadTerminated" numberOfAttachmentsText="Uploaded (8)"
+					mode="SingleSelectMaster">
+					<toolbar>
+						<OverflowToolbar id="myId">
+							<UploadCollectionToolbarPlaceholder></UploadCollectionToolbarPlaceholder>
+							<Button id="deleteSelectedButton" text="Delete" press="onDeleteSelectedItems" enabled="false" visible="false" type="Transparent"></Button>
+							<ToolbarSpacer/>
+							<ToggleButton id="selectAllButton" text="Select all" press="onSelectAllPress" enabled="false" visible="false" type="Transparent"></ToggleButton>
+						</OverflowToolbar>
+					</toolbar>
+				</UploadCollection>
+			</f:content>
+		</f:SimpleForm>
+		<footer>
+			<Bar>
+				<contentRight>
+					<Button id="edit" class="ssmsEmphasizedButton" type="Emphasized" text="Create" press="handleEditPress"/>
+					<Button id="cancel" text="Cancel" press="handleCancelPress"/>
+				</contentRight>
+			</Bar>
+		</footer>
+	</Page>
+</mvc:View>

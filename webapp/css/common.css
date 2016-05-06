@@ -1,0 +1,13 @@
+.ssmsHeader {
+	background-color: #0099CC;
+	border-bottom: none;
+}
+
+.ssmsSearchField .sapMSFF {
+	border-radius: 5px;
+}
+
+.ssmsEmphasizedButton > .sapMBtnInner.sapMBtnEmphasized {
+    background-color: #0099CC;
+    border: none;
+}
