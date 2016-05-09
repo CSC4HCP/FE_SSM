@@ -20,15 +20,6 @@ sap.ui.define([
 
 		},
 
-		onHeaderSearch: function(oEvent) {
-			var sQuery = oEvent.getParameter("query");
-			var bClear = oEvent.getParameter("clearButtonPressed");
-
-			if (sQuery !== "" && !bClear) {
-				MessageToast.show("You are searching for " + sQuery);
-			}
-		},
-
 		onCheckTopic: function(oEvent) {
 			var sValue = oEvent.getSource().getValue();
 

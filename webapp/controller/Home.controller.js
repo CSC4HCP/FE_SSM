@@ -11,10 +11,6 @@ sap.ui.define([
 			this.getView().setModel(oModel);
 		},
 
-		onPressUser: function() {
-			MessageToast.show("Will go to Personal Center Page");
-		},
-
 		onSearch: function(oEvent) {
 			var sQuery = oEvent.getParameter("query");
 			var bClear = oEvent.getParameter("clearButtonPressed");
