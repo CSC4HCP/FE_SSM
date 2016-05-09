@@ -1,8 +1,9 @@
-<mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" controllerName="ssms.controller.CreateSession"
+<mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" xmlns:ssmsHeader="ssms.control.header" controllerName="ssms.controller.CreateSession"
 	xmlns:f="sap.ui.layout.form" xmlns:html="http://www.w3.org/1999/xhtml">
 	<Page showHeader="false">
 		<subHeader>
 			<core:Fragment fragmentName="ssms.view.Header" type="XML"/>
+			<!--<ssmsHeader:ToolHeader></ssmsHeader:ToolHeader>-->
 		</subHeader>
 		<content>
 			<f:SimpleForm width="95%" class="sapUiMediumMargin" title="New Session" editable="true" layout="ResponsiveGridLayout">
