@@ -8,8 +8,9 @@ sap.ui.define([
 
 	return Controller.extend("ssms.controller.BaseController", {
 		/**
-		 * Convenience method for accessing the router in every controller of the application.
-		 * @public
+		 * @function
+		 * @name getRouter
+		 * @description Convenience method for accessing the router in every controller of the application.
 		 * @returns {sap.ui.core.routing.Router} the router for this component
 		 */
 		getRouter: function() {
@@ -17,8 +18,9 @@ sap.ui.define([
 		},
 
 		/**
-		 * Convenience method for getting the view model by name in every controller of the application.
-		 * @public
+		 * @function
+		 * @name getModel
+		 * @description Convenience method for getting the view model by name in every controller of the application.
 		 * @param {string} sName the model name
 		 * @returns {sap.ui.model.Model} the model instance
 		 */
@@ -27,8 +29,9 @@ sap.ui.define([
 		},
 
 		/**
-		 * Convenience method for setting the view model in every controller of the application.
-		 * @public
+		 * @function
+		 * @name setModel
+		 * @description Convenience method for setting the view model in every controller of the application.
 		 * @param {sap.ui.model.Model} oModel the model instance
 		 * @param {string} sName the model name
 		 * @returns {sap.ui.mvc.View} the view instance
@@ -38,8 +41,9 @@ sap.ui.define([
 		},
 
 		/**
-		 * Convenience method for getting the resource bundle.
-		 * @public
+		 * @function
+		 * @name getResourceBundle
+		 * @description Convenience method for getting the resource bundle.
 		 * @returns {sap.ui.model.resource.ResourceModel} the resourceModel of the component
 		 */
 		getResourceBundle: function() {
@@ -47,10 +51,11 @@ sap.ui.define([
 		},
 
 		/**
-		 * Event handler  for navigating back.
+		 * @function
+		 * @name onNavBack
+		 * @description Event handler for navigating back.
 		 * It checks if there is a history entry. If yes, history.go(-1) will happen.
 		 * If not, it will replace the current entry of the browser history with the master route.
-		 * @public
 		 */
 		onNavBack: function() {
 			var sPreviousHash = History.getInstance().getPreviousHash();
@@ -65,10 +70,20 @@ sap.ui.define([
 			}
 		},
 
+		/**
+		 * @function
+		 * @name onPressLogo
+		 * @description Event handler for press the logo on the header. Will go to the Home Page.
+		 */
 		onPressLogo: function() {
 			this.getRouter().navTo("home");
 		},
 
+		/**
+		 * @function
+		 * @name onHeaderSearch
+		 * @description Event handler for enter query string in the search field on the header.
+		 */
 		onHeaderSearch: function(oEvent) {
 			var sQuery = oEvent.getParameter("query");
 			var bClear = oEvent.getParameter("clearButtonPressed");
@@ -78,8 +93,14 @@ sap.ui.define([
 			}
 		},
 
+		/**
+		 * @function
+		 * @name onPressUser
+		 * @description Event handler for press the button on the header. Will go to the PersonalCenter Page.
+		 */
 		onPressUser: function() {
-			MessageToast.show("Will go to Personal Center Page");
+			// 			MessageToast.show("Will go to Personal Center Page");
+			this.getRouter().navTo("personalCenter");
 		}
 	});
 

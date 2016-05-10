@@ -6,11 +6,22 @@ sap.ui.define([
 ], function(BaseController, MessageToast, UploadCollectionParameter, UploadCollectionItem) {
 	"use strict";
 
-	return BaseController.extend("ssms.controller.CreateSession", {
+    /**
+     * @private
+     * @description Some specified variables of this controller. Can't be access out of this controller.
+     * @var {Boolean} bTopicValid Whether the value of date input is valid
+     * @var {Boolean} bDateValid Whether the value of date picker is valid
+     * @var {Integer} iPressCount The number of press event triggered for Create Button
+     */ 
+	var bTopicValid = false;
+	var bDateValid = false;
+	var iPressCount = 0;
 
+	return BaseController.extend("ssms.controller.CreateSession", {
 		/**
-		 * Called when a controller is instantiated and its View controls (if available) are already created.
-		 * Can be used to modify the View before it is displayed, to bind event handlers and do other one-time initialization.
+		 * @event
+		 * @name onInit
+		 * @description Called when a controller is instantiated and its View controls (if available) are already created. Mainly set model.
 		 * @memberOf ssms.view.view.createSession
 		 */
 		onInit: function() {
@@ -20,44 +31,75 @@ sap.ui.define([
 
 		},
 
+		/**
+		 * @event
+		 * @name onAfterRendering
+		 * @description Called when the View has been rendered (so its HTML is part of the document). Set focus in the topic input.
+		 * @memberOf ssms.view.view.SessionDetail
+		 */
 		onAfterRendering: function() {
-			var oTopicInput = this.byId("topic");
 			var $topicInput = $("#" + this.getView().getId() + "--topic-inner");
-			var that = this;
 
 			$topicInput.attr("autofocus", "autofocus");
-			$topicInput.one("blur", function() {
-				if (oTopicInput.getValue() === "") {
-					that.byId("topicEmptyMsg").setVisible(true);
-				} else {
-					that.byId("topicEmptyMsg").setVisible(false);
-				}
-			});
 		},
 
+		/**
+		 * @function
+		 * @name onCheckTopic
+		 * @description Event handler for checking topic validation. If its value is empty, show message.
+		 * @param {sap.ui.base.Event} - oEvent The fired event.
+		 */
 		onCheckTopic: function(oEvent) {
+			var oTopicInput = oEvent.getSource();
 			var sValue = oEvent.getSource().getValue();
 
 			if (sValue === "") {
 				this.byId("topicEmptyMsg").setVisible(true);
+				bTopicValid = false;
+				oTopicInput.setValueState(sap.ui.core.ValueState.Error);
 			} else {
 				this.byId("topicEmptyMsg").setVisible(false);
+				bTopicValid = true;
+				oTopicInput.setValueState(sap.ui.core.ValueState.None);
 			}
 		},
-
+		/**
+		 * @function
+		 * @name onCheckDate
+		 * @description Event handler for checking topic validation. If its value is empty or is ealier than today, show message.
+		 * @param {sap.ui.base.Event} - oEvent The fired event.
+		 */
 		onCheckDate: function(oEvent) {
-			var oNowDate = new Date();
-			var oSelectedDate = oEvent.getSource().getDateValue();
+			var dNowDate = new Date();
+			var oDatePicker = oEvent.getSource();
+			var dSelectedDate = oDatePicker.getDateValue();
+			var bValid = oEvent.getParameter("valid");
 
-			this.byId("dateEmptyMsg").setVisible(false);
-
-			if (oSelectedDate <= oNowDate) {
-				this.byId("dateErrorMsg").setVisible(true);
+			if (!bValid) {
+				this.byId("dateValidMsg").setVisible(true);
+				bDateValid = false;
+				oDatePicker.setValueState(sap.ui.core.ValueState.Error);
 			} else {
-				this.byId("dateErrorMsg").setVisible(false);
+				this.byId("dateValidMsg").setVisible(false);
+
+				if (dSelectedDate <= dNowDate) {
+					this.byId("dateErrorMsg").setVisible(true);
+					bDateValid = false;
+					oDatePicker.setValueState(sap.ui.core.ValueState.Error);
+				} else {
+					this.byId("dateErrorMsg").setVisible(false);
+					bDateValid = true;
+					oDatePicker.setValueState(sap.ui.core.ValueState.None);
+				}
 			}
 		},
 
+		/**
+		 * @function
+		 * @name onFileChange
+		 * @description Event handler when select a new file.
+		 * @param {sap.ui.base.Event} oEvent The fired event.
+		 */
 		onFileChange: function(oEvent) {
 			var oUploadCollection = oEvent.getSource();
 			//  var oNewUploadItem = new UploadCollectionItem();
@@ -72,19 +114,49 @@ sap.ui.define([
 			MessageToast.show("Have uploaded a file");
 		},
 
+		/**
+		 * @function
+		 * @name onPressCreate
+		 * @description Event handler when click the Create Button.
+		 */
 		onPressCreate: function() {
-			var oPlannedTime = this.byId("date");
+			if (iPressCount === 0) {
+				var oTopicInput = this.byId("topic");
+				var oPlannedTime = this.byId("date");
 
-			if (oPlannedTime.getDateValue() === null) {
-				this.byId("dateEmptyMsg").setVisible(true);
-				return;
+				oTopicInput.fireChange();
+				oPlannedTime.fireChange({
+					value: oPlannedTime.getValue(),
+					valid: bDateValid
+				});
+				iPressCount++;
 			}
 
-			MessageToast.show("Have created a new session");
+			if (bTopicValid && bDateValid) {
+				this.byId("create").setEnabled(false);
+				MessageToast.show("Have created a new session, will go to the sessionDetail Page");
+			}
 		},
 
+		/**
+		 * @function
+		 * @name onPressCancel
+		 * @description Event handler when click the Cancel Button.
+		 */
 		onPressCancel: function() {
 			this.onNavBack();
+		},
+
+		/**
+		 * @event
+		 * @name onExit
+		 * Called when the Controller is destroyed. Use this one to free resources and finalize activities.
+		 * @memberOf ssms.view.view.SessionDetail
+		 */
+		onExit: function() {
+			bTopicValid.destroy();
+			bDateValid.destroy();
+			iPressCount.destroy();
 		}
 	});
 

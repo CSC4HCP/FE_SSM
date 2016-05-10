@@ -15,7 +15,7 @@
 						<RadioButton text="Private"/>
 					</RadioButtonGroup>
 					<Label text="Topic *"/>
-					<Input id="topic" class="ssmsInput" value="" change="onCheckTopic"/>
+					<Input id="topic" class="ssmsInput" value="" placeholder="Enter Topic..." change="onCheckTopic"/>
 					<Label/>
 					<MessageStrip id="topicEmptyMsg" text="Please enter the Topic" type="Error" showIcon="true" visible="false"/>
 					<Label text="Category *"/>
@@ -29,7 +29,7 @@
 					<Label text="Planned Date *"/>
 					<DatePicker id="date" class="ssmsInput" displayFormat="short" change="onCheckDate"/>
 					<Label/>
-					<MessageStrip id="dateEmptyMsg" text="Please enter the Planned Date" type="Error" showIcon="true" visible="false"/>
+					<MessageStrip id="dateValidMsg" text="Please enter a valid Planned Date" type="Error" showIcon="true" visible="false"/>
 					<Label/>
 					<MessageStrip id="dateErrorMsg" text="The selected date must be later than today, please choose another one" type="Error" showIcon="true"
 						visible="false"/>
@@ -45,7 +45,7 @@
 		<footer>
 			<Bar>
 				<contentRight>
-					<Button id="edit" class="ssmsEmphasizedButton" type="Emphasized" text="Create" press="onPressCreate"/>
+					<Button id="create" class="ssmsEmphasizedButton" type="Emphasized" text="Create" press="onPressCreate"/>
 					<Button id="cancel" text="Cancel" press="onPressCancel"/>
 				</contentRight>
 			</Bar>
