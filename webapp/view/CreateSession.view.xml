@@ -3,7 +3,6 @@
 	<Page showHeader="false">
 		<subHeader>
 			<core:Fragment fragmentName="ssms.view.Header" type="XML"/>
-			<!--<ssmsHeader:Toolheader></ssmsHeader:Toolheader>-->
 		</subHeader>
 		<content>
 		    <!--<ssmsHeader:Toolheader></ssmsHeader:Toolheader>-->
@@ -29,7 +28,7 @@
 						</items>
 					</Select>
 					<Label text="Planned Date *"/>
-					<DatePicker id="date" class="ssmsInput" valueFormat="yyyy-MM-dd" displayFormat="long" change="onCheckDate"/>
+					<DatePicker id="date" class="ssmsInput" displayFormat="short" change="onCheckDate"/>
 					<Label/>
 					<MessageStrip id="dateErrorMsg" text="Please enter the Planned Date" type="Error" showIcon="true" visible="false"/>
 					<Label text="Description"/>

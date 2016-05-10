@@ -72,6 +72,12 @@
 				},
 				{
 				    "uri": "css/createSession.css"
+				},
+				{
+				    "uri": "css/sessionDetail.css"
+				},
+				{
+				    "uri": "css/personalCenter.css"
 				}
 			]
 		},
@@ -94,6 +100,16 @@
 					"pattern": "createSession",
 					"name": "createSession",
 					"target": "createSession"
+				},
+				{
+				    "pattern": "sessionDetail",
+				    "name": "sessionDetail",
+				    "target": "sessionDetail"
+				},
+				{
+				    "pattern": "personalCenter",
+				    "name": "personalCenter",
+				    "target": "personalCenter"
 				}
 			],
 			"targets": {
@@ -102,6 +118,12 @@
 				},
 				"createSession": {
 					"viewName": "CreateSession"
+				},
+				"sessionDetail": {
+				    "viewName": "SessionDetail"
+				},
+				"personalCenter": {
+				    "viewName": "PersonalCenter"
 				}
 			}
 		}
