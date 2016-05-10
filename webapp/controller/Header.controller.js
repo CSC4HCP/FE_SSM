@@ -14,7 +14,7 @@ sap.ui.define([
 		onInit: function() {
 			var oModel = new sap.ui.model.json.JSONModel();
 			oModel.loadData("/services/userapi/currentUser");
-			this.getView().setModel(oModel);
+			this.getView().setModel(oModel, "UserModel");
 		},
 		
 		onHeaderSearch: function(oEvent) {

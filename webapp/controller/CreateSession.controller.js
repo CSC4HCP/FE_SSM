@@ -27,7 +27,11 @@ sap.ui.define([
 		onInit: function() {
 			var oModel = new sap.ui.model.json.JSONModel();
 			oModel.loadData("/services/userapi/currentUser");
-			this.getView().setModel(oModel);
+			this.getView().setModel(oModel, "UserModel");
+			
+			var oSessionModel = new sap.ui.model.json.JSONModel();
+			oSessionModel.loadData("mockData/newSession.json");
+			this.byId("session").setModel(oSessionModel);
 
 		},
 
@@ -133,8 +137,12 @@ sap.ui.define([
 			}
 
 			if (bTopicValid && bDateValid) {
+			    var oSessionData = this.byId("session").getModel().getData();
+			    
 				this.byId("create").setEnabled(false);
 				MessageToast.show("Have created a new session, will go to the sessionDetail Page");
+				console.log(oSessionData);
+				location.reload();
 			}
 		},
 

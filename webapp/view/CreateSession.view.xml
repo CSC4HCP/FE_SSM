@@ -5,36 +5,36 @@
 			<core:Fragment fragmentName="ssms.view.Header" type="XML"/>
 		</subHeader>
 		<content>
-			<f:SimpleForm width="95%" class="sapUiMediumMargin" title="New Session" editable="true" layout="ResponsiveGridLayout">
+			<f:SimpleForm width="95%" id="session" class="sapUiMediumMargin" title="New Session" editable="true" layout="ResponsiveGridLayout">
 				<f:content>
 					<Label text="Created By"/>
-					<Text text="{/displayName}"/>
+					<Text text="{UserModel>/displayName}"/>
 					<Label text="Visiblity"/>
-					<RadioButtonGroup columns="2">
+					<RadioButtonGroup columns="2" selectedIndex="{/visibility}">
 						<RadioButton text="Public"/>
 						<RadioButton text="Private"/>
 					</RadioButtonGroup>
 					<Label text="Topic *"/>
-					<Input id="topic" class="ssmsInput" value="" placeholder="Enter Topic..." change="onCheckTopic"/>
+					<Input id="topic" class="ssmsInput" value="{/topic}" placeholder="Enter Topic..." change="onCheckTopic"/>
 					<Label/>
 					<MessageStrip id="topicEmptyMsg" text="Please enter the Topic" type="Error" showIcon="true" visible="false"/>
 					<Label text="Category *"/>
-					<Select width="100%">
+					<Select width="100%" selectedKey="{/category}">
 						<items>
-							<core:Item text="Business"/>
-							<core:Item text="USA"/>
-							<core:Item text="England"/>
+							<core:Item text="Business" key="Business"/>
+							<core:Item text="USA" key="USA"/>
+							<core:Item text="England" key="England"/>
 						</items>
 					</Select>
 					<Label text="Planned Date *"/>
-					<DatePicker id="date" class="ssmsInput" displayFormat="short" change="onCheckDate"/>
+					<DatePicker id="date" class="ssmsInput" displayFormat="short" dateValue="{/plannedDate}" change="onCheckDate"/>
 					<Label/>
 					<MessageStrip id="dateValidMsg" text="Please enter a valid Planned Date" type="Error" showIcon="true" visible="false"/>
 					<Label/>
 					<MessageStrip id="dateErrorMsg" text="The selected date must be later than today, please choose another one" type="Error" showIcon="true"
 						visible="false"/>
 					<Label text="Description"/>
-					<TextArea value=""/>
+					<TextArea value="{/description}"/>
 					<Label text="Attachments"/>
 					<UploadCollection id="UploadCollection" maximumFilenameLength="55" maximumFileSize="10" multiple="true" instantUpload="false"
 						change="onFileChange" fileDeleted="onFileDeleted" filenameLengthExceed="onFilenameLengthExceed" fileSizeExceed="onFileSizeExceed"
@@ -46,7 +46,7 @@
 			<Bar>
 				<contentRight>
 					<Button id="create" class="ssmsEmphasizedButton" type="Emphasized" text="Create" press="onPressCreate"/>
-					<Button id="cancel" text="Cancel" press="onPressCancel"/>
+					<Button text="Cancel" press="onPressCancel"/>
 				</contentRight>
 			</Bar>
 		</footer>
