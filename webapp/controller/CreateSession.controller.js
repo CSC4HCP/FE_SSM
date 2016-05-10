@@ -20,20 +20,38 @@ sap.ui.define([
 
 		},
 
+		onAfterRendering: function() {
+			var oTopicInput = this.byId("topic");
+			var $topicInput = $("#" + this.getView().getId() + "--topic-inner");
+			var that = this;
+
+			$topicInput.attr("autofocus", "autofocus");
+			$topicInput.one("blur", function() {
+				if (oTopicInput.getValue() === "") {
+					that.byId("topicEmptyMsg").setVisible(true);
+				} else {
+					that.byId("topicEmptyMsg").setVisible(false);
+				}
+			});
+		},
+
 		onCheckTopic: function(oEvent) {
 			var sValue = oEvent.getSource().getValue();
 
 			if (sValue === "") {
-				this.byId("topicErrorMsg").setVisible(true);
+				this.byId("topicEmptyMsg").setVisible(true);
 			} else {
-				this.byId("topicErrorMsg").setVisible(false);
+				this.byId("topicEmptyMsg").setVisible(false);
 			}
 		},
-		
-		onCheckDate: function(oEvent) {
-			var oDateValue = oEvent.getSource().getDateValue();
 
-			if (oDateValue === null) {
+		onCheckDate: function(oEvent) {
+			var oNowDate = new Date();
+			var oSelectedDate = oEvent.getSource().getDateValue();
+
+			this.byId("dateEmptyMsg").setVisible(false);
+
+			if (oSelectedDate <= oNowDate) {
 				this.byId("dateErrorMsg").setVisible(true);
 			} else {
 				this.byId("dateErrorMsg").setVisible(false);
@@ -55,23 +73,18 @@ sap.ui.define([
 		},
 
 		onPressCreate: function() {
-			var oTopicInput = this.byId("topic");
 			var oPlannedTime = this.byId("date");
 
-			if (oTopicInput.getValue() === "") {
-				this.byId("topicErrorMsg").setVisible(true);
-			}
-
 			if (oPlannedTime.getDateValue() === null) {
-				this.byId("dateErrorMsg").setVisible(true);
+				this.byId("dateEmptyMsg").setVisible(true);
 				return;
 			}
 
 			MessageToast.show("Have created a new session");
 		},
-		
+
 		onPressCancel: function() {
-		    this.onNavBack();
+			this.onNavBack();
 		}
 	});
 

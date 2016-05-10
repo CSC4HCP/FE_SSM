@@ -15,7 +15,7 @@
 					<VBox>
 						<Title class="ssmsHome-Panel-Title" text="Share Session Management System"/>
 						<Text class="ssmsHome-Panel-Description" text="Here you can create and find the sessions you want"/>
-						<SearchField class="ssmsSearchField ssmsHome-Panel-SearchField" width="40%" placeholder="Search Session" search="onSearch"/>
+						<SearchField id="ssmsHome-Panel-SearchField" class="ssmsSearchField ssmsHome-Panel-SearchField" width="40%" placeholder="Search Session" search="onSearch"/>
 					</VBox>
 				</content>
 			</Panel>

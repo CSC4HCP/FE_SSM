@@ -11,6 +11,11 @@ sap.ui.define([
 			this.getView().setModel(oModel);
 		},
 
+		onAfterRendering: function() {
+			var $searchInput = $("#" + this.getView().getId() + "--ssmsHome-Panel-SearchField-I");
+			$searchInput.attr("autofocus", "autofocus");
+		},
+
 		onSearch: function(oEvent) {
 			var sQuery = oEvent.getParameter("query");
 			var bClear = oEvent.getParameter("clearButtonPressed");

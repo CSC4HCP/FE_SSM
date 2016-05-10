@@ -5,7 +5,6 @@
 			<core:Fragment fragmentName="ssms.view.Header" type="XML"/>
 		</subHeader>
 		<content>
-		    <!--<ssmsHeader:Toolheader></ssmsHeader:Toolheader>-->
 			<f:SimpleForm width="95%" class="sapUiMediumMargin" title="New Session" editable="true" layout="ResponsiveGridLayout">
 				<f:content>
 					<Label text="Created By"/>
@@ -18,7 +17,7 @@
 					<Label text="Topic *"/>
 					<Input id="topic" class="ssmsInput" value="" change="onCheckTopic"/>
 					<Label/>
-					<MessageStrip id="topicErrorMsg" text="Please enter the Topic" type="Error" showIcon="true" visible="false"/>
+					<MessageStrip id="topicEmptyMsg" text="Please enter the Topic" type="Error" showIcon="true" visible="false"/>
 					<Label text="Category *"/>
 					<Select width="100%">
 						<items>
@@ -30,7 +29,10 @@
 					<Label text="Planned Date *"/>
 					<DatePicker id="date" class="ssmsInput" displayFormat="short" change="onCheckDate"/>
 					<Label/>
-					<MessageStrip id="dateErrorMsg" text="Please enter the Planned Date" type="Error" showIcon="true" visible="false"/>
+					<MessageStrip id="dateEmptyMsg" text="Please enter the Planned Date" type="Error" showIcon="true" visible="false"/>
+					<Label/>
+					<MessageStrip id="dateErrorMsg" text="The selected date must be later than today, please choose another one" type="Error" showIcon="true"
+						visible="false"/>
 					<Label text="Description"/>
 					<TextArea value=""/>
 					<Label text="Attachments"/>
