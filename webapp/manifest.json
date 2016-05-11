@@ -102,9 +102,9 @@
 					"target": "createSession"
 				},
 				{
-					"pattern": "sessionDetail",
-					"name": "sessionDetail",
-					"target": "sessionDetail"
+				    "pattern": "sessionDetail/{id}",
+				    "name": "sessionDetail",
+				    "target": "sessionDetail"
 				},
 				{
 					"pattern": "personalCenter",
