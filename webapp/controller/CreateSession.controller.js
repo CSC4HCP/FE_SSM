@@ -156,16 +156,16 @@ sap.ui.define([
 					oSessionData.file = this._oUploadCollection.getItems().length;
 					console.log(oSessionData);
 					this._showBusyIndicator();
-				// 	$.ajax({
-				// 		type: "POST",
-				// 		url: "/destinations/SSM_DEST/api/session",
-				// 		data: JSON.stringify(oSessionData),
-				// 		dataType: "json",
-				// 		contentType: "application/json",
-				// 		success: function(data) {
-				// 			console.log(data.id);
-				// 		}
-				// 	});
+					$.ajax({
+						type: "POST",
+						url: "/destinations/SSM_DEST/api/session",
+						data: JSON.stringify(oSessionData),
+						dataType: "json",
+						contentType: "application/json",
+						success: function(data) {
+							console.log(data.id);
+						}
+					});
 				}
 			}
 		},
