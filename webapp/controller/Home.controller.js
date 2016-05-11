@@ -12,10 +12,23 @@ sap.ui.define([
 		 * @memberOf ssms.view.view.Home
 		 */
 		onInit: function() {
-			var oModel = new sap.ui.model.json.JSONModel();
-			oModel.loadData("/services/userapi/currentUser");
-			this.getView().setModel(oModel);
+			var sUserId;
+			var oUserModel = new sap.ui.model.json.JSONModel();
+			oUserModel.loadData("/services/userapi/currentUser", null, false);
+			this.getView().setModel(oUserModel, "UserModel");
+
+			sUserId = oUserModel.getData().name;
+			// 			console.log(sUserId);
+			$.ajax({
+				type: "GET",
+				url: "/destinations/SSM_DEST/api/user/" + sUserId,
+				contentType: "application/json",
+				success: function(user) {
+					console.log(user.role);
+				}
+			});
 		},
+
 		/**
 		 * @event
 		 * @name onAfterRendering
@@ -27,7 +40,7 @@ sap.ui.define([
 			$searchInput.attr("autofocus", "autofocus");
 		},
 
-        /**
+		/**
 		 * @function
 		 * @name onSearch
 		 * @description Event handler when enter some words in the search field.
@@ -42,7 +55,7 @@ sap.ui.define([
 			}
 		},
 
-        /**
+		/**
 		 * @function
 		 * @name onPressTile
 		 * @description Event handler when click on the tile. Will go to the next view.

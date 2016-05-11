@@ -53,12 +53,15 @@ sap.ui.define([
 		 * @memberOf ssms.view.view.createSession
 		 */
 		onInit: function() {
+		    var sUserId;
 			var oUserModel = new sap.ui.model.json.JSONModel();
-			oUserModel.loadData("/services/userapi/currentUser");
+			oUserModel.loadData("/services/userapi/currentUser", null, false);
 			this.getView().setModel(oUserModel, "UserModel");
+			sUserId = oUserModel.getData().name;
 
 			var oSessionModel = new sap.ui.model.json.JSONModel();
-			oSessionModel.loadData("mockData/newSession.json");
+			oSessionModel.loadData("mockData/newSession.json", null, false);
+			oSessionModel.getData().owner = sUserId;
 			this.byId("session").setModel(oSessionModel);
 
 			this._oUploadCollection = this.byId("UploadCollection");
@@ -148,27 +151,22 @@ sap.ui.define([
 
 			if (bTopicValid && bDateValid) {
 				var oSessionData = this.byId("session").getModel().getData();
-				var sUserId = this.getView().getModel("UserModel").getData().name;
 
 				if (!this._checkDuplicateFile()) {
 					oSessionData.file = this._oUploadCollection.getItems().length;
-					oSessionData.owner = sUserId;
 					console.log(oSessionData);
 					this._showBusyIndicator();
-					$.ajax({
-						type: "POST",
-						url: "/destinations/SSM_DEST/api/session",
-						data: JSON.stringify(oSessionData),
-						dataType: "json",
-						success: function(data) {
-							console.log(data.id);
-							_resetData();
-						}
-					});
+				// 	$.ajax({
+				// 		type: "POST",
+				// 		url: "/destinations/SSM_DEST/api/session",
+				// 		data: JSON.stringify(oSessionData),
+				// 		dataType: "json",
+				// 		contentType: "application/json",
+				// 		success: function(data) {
+				// 			console.log(data.id);
+				// 		}
+				// 	});
 				}
-				// _resetData();
-				// this._showBusyIndicator();
-				// MessageToast.show("Have created a new session, will go to the sessionDetail Page");
 			}
 		},
 
