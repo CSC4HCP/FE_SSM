@@ -102,7 +102,7 @@
 					"target": "createSession"
 				},
 				{
-				    "pattern": "sessionDetail",
+				    "pattern": "sessionDetail/{id}",
 				    "name": "sessionDetail",
 				    "target": "sessionDetail"
 				},
