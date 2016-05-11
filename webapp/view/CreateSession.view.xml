@@ -10,14 +10,14 @@
 					<Label text="Created By"/>
 					<Text text="{UserModel>/displayName}"/>
 					<Label text="Visiblity"/>
-					<RadioButtonGroup columns="2" selectedIndex="{/visibility}">
-						<RadioButton text="Public"/>
+					<RadioButtonGroup columns="2">
+						<RadioButton text="Public" selected="{/visibility}"/>
 						<RadioButton text="Private"/>
 					</RadioButtonGroup>
 					<Label text="Topic *"/>
 					<Input id="topic" class="ssmsInput" value="{/topic}" placeholder="Enter Topic..." change="onCheckTopic"/>
-					<Label/>
-					<MessageStrip id="topicEmptyMsg" text="Please enter the Topic" type="Error" showIcon="true" visible="false"/>
+					<!--<Label/>-->
+					<!--<MessageStrip id="topicEmptyMsg" text="Please enter the Topic" type="Error" showIcon="true" visible="false"/>-->
 					<Label text="Category *"/>
 					<Select width="100%" selectedKey="{/category}">
 						<items>
@@ -27,9 +27,9 @@
 						</items>
 					</Select>
 					<Label text="Planned Date *"/>
-					<DatePicker id="date" class="ssmsInput" displayFormat="short" dateValue="{/plannedDate}" change="onCheckDate"/>
-					<Label/>
-					<MessageStrip id="dateValidMsg" text="Please enter a valid Planned Date" type="Error" showIcon="true" visible="false"/>
+					<DatePicker id="date" class="ssmsInput" displayFormat="short" dateValue="{/meetingTime}" change="onCheckDate"/>
+					<!--<Label/>-->
+					<!--<MessageStrip id="dateValidMsg" text="Please enter a valid Planned Date" type="Error" showIcon="true" visible="false"/>-->
 					<Label/>
 					<MessageStrip id="dateErrorMsg" text="The selected date must be later than today, please choose another one" type="Error" showIcon="true"
 						visible="false"/>
@@ -38,7 +38,7 @@
 					<Label text="Attachments"/>
 					<UploadCollection id="UploadCollection" maximumFilenameLength="55" maximumFileSize="10" multiple="true" instantUpload="false"
 						change="onFileChange" fileDeleted="onFileDeleted" filenameLengthExceed="onFilenameLengthExceed" fileSizeExceed="onFileSizeExceed"
-						typeMissmatch="onTypeMissmatch" uploadComplete="onUploadComplete" beforeUploadStarts="onBeforeUploadStarts"></UploadCollection>
+						typeMissmatch="onTypeMissmatch" uploadComplete="onUploadComplete" beforeUploadStarts="onBeforeUploadStarts" />
 				</f:content>
 			</f:SimpleForm>
 		</content>

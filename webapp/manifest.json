@@ -64,20 +64,20 @@
 		},
 		"resources": {
 			"css": [
-			    {
-			        "uri": "css/common.css"
-			    },
+				{
+					"uri": "css/common.css"
+				},
 				{
 					"uri": "css/home.css"
 				},
 				{
-				    "uri": "css/createSession.css"
+					"uri": "css/createSession.css"
 				},
 				{
-				    "uri": "css/sessionDetail.css"
+					"uri": "css/sessionDetail.css"
 				},
 				{
-				    "uri": "css/personalCenter.css"
+					"uri": "css/personalCenter.css"
 				}
 			]
 		},
@@ -102,14 +102,14 @@
 					"target": "createSession"
 				},
 				{
-				    "pattern": "sessionDetail",
-				    "name": "sessionDetail",
-				    "target": "sessionDetail"
+					"pattern": "sessionDetail",
+					"name": "sessionDetail",
+					"target": "sessionDetail"
 				},
 				{
-				    "pattern": "personalCenter",
-				    "name": "personalCenter",
-				    "target": "personalCenter"
+					"pattern": "personalCenter",
+					"name": "personalCenter",
+					"target": "personalCenter"
 				}
 			],
 			"targets": {
@@ -120,10 +120,10 @@
 					"viewName": "CreateSession"
 				},
 				"sessionDetail": {
-				    "viewName": "SessionDetail"
+					"viewName": "SessionDetail"
 				},
 				"personalCenter": {
-				    "viewName": "PersonalCenter"
+					"viewName": "PersonalCenter"
 				}
 			}
 		}

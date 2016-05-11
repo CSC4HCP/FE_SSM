@@ -1,23 +1,51 @@
 sap.ui.define([
 	"ssms/controller/BaseController",
 	"sap/m/MessageToast",
-	"sap/m/UploadCollectionParameter",
-	"sap/m/UploadCollectionItem"
-], function(BaseController, MessageToast, UploadCollectionParameter, UploadCollectionItem) {
+	"sap/m/Dialog",
+	"sap/m/Text",
+	"sap/m/Button"
+], function(BaseController, MessageToast, Dialog, Text, Button) {
 	"use strict";
 
-    /**
-     * @private
-     * @description Some specified variables of this controller. Can't be access out of this controller.
-     * @var {Boolean} bTopicValid Whether the value of date input is valid
-     * @var {Boolean} bDateValid Whether the value of date picker is valid
-     * @var {Integer} iPressCount The number of press event triggered for Create Button
-     */ 
+	/**
+	 * @private
+	 * @description Some specified variables of this controller. Can't be access out of this controller.
+	 * @var {Boolean} bTopicValid Whether the value of date input is valid
+	 * @var {Boolean} bDateValid Whether the value of date picker is valid
+	 * @var {Integer} iPressCount The number of press event triggered for Create Button
+	 */
 	var bTopicValid = false;
 	var bDateValid = false;
 	var iPressCount = 0;
 
+	/**
+	 * @private
+	 * @function
+	 * @description Reset all the flag variables.
+	 */
+	function _resetData() {
+		bTopicValid = false;
+		bDateValid = false;
+		iPressCount = 0;
+	}
+
 	return BaseController.extend("ssms.controller.CreateSession", {
+		/**
+		 * @var {sap.m.UploadCollection} The UploadCollection Control
+		 */
+		_oUploadCollection: null,
+		/**
+		 * @var {sap.m.UploadCollectionItem} The UploadCollectionIttem Control, the duplicate file to be deleted
+		 */
+		_oFileToDelete: null,
+		/**
+		 * @var {sap.m.Dialog} The Dialog Control, show to confirm operation on duplicate file
+		 */
+		_oDialog: null,
+		/**
+		 * @var {String} Returned ID of setTimeout function
+		 */
+		_sTimeoutId: null,
 		/**
 		 * @event
 		 * @name onInit
@@ -25,14 +53,15 @@ sap.ui.define([
 		 * @memberOf ssms.view.view.createSession
 		 */
 		onInit: function() {
-			var oModel = new sap.ui.model.json.JSONModel();
-			oModel.loadData("/services/userapi/currentUser");
-			this.getView().setModel(oModel, "UserModel");
-			
+			var oUserModel = new sap.ui.model.json.JSONModel();
+			oUserModel.loadData("/services/userapi/currentUser");
+			this.getView().setModel(oUserModel, "UserModel");
+
 			var oSessionModel = new sap.ui.model.json.JSONModel();
 			oSessionModel.loadData("mockData/newSession.json");
 			this.byId("session").setModel(oSessionModel);
 
+			this._oUploadCollection = this.byId("UploadCollection");
 		},
 
 		/**
@@ -58,11 +87,11 @@ sap.ui.define([
 			var sValue = oEvent.getSource().getValue();
 
 			if (sValue === "") {
-				this.byId("topicEmptyMsg").setVisible(true);
+				// this.byId("topicEmptyMsg").setVisible(true);
 				bTopicValid = false;
 				oTopicInput.setValueState(sap.ui.core.ValueState.Error);
 			} else {
-				this.byId("topicEmptyMsg").setVisible(false);
+				// this.byId("topicEmptyMsg").setVisible(false);
 				bTopicValid = true;
 				oTopicInput.setValueState(sap.ui.core.ValueState.None);
 			}
@@ -80,11 +109,12 @@ sap.ui.define([
 			var bValid = oEvent.getParameter("valid");
 
 			if (!bValid) {
-				this.byId("dateValidMsg").setVisible(true);
+				// this.byId("dateValidMsg").setVisible(true);
+				this.byId("dateErrorMsg").setVisible(false);
 				bDateValid = false;
 				oDatePicker.setValueState(sap.ui.core.ValueState.Error);
 			} else {
-				this.byId("dateValidMsg").setVisible(false);
+				// this.byId("dateValidMsg").setVisible(false);
 
 				if (dSelectedDate <= dNowDate) {
 					this.byId("dateErrorMsg").setVisible(true);
@@ -96,26 +126,6 @@ sap.ui.define([
 					oDatePicker.setValueState(sap.ui.core.ValueState.None);
 				}
 			}
-		},
-
-		/**
-		 * @function
-		 * @name onFileChange
-		 * @description Event handler when select a new file.
-		 * @param {sap.ui.base.Event} oEvent The fired event.
-		 */
-		onFileChange: function(oEvent) {
-			var oUploadCollection = oEvent.getSource();
-			//  var oNewUploadItem = new UploadCollectionItem();
-
-			//  oUploadCollection.addItem(oNewUploadItem);
-			// 			// Header Token
-			var oCustomerHeaderToken = new UploadCollectionParameter({
-				name: "x-csrf-token",
-				value: "securityTokenFromModel"
-			});
-			oUploadCollection.addHeaderParameter(oCustomerHeaderToken);
-			MessageToast.show("Have uploaded a file");
 		},
 
 		/**
@@ -137,12 +147,28 @@ sap.ui.define([
 			}
 
 			if (bTopicValid && bDateValid) {
-			    var oSessionData = this.byId("session").getModel().getData();
-			    
-				this.byId("create").setEnabled(false);
-				MessageToast.show("Have created a new session, will go to the sessionDetail Page");
-				console.log(oSessionData);
-				location.reload();
+				var oSessionData = this.byId("session").getModel().getData();
+				var sUserId = this.getView().getModel("UserModel").getData().name;
+
+				if (!this._checkDuplicateFile()) {
+					oSessionData.file = this._oUploadCollection.getItems().length;
+					oSessionData.owner = sUserId;
+					console.log(oSessionData);
+					this._showBusyIndicator();
+					$.ajax({
+						type: "POST",
+						url: "/destinations/SSM_DEST/api/session",
+						data: JSON.stringify(oSessionData),
+						dataType: "json",
+						success: function(data) {
+							console.log(data.id);
+							_resetData();
+						}
+					});
+				}
+				// _resetData();
+				// this._showBusyIndicator();
+				// MessageToast.show("Have created a new session, will go to the sessionDetail Page");
 			}
 		},
 
@@ -158,13 +184,94 @@ sap.ui.define([
 		/**
 		 * @event
 		 * @name onExit
-		 * Called when the Controller is destroyed. Use this one to free resources and finalize activities.
+		 * @description Called when the Controller is destroyed. Use this one to free resources and finalize activities.
 		 * @memberOf ssms.view.view.SessionDetail
 		 */
 		onExit: function() {
-			bTopicValid.destroy();
-			bDateValid.destroy();
-			iPressCount.destroy();
+			this._oUploadCollection.destroy();
+			this._oFileToDelete.destroy();
+			this._oDialog.destroy();
+			this._sTimeoutId.destroy();
+		},
+
+		/**
+		 * @function
+		 * @name _checkDuplicateFile
+		 * @description Check whether there is any duplicate file.
+		 * @return {Boolean} If true, there are at least two same files.
+		 */
+		_checkDuplicateFile: function() {
+			var mFiles = {};
+			var i = this._oUploadCollection.getItems().length;
+
+			while (i--) {
+				var oFileItem = this._oUploadCollection.getItems()[i];
+				var sFileName = oFileItem.getFileName();
+
+				if (!mFiles[sFileName]) {
+					mFiles[sFileName] = true;
+				} else {
+					this._oFileToDelete = oFileItem;
+					if (this._Dialog) {
+						this._oDialog.open();
+					} else {
+						this._createConfirmDialog();
+					}
+					return true;
+				}
+			}
+
+			return false;
+		},
+
+		/**
+		 * @function
+		 * @name _createConfirmDialog
+		 * @description Show a confirm dialog to ask user delete the duplicate files automatically or himself.
+		 */
+		_createConfirmDialog: function() {
+			var that = this;
+			var dialog = new Dialog({
+				title: "Confirm",
+				type: "Message",
+				content: new Text({
+					text: "There are some same files in the attachments. \nPress 'OK' to let the system deal with it. \nPress 'Cancel' to delect duplicate files yourself."
+				}),
+				beginButton: new Button({
+					text: "OK",
+					press: function() {
+						dialog.close();
+						that._oUploadCollection.removeItem(that._oFileToDelete);
+					}
+				}),
+				endButton: new Button({
+					text: "Cancel",
+					press: function() {
+						dialog.close();
+					}
+				})
+			});
+
+			this._oDialog = dialog;
+			this._oDialog.open();
+		},
+
+		/**
+		 * @function
+		 * @name _showBusyIndicator
+		 * @description Show busy indicator when submit the form.
+		 */
+		_showBusyIndicator: function() {
+			sap.ui.core.BusyIndicator.show(0);
+
+			if (this._sTimeoutId) {
+				jQuery.sap.clearDelayedCall(this._sTimeoutId);
+				this._sTimeoutId = null;
+			}
+
+			this._sTimeoutId = jQuery.sap.delayedCall(3000, this, function() {
+				sap.ui.core.BusyIndicator.hide();
+			});
 		}
 	});
 
