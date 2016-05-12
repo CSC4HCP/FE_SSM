@@ -18,17 +18,6 @@ sap.ui.define([
 	var bDateValid = false;
 	var iPressCount = 0;
 
-	/**
-	 * @private
-	 * @function
-	 * @description Reset all the flag variables.
-	 */
-	function _resetData() {
-		bTopicValid = false;
-		bDateValid = false;
-		iPressCount = 0;
-	}
-
 	return BaseController.extend("ssms.controller.CreateSession", {
 		/**
 		 * @var {sap.m.UploadCollection} The UploadCollection Control
@@ -154,9 +143,10 @@ sap.ui.define([
 
 				if (!this._checkDuplicateFile()) {
 				    var that = this;
+				    
 					oSessionData.file = this._oUploadCollection.getItems().length;
 					console.log(oSessionData);
-					this._showBusyIndicator();
+				    this.getView().setBusy(true);
 					$.ajax({
 						type: "POST",
 						url: "/destinations/SSM_DEST/api/session",
@@ -257,24 +247,6 @@ sap.ui.define([
 
 			this._oDialog = dialog;
 			this._oDialog.open();
-		},
-
-		/**
-		 * @function
-		 * @name _showBusyIndicator
-		 * @description Show busy indicator when submit the form.
-		 */
-		_showBusyIndicator: function() {
-			sap.ui.core.BusyIndicator.show(0);
-
-			if (this._sTimeoutId) {
-				jQuery.sap.clearDelayedCall(this._sTimeoutId);
-				this._sTimeoutId = null;
-			}
-
-			this._sTimeoutId = jQuery.sap.delayedCall(3000, this, function() {
-				sap.ui.core.BusyIndicator.hide();
-			});
 		}
 	});
 
