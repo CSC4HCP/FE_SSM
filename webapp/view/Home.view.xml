@@ -5,7 +5,7 @@
 			<Toolbar class="ssmsHeader" design="Transparent">
 				<Image class="sapUiSmallMarginTop sapUiSmallMarginBottom sapUiSmallMarginBegin" src="img/logo_small.png"/>
 				<ToolbarSpacer/>
-				<Button class="ssmsEmphasizedButton sapUiSmallMarginEnd" type="Emphasized" icon="sap-icon://employee" text="{/displayName}"
+				<Button class="ssmsEmphasizedButton sapUiSmallMarginEnd" type="Emphasized" icon="sap-icon://employee" text="{UserModel>/displayName}"
 					press="onPressUser"></Button>
 			</Toolbar>
 		</subHeader>
