@@ -11,7 +11,8 @@ QUnit.config.autostart = false;
 sap.ui.require([
 	"sap/ui/test/Opa5",
 	"test/integration/pages/Common",
-	"sap/ui/test/opaQunit"
+	"sap/ui/test/opaQunit",
+	"test/integration/pages/Home"
 ], function (Opa5, Common) {
 	"use strict";
 	Opa5.extendConfig({
@@ -20,9 +21,9 @@ sap.ui.require([
 	});
 
 	 sap.ui.require([
+	     "test/integration/HomeJourney"
 	     
 	 ], function() {
 		 QUnit.start();
 	 });
 });
-
