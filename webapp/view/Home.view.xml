@@ -13,27 +13,27 @@
 			<Panel backgroundDesign="Transparent" class="ssmsHome-Panel">
 				<content>
 					<VBox>
-						<Title class="ssmsHome-Panel-Title" text="Share Session Management System"/>
-						<Text class="ssmsHome-Panel-Description" text="Here you can create and find the sessions you want"/>
-						<SearchField id="ssmsHome-Panel-SearchField" class="ssmsSearchField ssmsHome-Panel-SearchField" width="40%" placeholder="Search Session" search="onSearch"/>
+						<Title class="ssmsHome-Panel-Title" text="{i18n>TITLE_HOME_TITLE}"/>
+						<Text class="ssmsHome-Panel-Description" text="{i18n>TEXT_HOME_DESCRIPTION}"/>
+						<SearchField id="ssmsHome-Panel-SearchField" class="ssmsSearchField ssmsHome-Panel-SearchField" width="40%" placeholder="{i18n>TEXT_HOME_SEARCHPLACEHODER}" search="onSearch"/>
 					</VBox>
 				</content>
 			</Panel>
 			<HBox justifyContent="Center" class="sapUiMediumMarginTop">
 				<GenericTile id="createSession" class="sapUiSmallMargin" backgroundImage="img/1.jpg" frameType="TwoByOne" press="onPressTile">
 					<tileContent>
-						<TileContent footer="SSMS">
+						<TileContent footer="{i18n>TEXT_HOME_TILEFOOTER}">
 							<content>
-								<NewsContent contentText="Create your own share session" subheader="Create Session"></NewsContent>
+								<NewsContent contentText="{i18n>TEXT_HOME_CREATESESSIONCONTENTTEXT}" subheader="{i18n>TEXT_HOME_CREATESESSIONSUBHEADER}"></NewsContent>
 							</content>
 						</TileContent>
 					</tileContent>
 				</GenericTile>
 				<GenericTile id="sessionList" class="sapUiSmallMargin" backgroundImage="img/2.jpg" frameType="TwoByOne" press="onPressTile">
 					<tileContent>
-						<TileContent footer="SSMS">
+						<TileContent footer="{i18n>TEXT_HOME_TILEFOOTER}">
 							<content>
-								<NewsContent contentText="You can see all the existed sessions" subheader="Existed Sessions"></NewsContent>
+								<NewsContent contentText="{i18n>TEXT_HOME_SESSIONLISTCONTENTTEXT}" subheader="{i18n>TEXT_HOME_SESSIONLISTSUBHEADER}"></NewsContent>
 							</content>
 						</TileContent>
 					</tileContent>

@@ -2,7 +2,7 @@
 	<Toolbar class="ssmsHeader" design="Transparent">
 		<Image class="sapUiSmallMarginTop sapUiSmallMarginBottom sapUiMediumMarginBegin" src="img/logo_small.png" press="onPressLogo" />
 		<ToolbarSpacer/>
-		<SearchField class="ssmsSearchField" width="20%" placeholder="Search Session" search="onHeaderSearch"/>
+		<SearchField class="ssmsSearchField" width="20%" placeholder="{i18n>TEXT_HEADERFRAGMENT_SEARCHPLACEHODER}" search="onHeaderSearch"/>
 		<Button class="ssmsEmphasizedButton sapUiSmallMarginEnd sapUiMediumMarginBegin" type="Emphasized" icon="sap-icon://employee" text="{UserModel>/displayName}"
 			press="onPressUser"></Button>
 	</Toolbar>

@@ -5,20 +5,20 @@
 			<core:Fragment fragmentName="ssms.view.Header" type="XML"/>
 		</subHeader>
 		<content>
-			<f:SimpleForm width="95%" id="session" class="sapUiMediumMargin" title="New Session" editable="true" layout="ResponsiveGridLayout">
+			<f:SimpleForm width="95%" id="session" class="sapUiMediumMargin" title="{i18n>TITLE_CREATESESSION_NEWSESSION}" editable="true" layout="ResponsiveGridLayout">
 				<f:content>
-					<Label text="Created By"/>
+					<Label text="{i18n>LABEL_CREATESESSION_CREATEDBY}"/>
 					<Text text="{UserModel>/displayName}"/>
-					<Label text="Visiblity"/>
+					<Label text="{i18n>LABEL_CREATESESSION_VISIBILITY}"/>
 					<RadioButtonGroup columns="2">
-						<RadioButton text="Public" selected="{/visibility}"/>
-						<RadioButton text="Private"/>
+						<RadioButton text="{i18n>BTN_CREATESESSION_PUBLIC}" selected="{/visibility}"/>
+						<RadioButton text="{i18n>BTN_CREATESESSION_PRIVATE}"/>
 					</RadioButtonGroup>
-					<Label text="Topic *"/>
-					<Input id="topic" class="ssmsInput" value="{/topic}" placeholder="Enter Topic..." change="onCheckTopic"/>
+					<Label text="{i18n>LABEL_CREATESESSION_TOPIC}"/>
+					<Input id="topic" class="ssmsInput" value="{/topic}" placeholder="{i18n>TEXT_CREATESESSION_TOPICPLACEHOLDER}" change="onCheckTopic"/>
 					<!--<Label/>-->
 					<!--<MessageStrip id="topicEmptyMsg" text="Please enter the Topic" type="Error" showIcon="true" visible="false"/>-->
-					<Label text="Category *"/>
+					<Label text="{i18n>LABEL_CREATESESSION_CATEGORY}"/>
 					<Select width="100%" selectedKey="{/category}">
 						<items>
 							<core:Item text="Business" key="Business"/>
@@ -26,27 +26,25 @@
 							<core:Item text="England" key="England"/>
 						</items>
 					</Select>
-					<Label text="Planned Date *"/>
+					<Label text="{i18n>LABEL_CREATESESSION_TIME}"/>
 					<DatePicker id="date" class="ssmsInput" displayFormat="short" dateValue="{/meetingTime}" change="onCheckDate"/>
 					<!--<Label/>-->
 					<!--<MessageStrip id="dateValidMsg" text="Please enter a valid Planned Date" type="Error" showIcon="true" visible="false"/>-->
 					<Label/>
-					<MessageStrip id="dateErrorMsg" text="The selected date must be later than today, please choose another one" type="Error" showIcon="true"
+					<MessageStrip id="dateErrorMsg" text="{i18n>TEXT_CREATESESSION_DATEERORRMESSAGE}" type="Error" showIcon="true"
 						visible="false"/>
-					<Label text="Description"/>
-					<TextArea value="{/description}"/>
-					<Label text="Attachments"/>
-					<UploadCollection id="UploadCollection" maximumFilenameLength="55" maximumFileSize="10" multiple="true" instantUpload="false"
-						change="onFileChange" fileDeleted="onFileDeleted" filenameLengthExceed="onFilenameLengthExceed" fileSizeExceed="onFileSizeExceed"
-						typeMissmatch="onTypeMissmatch" uploadComplete="onUploadComplete" beforeUploadStarts="onBeforeUploadStarts" />
+					<Label text="{i18n>LABEL_CREATESESSION_DESCRIPTION}"/>
+					<TextArea placeholder="{i18n>TEXT_CREATESESSION_DESCRIPTIONPLACEHODER}" value="{/description}"/>
+					<Label text="{i18n>LABEL_CREATESESSION_ATTACHMENT}"/>
+					<UploadCollection id="UploadCollection" multiple="true" instantUpload="false" uploadComplete="onUploadComplete" beforeUploadStarts="onBeforeUploadStarts" />
 				</f:content>
 			</f:SimpleForm>
 		</content>
 		<footer>
 			<Bar>
 				<contentRight>
-					<Button id="create" class="ssmsEmphasizedButton" type="Emphasized" text="Create" press="onPressCreate"/>
-					<Button text="Cancel" press="onPressCancel"/>
+					<Button id="create" class="ssmsEmphasizedButton" type="Emphasized" text="{i18n>BTN_CREATESESSION_CREATE}" press="onPressCreate"/>
+					<Button text="{i18n>BTN_CREATESESSION_CANCEL}" press="onPressCancel"/>
 				</contentRight>
 			</Bar>
 		</footer>
