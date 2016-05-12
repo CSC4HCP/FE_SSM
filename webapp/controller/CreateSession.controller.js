@@ -153,6 +153,7 @@ sap.ui.define([
 				var oSessionData = this.byId("session").getModel().getData();
 
 				if (!this._checkDuplicateFile()) {
+				    var that = this;
 					oSessionData.file = this._oUploadCollection.getItems().length;
 					console.log(oSessionData);
 					this._showBusyIndicator();
@@ -162,8 +163,12 @@ sap.ui.define([
 						data: JSON.stringify(oSessionData),
 						dataType: "json",
 						contentType: "application/json",
-						success: function(data) {
-							console.log(data.id);
+						success: function(session) {
+						    var iSessionId = session.id;
+							console.log(iSessionId);
+							that.getRouter().navTo("sessionDetail", {
+							    id: iSessionId
+							});
 						}
 					});
 				}

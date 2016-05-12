@@ -66,7 +66,7 @@ sap.ui.define([
 			} else {
 				// Otherwise we go backwards with a forward history
 				var bReplace = true;
-				this.getRouter().navTo("master", {}, bReplace);
+				this.getRouter().navTo("home", {}, bReplace);
 			}
 		},
 
