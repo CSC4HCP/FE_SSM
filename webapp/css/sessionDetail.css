@@ -1,0 +1,22 @@
+.ssmsSessionDetail_Grid {
+    line-height:30px;
+}
+.ssmsSessionDetail_Grid Label{
+    display:block;
+}
+.ssmsSessionDetail_Grid Input{
+    margin-top: -2px;
+    margin-bottom: 0;
+}
+.ssmsSessionDetail_Grid Select{
+    margin-top: -2px;
+    margin-bottom: 0;
+}
+div#__group0 {
+    margin-top: -10px;
+    margin-left: -5px;
+    margin-bottom: 0;
+}
+.ssmsSessionDetail_Status {
+    color:black;
+}

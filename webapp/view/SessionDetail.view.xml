@@ -1,10 +1,267 @@
-<mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" controllerName="ssms.controller.SessionDetail"
+<mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" xmlns:uxap="sap.uxap"
+	controllerName="ssms.controller.SessionDetail" xmlns:f="sap.ui.layout.form" xmlns:l="sap.ui.layout"
 	xmlns:html="http://www.w3.org/1999/xhtml">
-	<App>
-		<pages>
-			<Page title="Title">
-				<content></content>
-			</Page>
-		</pages>
-	</App>
+	<Page showHeader="false">
+		<subHeader>
+			<core:Fragment fragmentName="ssms.view.Header" type="XML"/>
+		</subHeader>
+		<content>
+			<uxap:ObjectPageLayout id="ObjectPageLayout" enableLazyLoading="false">
+				<uxap:headerTitle>
+					<uxap:ObjectPageHeader objectTitle="{/topic}" design="Bold"></uxap:ObjectPageHeader>
+				</uxap:headerTitle>
+				<uxap:sections>
+					<uxap:ObjectPageSection title="{i18n>OBJECTPAGESECTION_SESSIONDETAIL_SESSIONDETAIL}">
+						<uxap:subSections>
+							<uxap:ObjectPageSubSection title="">
+								<uxap:blocks>
+									<l:Grid id="ssms-showVBox" defaultSpan="L4 M4 S8" class="ssmsSessionDetail_Grid" width="100%" hSpacing="2">
+										<l:content>
+											<HBox alignItems="End" justifyContent="End">
+												<Button icon="sap-icon://action" type="Transparent" tooltip="Send notification to supporter" press="onSendSession"/>
+												<Button icon="sap-icon://edit" type="Transparent" press="onEditSession"/>
+												<layoutData>
+													<l:GridData span="L12 M12 S12"/>
+												</layoutData>
+											</HBox>
+											<Label text="{i18n>OBJECTPAGESECTION_SESSIONDETAIL_CREATEBY}:">
+												<layoutData>
+													<l:GridData span="L2 M2 S4"/>
+												</layoutData>
+											</Label>
+											<Text text="{/owner}"/>
+											<Label text="{i18n>OBJECTPAGESECTION_SESSIONDETAIL_CATEGORY}:">
+												<layoutData>
+													<l:GridData span="L2 M2 S4"/>
+												</layoutData>
+											</Label>
+											<Text text="{/category}"/>
+											<Label text="{i18n>OBJECTPAGESECTION_SESSIONDETAIL_VISIBILITY}:">
+												<layoutData>
+													<l:GridData span="L2 M2 S4"/>
+												</layoutData>
+											</Label>
+											<Text text="{path:'/visibility',formatter:'ssms.util.formatter.formatVisibility'}"/>
+											<Label text="{i18n>OBJECTPAGESECTION_SESSIONDETAIL_LOCATION}:">
+												<layoutData>
+													<l:GridData span="L2 M2 S4"/>
+												</layoutData>
+											</Label>
+											<Text text="{/meetingRoom}"/>
+											<Label text="{i18n>OBJECTPAGESECTION_SESSIONDETAIL_STATUS}:">
+												<layoutData>
+													<l:GridData span="L2 M2 S4"/>
+												</layoutData>
+											</Label>
+											<Text text="{/status}" id="ssms-Status"/>
+											<Label text="{i18n>OBJECTPAGESECTION_SESSIONDETAIL_WHEN}:">
+												<layoutData>
+													<l:GridData span="L2 M2 S4"/>
+												</layoutData>
+											</Label>
+											<Text text="{/meetingTime}"/>
+											<Label text="{i18n>OBJECTPAGESECTION_SESSIONDETAIL_DESCRIPTION}:">
+												<layoutData>
+													<l:GridData span="L2 M2 S4"/>
+												</layoutData>
+											</Label>
+											<Text text="{/description}" editable="flase">
+												<layoutData>
+													<l:GridData span="L10 M10 S8"/>
+												</layoutData>
+											</Text>
+											<Label text="{i18n>OBJECTPAGESECTION_SESSIONDETAIL_ATTACHMENTS}:">
+												<layoutData>
+													<l:GridData span="L2 M2 S4"/>
+												</layoutData>
+											</Label>
+											<UploadCollection uploadEnabled="false">
+												<toolbar>
+													<OverflowToolbar id="myId">
+														<Title id="attachmentTitle"/>
+														<ToolbarSpacer/>
+														<Button id="downloadButton" text="Download" press="onDownloadAttachment" enabled="false" type="Transparent"></Button>
+														<UploadCollectionToolbarPlaceholder></UploadCollectionToolbarPlaceholder>
+													</OverflowToolbar>
+												</toolbar>
+												<items>
+													<UploadCollectionItem documentId="123" fileName="[Attachments]" mimeType="123{mimeType}" thumbnailUrl="{thumbnailUrl}" url="{url}"
+														enableEdit="false" enableDelete="false" visibleDelete="false" visibleEdit="false" selected="false"></UploadCollectionItem>
+												</items>
+												<layoutData>
+													<l:GridData span="L10 M10 S8"/>
+												</layoutData>
+											</UploadCollection>
+											<Label text="{i18n>OBJECTPAGESECTION_SESSIONDETAIL_SUMMARY}:">
+												<layoutData>
+													<l:GridData span="L2 M2 S4"/>
+												</layoutData>
+											</Label>
+											<Text text="{/summary}" editable="flase">
+												<layoutData>
+													<l:GridData span="L10 M10 S8"/>
+												</layoutData>
+											</Text>
+										</l:content>
+									</l:Grid>
+									<l:Grid defaultSpan="L4 M4 S12" class="ssmsSessionDetail_Grid" width="100%" id="ssms-editVBox" hSpacing="2" visible="false">
+										<l:content>
+											<HBox alignItems="End" justifyContent="End">
+												<Button icon="sap-icon://action" type="Transparent" tooltip="Send notification to supporter" enabled="false"/>
+												<Button icon="sap-icon://save" type="Transparent" press="onEditSession"/>
+												<layoutData>
+													<l:GridData span="L12 M12 S12"/>
+												</layoutData>
+											</HBox>
+											<Label text="{i18n>OBJECTPAGESECTION_SESSIONDETAIL_CREATEBY}:">
+												<layoutData>
+													<l:GridData span="L2 M2 S4"/>
+												</layoutData>
+											</Label>
+											<Text text="{/owner}"/>
+											<Label text="{i18n>OBJECTPAGESECTION_SESSIONDETAIL_CATEGORY}:">
+												<layoutData>
+													<l:GridData span="L2 M2 S4"/>
+												</layoutData>
+											</Label>
+											<Select width="100%" selectedKey="{/category}">
+												<items>
+													<core:Item text="Business" key="Business"/>
+													<core:Item text="USA" key="USA"/>
+													<core:Item text="England" key="England"/>
+												</items>
+											</Select>
+											<Label text="{i18n>OBJECTPAGESECTION_SESSIONDETAIL_VISIBILITY}:">
+												<layoutData>
+													<l:GridData span="L2 M2 S4"/>
+												</layoutData>
+											</Label>
+											<RadioButtonGroup columns="2" selectedIndex="0">
+												<RadioButton text="Public" selected="{/visibility}"/>
+												<RadioButton text="Private"/>
+											</RadioButtonGroup>
+											<Label text="{i18n>OBJECTPAGESECTION_SESSIONDETAIL_LOCATION}:">
+												<layoutData>
+													<l:GridData span="L2 M2 S4"/>
+												</layoutData>
+											</Label>
+											<Input value="{/meetingRoom}"/>
+											<Label text="{i18n>OBJECTPAGESECTION_SESSIONDETAIL_STATUS}:">
+												<layoutData>
+													<l:GridData span="L2 M2 S4"/>
+												</layoutData>
+											</Label>
+											<Select width="100%" selectedKey="{/status}">
+												<items>
+													<core:Item text="Open" key="Open"/>
+													<core:Item text="In Progress" key="In Progress"/>
+													<core:Item text="Closed" key="Closed"/>
+													<core:Item text="Cancelled" key="Cancelled"/>
+												</items>
+											</Select>
+											<Label text="{i18n>OBJECTPAGESECTION_SESSIONDETAIL_WHEN}:">
+												<layoutData>
+													<l:GridData span="L2 M2 S4"/>
+												</layoutData>
+											</Label>
+											<HBox>
+												<DatePicker id="ssms-Date" class="ssmsInput" displayFormat="short" value="{/meetingTime}" change="onCheckDate"/>
+												<TimePicker alueFormat="hh:mm a" displayFormat="hh:mm a" dateValue="{/meetingTime}" />
+											</HBox>
+											<Label text="{i18n>OBJECTPAGESECTION_SESSIONDETAIL_DESCRIPTION}:">
+												<layoutData>
+													<l:GridData span="L2 M2 S4"/>
+												</layoutData>
+											</Label>
+											<TextArea value="{/description}" id="ssms-description" rows="3" cols="200">
+												<layoutData>
+													<l:GridData span="L10 M10 S8"/>
+												</layoutData>
+											</TextArea>
+											<Label text="{i18n>OBJECTPAGESECTION_SESSIONDETAIL_ATTACHMENTS}:">
+												<layoutData>
+													<l:GridData span="L2 M2 S4"/>
+												</layoutData>
+											</Label>
+											<UploadCollection uploadEnabled="true" id="ssms-UploadCollection" maximumFilenameLength="55" maximumFileSize="10" multiple="true"
+												instantUpload="false" change="onFileChange" fileDeleted="onFileDeleted" filenameLengthExceed="onFilenameLengthExceed"
+												fileSizeExceed="onFileSizeExceed" typeMissmatch="onTypeMissmatch" uploadComplete="onUploadComplete"
+												beforeUploadStarts="onBeforeUploadStarts">
+												<toolbar>
+													<OverflowToolbar >
+														<Title/>
+														<ToolbarSpacer/>
+														<Button text="Download" press="onDownloadAttachment" enabled="false" type="Transparent"></Button>
+														<UploadCollectionToolbarPlaceholder></UploadCollectionToolbarPlaceholder>
+													</OverflowToolbar>
+												</toolbar>
+												<items>
+													<UploadCollectionItem id="ssms-UploadCollectionItem" documentId="123" fileName="[Attachments]" mimeType="123{mimeType}"
+														thumbnailUrl="{thumbnailUrl}" url="{url}" enableEdit="false" enableDelete="true" visibleDelete="true" visibleEdit="false" selected="false"></UploadCollectionItem>
+												</items>
+												<layoutData>
+													<l:GridData span="L10 M10 S8"/>
+												</layoutData>
+											</UploadCollection>
+											<Label text="{i18n>OBJECTPAGESECTION_SESSIONDETAIL_SUMMARY}:" TextAlign="Center">
+												<layoutData>
+													<l:GridData span="L2 M2 S4"/>
+												</layoutData>
+											</Label>
+											<TextArea value="{/summary}" id="ssms-summary" rows="3" cols="200">
+												<layoutData>
+													<l:GridData span="L10 M10 S8"/>
+												</layoutData>
+											</TextArea>
+										</l:content>
+									</l:Grid>
+								</uxap:blocks>
+							</uxap:ObjectPageSubSection>
+						</uxap:subSections>
+					</uxap:ObjectPageSection>
+					<uxap:ObjectPageSection title="{i18n>OBJECTPAGESECTION_SESSIONDETAIL_JOINPERSON}">
+						<uxap:subSections>
+							<uxap:ObjectPageSubSection title="">
+								<uxap:blocks>
+									<l:Grid defaultSpan="L12 M12 S12" class="ssmsSessionDetail_Grid" width="100%">
+										<l:content>
+											<HBox alignItems="End" justifyContent="End">
+												<Button icon="sap-icon://add-contact" type="Transparent"/>
+												<layoutData>
+													<l:GridData span="L12 M12 S12"/>
+												</layoutData>
+											</HBox>
+											<Text text="[username];[username]"/>
+										</l:content>
+									</l:Grid>
+								</uxap:blocks>
+							</uxap:ObjectPageSubSection>
+						</uxap:subSections>
+					</uxap:ObjectPageSection>
+					<uxap:ObjectPageSection title="{i18n>OBJECTPAGESECTION_SESSIONDETAIL_COMMENTS}">
+						<uxap:subSections>
+							<uxap:ObjectPageSubSection title="">
+								<uxap:blocks>
+									<l:Grid defaultSpan="L12 M12 S12" class="ssmsSessionDetail_Grid" width="100%">
+										<l:content>
+											<HBox alignItems="End" justifyContent="End">
+												<Button icon="sap-icon://comment" type="Transparent"/>
+												<layoutData>
+													<l:GridData span="L12 M12 S12"/>
+												</layoutData>
+											</HBox>
+											<Label text="[username] add a comments -[addDate]"/>
+											<Text text="[comments]"/>
+											<Label text="[username] add a comments -[addDate]"/>
+											<Text text="[comments]"/>
+										</l:content>
+									</l:Grid>
+								</uxap:blocks>
+							</uxap:ObjectPageSubSection>
+						</uxap:subSections>
+					</uxap:ObjectPageSection>
+				</uxap:sections>
+			</uxap:ObjectPageLayout>
+		</content>
+	</Page>
 </mvc:View>
