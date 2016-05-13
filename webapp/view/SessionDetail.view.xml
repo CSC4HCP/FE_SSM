@@ -19,7 +19,7 @@
 										<l:content>
 											<HBox alignItems="End" justifyContent="End">
 												<Button icon="sap-icon://action" type="Transparent" tooltip="Send notification to supporter" press="onSendSession"/>
-												<Button icon="sap-icon://edit" type="Transparent" press="onEditSession"/>
+												<Button id="ssms-editBtn" icon="sap-icon://edit" type="Transparent" press="onEditSession" />
 												<layoutData>
 													<l:GridData span="L12 M12 S12"/>
 												</layoutData>
@@ -59,7 +59,7 @@
 													<l:GridData span="L2 M2 S4"/>
 												</layoutData>
 											</Label>
-											<Text text="{/meetingTime}"/>
+											<Text text="{path:'/meetingTime',formatter:'ssms.util.formatter.formatDateTime'}"/>
 											<Label text="{i18n>OBJECTPAGESECTION_SESSIONDETAIL_DESCRIPTION}:">
 												<layoutData>
 													<l:GridData span="L2 M2 S4"/>
@@ -124,7 +124,7 @@
 													<l:GridData span="L2 M2 S4"/>
 												</layoutData>
 											</Label>
-											<Select width="100%" selectedKey="{/category}">
+											<Select id = "ssms-category" width="100%" selectedKey="{/category}" >
 												<items>
 													<core:Item text="Business" key="Business"/>
 													<core:Item text="USA" key="USA"/>
@@ -136,22 +136,23 @@
 													<l:GridData span="L2 M2 S4"/>
 												</layoutData>
 											</Label>
-											<RadioButtonGroup columns="2" selectedIndex="0">
-												<RadioButton text="Public" selected="{/visibility}"/>
-												<RadioButton text="Private"/>
-											</RadioButtonGroup>
-											<Label text="{i18n>OBJECTPAGESECTION_SESSIONDETAIL_LOCATION}:">
+											<RadioButtonGroup id="ssms-radioBtn" columns="2" selectedIndex="0" class="ssmsSessionDetail_Grid_RadioButtonGroup" 
+												select="onCheckRadioGroup">
+												<RadioButton text="Public" selected="{/visibility}" class="ssmsSessionDetail_Grid_RadioButtonGroup"/>
+												<RadioButton text="Private" class="ssmsSessionDetail_Grid_RadioButtonGroup"/>
+												</RadioButtonGroup>
+												<Label text="{i18n>OBJECTPAGESECTION_SESSIONDETAIL_LOCATION}:">
 												<layoutData>
 													<l:GridData span="L2 M2 S4"/>
 												</layoutData>
 											</Label>
-											<Input value="{/meetingRoom}"/>
+											<Input id="ssms-meetingRoom" value="{/meetingRoom}" />
 											<Label text="{i18n>OBJECTPAGESECTION_SESSIONDETAIL_STATUS}:">
 												<layoutData>
 													<l:GridData span="L2 M2 S4"/>
 												</layoutData>
 											</Label>
-											<Select width="100%" selectedKey="{/status}">
+											<Select  id="ssms-selectStatus" width="100%" selectedKey="{/status}" >
 												<items>
 													<core:Item text="Open" key="Open"/>
 													<core:Item text="In Progress" key="In Progress"/>
@@ -164,16 +165,13 @@
 													<l:GridData span="L2 M2 S4"/>
 												</layoutData>
 											</Label>
-											<HBox>
-												<DatePicker id="ssms-Date" class="ssmsInput" displayFormat="short" value="{/meetingTime}" change="onCheckDate"/>
-												<TimePicker alueFormat="hh:mm a" displayFormat="hh:mm a" dateValue="{/meetingTime}" />
-											</HBox>
+											<DateTimeInput type="DateTime" id="ssms-datetime" value="{/meetingTime}" valueFormat="yyyy-MM-ddTHH:mm:ss+0000" change="onCheckDate"/>
 											<Label text="{i18n>OBJECTPAGESECTION_SESSIONDETAIL_DESCRIPTION}:">
 												<layoutData>
 													<l:GridData span="L2 M2 S4"/>
 												</layoutData>
 											</Label>
-											<TextArea value="{/description}" id="ssms-description" rows="3" cols="200">
+											<TextArea  id="ssms-description" value="{/description}"  rows="3" cols="200">
 												<layoutData>
 													<l:GridData span="L10 M10 S8"/>
 												</layoutData>
@@ -208,7 +206,7 @@
 													<l:GridData span="L2 M2 S4"/>
 												</layoutData>
 											</Label>
-											<TextArea value="{/summary}" id="ssms-summary" rows="3" cols="200">
+											<TextArea id="ssms-summary" value="{/summary}"  rows="3" cols="200">
 												<layoutData>
 													<l:GridData span="L10 M10 S8"/>
 												</layoutData>
