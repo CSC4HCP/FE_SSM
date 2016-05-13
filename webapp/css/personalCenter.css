@@ -1,0 +1,24 @@
+.ssmsPersonalCenter_vbox1 {
+    width: 12rem;
+    height: 37rem;
+    margin-left: 0rem!important;
+    margin-top: 0rem!important;
+    margin-right: 14rem!important;
+    background-color: rgba(255,255, 255, 0.6)!important;
+    font-size: 2rem;
+    padding-top: 5rem;
+    padding-left: 2rem
+}
+.ssmsPersonalCenter_vbox2{
+    margin-right: 5rem!important;
+}
+.ssmsPersonalCenter_create{
+     margin-bottom: 3rem!important;
+    
+}
+.ssmsPersonalCenter_common{
+     background-color: rgba(255,255,255,0.6);
+     border-radius: 10px;
+     width:16rem!important;
+     height:14rem!important;
+}

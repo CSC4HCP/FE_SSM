@@ -1,10 +1,31 @@
 <mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" controllerName="ssms.controller.PersonalCenter"
-	xmlns:html="http://www.w3.org/1999/xhtml">
-	<App>
-		<pages>
-			<Page title="Title">
-				<content></content>
-			</Page>
-		</pages>
-	</App>
+	xmlns:f="sap.ui.layout.form" xmlns:html="http://www.w3.org/1999/xhtml" xmlns:l="sap.ui.layout">
+	<Page showHeader="false">
+		<subHeader>
+			<core:Fragment fragmentName="ssms.view.Header" type="XML"/>
+		</subHeader>
+		<content>
+			<HBox>
+				<VBox class="ssmsPersonalCenter_vbox1">
+					<Label text="{i18n>LABEL_PERSONALCENTER_USERNAME}" design="Bold"/>
+					<Label text="{i18n>LABEL_PERSONALCENTER_ID}"/>
+					<Text text="{UserModel>/name}"/>
+					<Label text="{i18n>LABEL_PERSONALCENTER_EMAIL}"/>
+					<Text text="{UserModel>/email}"/>
+					<Label text="{i18n>LABEL_PERSONALCENTER_ROLE}"/>
+					<Text id="ssms-role" text="{UserModel>/name}"/>
+					<Label text="{i18n>LABEL_PERSONALCENTER_TEAM}"/>
+					<Text id="ssms-team" text="{UserModel>/email}"/>
+				</VBox>
+			    <VBox justifyContent="Center" class="sapUiMediumMarginTop ssmsPersonalCenter_vbox2">
+				<StandardTile id="createSession" icon="sap-icon://create" title="{i18n>TITLE_PERSONALCENTER_CREATESESSION}"  press="onPressTile" class="ssmsPersonalCenter_create ssmsPersonalCenter_common"/>
+				<StandardTile id="ownSession" icon="sap-icon://account" title="{i18n>TITLE_PERSONALCENTER_OWNSESSION}" press="onPressTile" class="ssmsPersonalCenter_common"/>
+				</VBox>
+				<VBox justifyContent="Center" class="sapUiMediumMarginTop">
+				<StandardTile id="commentSession" icon="sap-icon://comment" title="{i18n>TITLE_PERSONALCENTER_COMMENTEDSESSION}" press="onPressTile" class="ssmsPersonalCenter_create ssmsPersonalCenter_common"/>
+				<StandardTile id="JoinedSession" icon="sap-icon://collaborate" title="{i18n>TITLE_PERSONALCENTER_JOINEDSESSION}" press="onPressTile" class="ssmsPersonalCenter_common"/>
+				</VBox>
+			</HBox>
+		</content>
+	</Page>
 </mvc:View>

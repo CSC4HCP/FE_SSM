@@ -1,44 +1,111 @@
 sap.ui.define([
-	"sap/ui/core/mvc/Controller"
-], function(Controller) {
+	"ssms/controller/BaseController",
+	"sap/m/MessageToast"
+], function(BaseController, MessageToast) {
 	"use strict";
 
-	return Controller.extend("ssms.controller.PersonalCenter", {
+	return BaseController.extend("ssms.controller.PersonalCenter", {
+		/**
+		 * @event
+		 * @name onInit
+		 * @description Called when a controller is instantiated and its View controls (if available) are already created. Mainly set model.
+		 * @memberOf ssms.view.view.Home
+		 */
+		onInit: function() {
+			var oModel = new sap.ui.model.json.JSONModel();
+			oModel.loadData("/services/userapi/currentUser", null, false);
+			this.getView().setModel(oModel, "UserModel");
+			var sUserId = oModel.getData().name;
+			console.log(sUserId);
+
+			this._oUser = this.getUserRole(oModel.getData());
+
+			var oTextRole = this.getView().byId("ssms-role");
+			oTextRole.setText(this._oUser.role);
+			var oTextTeam = this.getView().byId("ssms-team");
+			oTextTeam.setText(this._oUser.team);
+		},
 
 		/**
-		 * Called when a controller is instantiated and its View controls (if available) are already created.
-		 * Can be used to modify the View before it is displayed, to bind event handlers and do other one-time initialization.
-		 * @memberOf ssms.view.view.PersonalCenter
+		 * @function
+		 * @name getUserRole
+		 * @description Get user's role and team then set the _oUser.
+		 * @param {Object} oUserData - User information got from the userAPI
+		 * @return {Object} oUser - User information with all details
 		 */
-		//	onInit: function() {
-		//
-		//	},
+		getUserRole: function(oUserData) {
+			var that = this;
+			var oUser;
+
+			$.ajax({
+				type: "GET",
+				url: "/destinations/SSM_DEST/api/user/" + oUserData.name,
+				contentType: "application/json",
+				async: false,
+				success: function(user) {
+					if (!user) {
+						oUser = that.createUser(oUserData);
+					} else {
+						oUser = user;
+					}
+					console.log(oUser);
+				}
+			});
+
+			return oUser;
+		},
 
 		/**
-		 * Similar to onAfterRendering, but this hook is invoked before the controller's View is re-rendered
-		 * (NOT before the first rendering! onInit() is used for that one!).
-		 * @memberOf ssms.view.view.PersonalCenter
+		 * @function
+		 * @name createUser
+		 * @description Add a new user when the logined user is not in the backend database.
+		 * @param {Object} oUserData - User information got from the userAPI
+		 * @return {Object} oUser - User information with all details
 		 */
-		//	onBeforeRendering: function() {
-		//
-		//	},
+		createUser: function(oUserData) {
+			var oUser;
+
+			$.ajax({
+				type: "POST",
+				url: "/destinations/SSM_DEST/api/user",
+				data: JSON.stringify(oUserData),
+				async: false,
+				dataType: "json",
+				contentType: "application/json",
+				success: function(user) {
+					oUser = user;
+				}
+			});
+
+			return oUser;
+		},
 
 		/**
-		 * Called when the View has been rendered (so its HTML is part of the document). Post-rendering manipulations of the HTML could be done here.
-		 * This hook is the same one that SAPUI5 controls get after being rendered.
-		 * @memberOf ssms.view.view.PersonalCenter
+		 * @function
+		 * @name onPressTile
+		 * @description Event handler when click on the tile. Will go to the next view.
+		 * @param {sap.ui.base.Event} - oEvent The fired event.
 		 */
-		//	onAfterRendering: function() {
-		//
-		//	},
+		onPressTile: function(oEvent) {
+			var sId = oEvent.getSource().getId();
 
-		/**
-		 * Called when the Controller is destroyed. Use this one to free resources and finalize activities.
-		 * @memberOf ssms.view.view.PersonalCenter
-		 */
-		//	onExit: function() {
-		//
-		//	}
+			switch (true) {
+				case sId.indexOf("createSession") > -1:
+					this.getRouter().navTo("createSession");
+					break;
+				case sId.indexOf("joinSession") > -1:
+					MessageToast.show("Will go to the joinSession Page");
+					break;
+				case sId.indexOf("ownSession") > -1:
+					MessageToast.show("Will go to the ownSession Page");
+					break;
+				case sId.indexOf("commentSession") > -1:
+					MessageToast.show("Will go to the ownSession Page");
+					break;
+				default:
+					break;
+			}
+		}
 
 	});
 
