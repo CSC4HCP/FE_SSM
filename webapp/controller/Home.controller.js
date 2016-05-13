@@ -5,12 +5,12 @@ sap.ui.define([
 	"use strict";
 
 	return BaseController.extend("ssms.controller.Home", {
-	    oUser: null,
+	    _oUser: null,
 		/**
 		 * @event
 		 * @name onInit
 		 * @description Called when a controller is instantiated and its View controls (if available) are already created. Mainly set model.
-		 * @memberOf ssms.view.view.Home
+		 * @memberOf ssms.view.Home
 		 */
 		onInit: function() {
 			var oUserModel = new sap.ui.model.json.JSONModel();
@@ -20,9 +20,16 @@ sap.ui.define([
 			this.getView().setModel(oUserModel, "UserModel");
 			this.getView().setBusy(false);
 
-			this.oUser = this.getUserRole(oUserModel.getData());
+			this._oUser = this.getUserRole(oUserModel.getData());
 		},
-
+        
+        /**
+         * @function
+         * @name getUserRole
+         * @description Get user's role and team then set the _oUser.
+         * @param {Object} oUserData - User information got from the userAPI
+         * @return {Object} oUser - User information with all details
+         */ 
 		getUserRole: function(oUserData) {
 			var that = this;
 			var oUser;
@@ -43,7 +50,14 @@ sap.ui.define([
 			
 			return oUser;
 		},
-
+        
+        /**
+         * @function
+         * @name createUser
+         * @description Add a new user when the logined user is not in the backend database.
+         * @param {Object} oUserData - User information got from the userAPI
+         * @return {Object} oUser - User information with all details
+         */ 
 		createUser: function(oUserData) {
 		    var oUser;
 
@@ -65,7 +79,7 @@ sap.ui.define([
 		 * @event
 		 * @name onAfterRendering
 		 * @description Called when the View has been rendered (so its HTML is part of the document). Set focus in the search field.
-		 * @memberOf ssms.view.view.Home
+		 * @memberOf ssms.view.Home
 		 */
 		onAfterRendering: function() {
 			var $searchInput = $("#" + this.getView().getId() + "--ssmsHome-Panel-SearchField-I");
@@ -107,6 +121,16 @@ sap.ui.define([
 				default:
 					break;
 			}
+		},
+		
+		/**
+		 * @event
+		 * @name onExit
+		 * @description Called when the Controller is destroyed. Use this one to free resources and finalize activities.
+		 * @memberOf ssms.view.Home
+		 */
+		onExit: function() {
+			this._oUser.destroy();
 		}
 	});
 

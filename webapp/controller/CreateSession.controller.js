@@ -39,7 +39,7 @@ sap.ui.define([
 		 * @event
 		 * @name onInit
 		 * @description Called when a controller is instantiated and its View controls (if available) are already created. Mainly set model.
-		 * @memberOf ssms.view.view.createSession
+		 * @memberOf ssms.view.CreateSession
 		 */
 		onInit: function() {
 			var sUserId;
@@ -63,7 +63,7 @@ sap.ui.define([
 		 * @event
 		 * @name onAfterRendering
 		 * @description Called when the View has been rendered (so its HTML is part of the document). Set focus in the topic input.
-		 * @memberOf ssms.view.view.SessionDetail
+		 * @memberOf ssms.view.CreateSession
 		 */
 		onAfterRendering: function() {
 			var $topicInput = $("#" + this.getView().getId() + "--ssmsCreateSession-Topic-inner");
@@ -193,7 +193,7 @@ sap.ui.define([
 		 * @event
 		 * @name onExit
 		 * @description Called when the Controller is destroyed. Use this one to free resources and finalize activities.
-		 * @memberOf ssms.view.view.SessionDetail
+		 * @memberOf ssms.view.CreateSession
 		 */
 		onExit: function() {
 			this._oUploadCollection.destroy();
