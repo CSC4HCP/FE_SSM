@@ -1,44 +1,64 @@
 sap.ui.define([
-	"sap/ui/core/mvc/Controller"
-], function(Controller) {
+    "ssms/controller/BaseController",
+	"sap/m/MessageToast"
+], function(BaseController, MessageToast) {
 	"use strict";
 
-	return Controller.extend("ssms.controller.PersonalCenter", {
-
-		/**
-		 * Called when a controller is instantiated and its View controls (if available) are already created.
-		 * Can be used to modify the View before it is displayed, to bind event handlers and do other one-time initialization.
-		 * @memberOf ssms.view.view.PersonalCenter
+	return BaseController.extend("ssms.controller.PersonalCenter", {
+	    /**
+		 * @event
+		 * @name onInit
+		 * @description Called when a controller is instantiated and its View controls (if available) are already created. Mainly set model.
+		 * @memberOf ssms.view.view.Home
 		 */
-		//	onInit: function() {
-		//
-		//	},
-
-		/**
-		 * Similar to onAfterRendering, but this hook is invoked before the controller's View is re-rendered
-		 * (NOT before the first rendering! onInit() is used for that one!).
-		 * @memberOf ssms.view.view.PersonalCenter
+		onInit: function() {
+			var oModel = new sap.ui.model.json.JSONModel();
+			oModel.loadData("/services/userapi/currentUser", null, false);
+			this.getView().setModel(oModel, "UserModel");
+            var sUserId = oModel.getData().name;
+            console.log(sUserId);
+            var oData;
+            $.ajax({
+                method:"POST",
+                url:"/destinations/SSM_DEST/api/user/" + sUserId,
+                contentType:"application/json",
+                data:oModel.getData() ,
+                success:function(data){
+                console.log(data);
+                oData = data;
+                }
+            });
+            var oText1 = this.getView().byId("ssms-role");
+             oText1.setText();
+             var oText2 = this.getView().byId("ssms-team");
+             oText2.setText();
+		},
+			/**
+		 * @function
+		 * @name onPressTile
+		 * @description Event handler when click on the tile. Will go to the next view.
+		 * @param {sap.ui.base.Event} - oEvent The fired event.
 		 */
-		//	onBeforeRendering: function() {
-		//
-		//	},
+			onPressTile: function(oEvent) {
+			var sId = oEvent.getSource().getId();
 
-		/**
-		 * Called when the View has been rendered (so its HTML is part of the document). Post-rendering manipulations of the HTML could be done here.
-		 * This hook is the same one that SAPUI5 controls get after being rendered.
-		 * @memberOf ssms.view.view.PersonalCenter
-		 */
-		//	onAfterRendering: function() {
-		//
-		//	},
-
-		/**
-		 * Called when the Controller is destroyed. Use this one to free resources and finalize activities.
-		 * @memberOf ssms.view.view.PersonalCenter
-		 */
-		//	onExit: function() {
-		//
-		//	}
+			switch (true) {
+				case sId.indexOf("createSession") > -1:
+					this.getRouter().navTo("createSession");
+					break;
+				case sId.indexOf("joinSession") > -1:
+					MessageToast.show("Will go to the joinSession Page");
+					break;
+					case sId.indexOf("ownSession") > -1:
+					MessageToast.show("Will go to the ownSession Page");
+					break;
+					case sId.indexOf("commentSession") > -1:
+					MessageToast.show("Will go to the ownSession Page");
+					break;
+				default:
+					break;
+			}
+		}
 
 	});
 
