@@ -5,6 +5,7 @@ sap.ui.define([
 	"use strict";
 
 	return BaseController.extend("ssms.controller.Home", {
+	    oUser: null,
 		/**
 		 * @event
 		 * @name onInit
@@ -12,21 +13,52 @@ sap.ui.define([
 		 * @memberOf ssms.view.view.Home
 		 */
 		onInit: function() {
-			var sUserId;
 			var oUserModel = new sap.ui.model.json.JSONModel();
+
+			this.getView().setBusy(true);
 			oUserModel.loadData("/services/userapi/currentUser", null, false);
 			this.getView().setModel(oUserModel, "UserModel");
+			this.getView().setBusy(false);
 
-			sUserId = oUserModel.getData().name;
-			// 			console.log(sUserId);
+			this.oUser = this.getUserRole(oUserModel.getData());
+		},
+
+		getUserRole: function(oUserData) {
+			var that = this;
+			var oUser;
+
 			$.ajax({
 				type: "GET",
-				url: "/destinations/SSM_DEST/api/user/" + sUserId,
+				url: "/destinations/SSM_DEST/api/user/" + oUserData.name,
 				contentType: "application/json",
 				success: function(user) {
-					console.log(user.role);
+					if (!user) {
+						oUser = that.createUser(oUserData);
+					} else {
+					    oUser = user;
+					}
+					console.log(oUser);
 				}
 			});
+			
+			return oUser;
+		},
+
+		createUser: function(oUserData) {
+		    var oUser;
+
+			$.ajax({
+				type: "POST",
+				url: "/destinations/SSM_DEST/api/user",
+				data: JSON.stringify(oUserData),
+				dataType: "json",
+				contentType: "application/json",
+				success: function(user) {
+					oUser = user;
+				}
+			});
+			
+			return oUser;
 		},
 
 		/**

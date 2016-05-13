@@ -42,8 +42,10 @@ sap.ui.define([
 		 * @memberOf ssms.view.view.createSession
 		 */
 		onInit: function() {
-		    var sUserId;
+			var sUserId;
 			var oUserModel = new sap.ui.model.json.JSONModel();
+
+			this.getView().setBusy(true);
 			oUserModel.loadData("/services/userapi/currentUser", null, false);
 			this.getView().setModel(oUserModel, "UserModel");
 			sUserId = oUserModel.getData().name;
@@ -51,9 +53,10 @@ sap.ui.define([
 			var oSessionModel = new sap.ui.model.json.JSONModel();
 			oSessionModel.loadData("mockData/newSession.json", null, false);
 			oSessionModel.getData().owner = sUserId;
-			this.byId("session").setModel(oSessionModel);
+			this.byId("ssmsCreateSession-Session").setModel(oSessionModel);
 
-			this._oUploadCollection = this.byId("UploadCollection");
+			this.getView().setBusy(false);
+			this._oUploadCollection = this.byId("ssmsCreateSession-UploadCollection");
 		},
 
 		/**
@@ -63,7 +66,7 @@ sap.ui.define([
 		 * @memberOf ssms.view.view.SessionDetail
 		 */
 		onAfterRendering: function() {
-			var $topicInput = $("#" + this.getView().getId() + "--topic-inner");
+			var $topicInput = $("#" + this.getView().getId() + "--ssmsCreateSession-Topic-inner");
 
 			$topicInput.attr("autofocus", "autofocus");
 		},
@@ -102,18 +105,18 @@ sap.ui.define([
 
 			if (!bValid) {
 				// this.byId("dateValidMsg").setVisible(true);
-				this.byId("dateErrorMsg").setVisible(false);
+				this.byId("ssmsCreateSession-DateErrorMsg").setVisible(false);
 				bDateValid = false;
 				oDatePicker.setValueState(sap.ui.core.ValueState.Error);
 			} else {
 				// this.byId("dateValidMsg").setVisible(false);
 
 				if (dSelectedDate <= dNowDate) {
-					this.byId("dateErrorMsg").setVisible(true);
+					this.byId("ssmsCreateSession-DateErrorMsg").setVisible(true);
 					bDateValid = false;
 					oDatePicker.setValueState(sap.ui.core.ValueState.Error);
 				} else {
-					this.byId("dateErrorMsg").setVisible(false);
+					this.byId("ssmsCreateSession-DateErrorMsg").setVisible(false);
 					bDateValid = true;
 					oDatePicker.setValueState(sap.ui.core.ValueState.None);
 				}
@@ -126,9 +129,11 @@ sap.ui.define([
 		 * @description Event handler when click the Create Button.
 		 */
 		onPressCreate: function() {
+			// 		    this._oUploadCollection.setUploadUrl("/destinations/SSM_DEST/api/document/upload/58");
+			// 			this._oUploadCollection.upload();
 			if (iPressCount === 0) {
-				var oTopicInput = this.byId("topic");
-				var oPlannedTime = this.byId("date");
+				var oTopicInput = this.byId("ssmsCreateSession-Topic");
+				var oPlannedTime = this.byId("ssmsCreateSession-Date");
 
 				oTopicInput.fireChange();
 				oPlannedTime.fireChange({
@@ -139,14 +144,13 @@ sap.ui.define([
 			}
 
 			if (bTopicValid && bDateValid) {
-				var oSessionData = this.byId("session").getModel().getData();
+				var oSessionData = this.byId("ssmsCreateSession-Session").getModel().getData();
 
 				if (!this._checkDuplicateFile()) {
-				    var that = this;
-				    
+					var that = this;
+
 					oSessionData.file = this._oUploadCollection.getItems().length;
-					console.log(oSessionData);
-				    this.getView().setBusy(true);
+					this.getView().setBusy(true);
 					$.ajax({
 						type: "POST",
 						url: "/destinations/SSM_DEST/api/session",
@@ -154,15 +158,26 @@ sap.ui.define([
 						dataType: "json",
 						contentType: "application/json",
 						success: function(session) {
-						    var iSessionId = session.id;
+							var iSessionId = session.id;
+							console.log(iSessionId);
+
+				// 			if (oSessionData.file > 0) {
+				// 				that._oUploadCollection.setUploadUrl("/destinations/SSM_DEST/api/document/upload/" + iSessionId);
+				// 				that._oUploadCollection.upload();
+				// 			}
+
 							console.log(iSessionId);
 							that.getRouter().navTo("sessionDetail", {
-							    id: iSessionId
+								id: iSessionId
 							});
 						}
 					});
 				}
 			}
+		},
+
+		onUploadComplete: function(oEvent) {
+			this.getView().setBusy(false);
 		},
 
 		/**
@@ -228,7 +243,7 @@ sap.ui.define([
 				title: "Confirm",
 				type: "Message",
 				content: new Text({
-					text: "There are some same files in the attachments. \nPress 'OK' to let the system deal with it. \nPress 'Cancel' to delect duplicate files yourself."
+					text: "There are some same files in the attachments. \nPress 'OK' to let the system deal with it(Can deal only one file of one time). \nPress 'Cancel' to delect duplicate files yourself."
 				}),
 				beginButton: new Button({
 					text: "OK",
