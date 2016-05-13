@@ -32,9 +32,13 @@ sap.ui.define([
 		 */
 		_oDialog: null,
 		/**
+		 * @var {String} Returned ID of the new created session
+		 */
+		_iSessionId: 0,
+		/**
 		 * @var {String} Returned ID of setTimeout function
 		 */
-		_sTimeoutId: null,
+		_sTimeoutId: "",
 		/**
 		 * @event
 		 * @name onInit
@@ -129,8 +133,6 @@ sap.ui.define([
 		 * @description Event handler when click the Create Button.
 		 */
 		onPressCreate: function() {
-			// 		    this._oUploadCollection.setUploadUrl("/destinations/SSM_DEST/api/document/upload/58");
-			// 			this._oUploadCollection.upload();
 			if (iPressCount === 0) {
 				var oTopicInput = this.byId("ssmsCreateSession-Topic");
 				var oPlannedTime = this.byId("ssmsCreateSession-Date");
@@ -158,18 +160,18 @@ sap.ui.define([
 						dataType: "json",
 						contentType: "application/json",
 						success: function(session) {
-							var iSessionId = session.id;
-							console.log(iSessionId);
+							this._iSessionId = session.id;
 
-				// 			if (oSessionData.file > 0) {
-				// 				that._oUploadCollection.setUploadUrl("/destinations/SSM_DEST/api/document/upload/" + iSessionId);
-				// 				that._oUploadCollection.upload();
-				// 			}
-
-							console.log(iSessionId);
-							that.getRouter().navTo("sessionDetail", {
-								id: iSessionId
-							});
+							if (oSessionData.file > 0) {
+								that._oUploadCollection.setUploadUrl("/destinations/SSM_DEST/api/document/upload/" + that._iSessionId);
+								that._oUploadCollection.upload();
+							} else {
+								that.getView().setBusy(false);
+								MessageToast.show("Create Success!");
+								that.getRouter().navTo("sessionDetail", {
+									id: that._iSessionId
+								});
+							}
 						}
 					});
 				}
@@ -178,6 +180,10 @@ sap.ui.define([
 
 		onUploadComplete: function(oEvent) {
 			this.getView().setBusy(false);
+			MessageToast.show("Create Success!");
+			this.getRouter().navTo("sessionDetail", {
+				id: this._iSessionId
+			});
 		},
 
 		/**
@@ -199,6 +205,7 @@ sap.ui.define([
 			this._oUploadCollection.destroy();
 			this._oFileToDelete.destroy();
 			this._oDialog.destroy();
+			this._iSessionId.destroy();
 			this._sTimeoutId.destroy();
 		},
 
