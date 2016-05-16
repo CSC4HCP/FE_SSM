@@ -101,7 +101,7 @@ sap.ui.require([
 				iShouldGoToCreateSessionPage: function() {
 					return this.waitFor({
 						viewName: sCreateSessionView,
-						id: "ssmsCreateSession-Session",
+						id: "session",
 						success: function() {
 							Opa5.assert.ok(true, "Now is in the Create Session Page.");
 						},
