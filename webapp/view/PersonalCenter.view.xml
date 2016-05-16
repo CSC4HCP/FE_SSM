@@ -7,7 +7,6 @@
 		<content>
 			<HBox>
 				<VBox class="ssmsPersonalCenter_vbox1">
-					<Label text="{i18n>LABEL_PERSONALCENTER_USERNAME}"/>
 					<Text text="{UserModel1>/firstName} {UserModel1>/lastName}"/>
 					<Label text="{i18n>LABEL_PERSONALCENTER_ID}"/>
 					<Text text="{UserModel1>/name}"/>
