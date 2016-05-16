@@ -116,7 +116,8 @@ sap.ui.define([
 					this.getRouter().navTo("createSession");
 					break;
 				case sId.indexOf("sessionList") > -1:
-					MessageToast.show("Will go to the sessionList Page");
+				// 	MessageToast.show("Will go to the sessionList Page");
+				    this.getRouter().navTo("personalCenter");
 					break;
 				default:
 					break;

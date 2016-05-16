@@ -160,7 +160,7 @@ sap.ui.define([
 						dataType: "json",
 						contentType: "application/json",
 						success: function(session) {
-							this._iSessionId = session.id;
+							that._iSessionId = session.id;
 
 							if (oSessionData.file > 0) {
 								that._oUploadCollection.setUploadUrl("/destinations/SSM_DEST/api/document/upload/" + that._iSessionId);
