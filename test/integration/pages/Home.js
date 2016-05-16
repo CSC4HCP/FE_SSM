@@ -58,7 +58,7 @@ sap.ui.require([
 						return this.waitFor({
 						    
 					     	viewName : "CreateSession",
-                              id : "topic",
+                              id : "ssmsCreateSession-Topic",
 							success: function () {
 								Opa5.assert.ok(true, "The Message is found");
 							},
