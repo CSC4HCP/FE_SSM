@@ -5,6 +5,7 @@ sap.ui.define([
 	"use strict";
 
 	return BaseController.extend("ssms.controller.PersonalCenter", {
+	    _oUser: null,
 		/**
 		 * @event
 		 * @name onInit
@@ -19,11 +20,9 @@ sap.ui.define([
 			console.log(sUserId);
 
 			this._oUser = this.getUserRole(oModel.getData());
-
-			var oTextRole = this.getView().byId("ssms-role");
-			oTextRole.setText(this._oUser.role);
-			var oTextTeam = this.getView().byId("ssms-team");
-			oTextTeam.setText(this._oUser.team);
+            var oModel1 = new sap.ui.model.json.JSONModel();
+            oModel1.setData(this._oUser, null, false);
+            this.getView().setModel(oModel1, "UserModel1");
 		},
 
 		/**
@@ -34,7 +33,7 @@ sap.ui.define([
 		 * @return {Object} oUser - User information with all details
 		 */
 		getUserRole: function(oUserData) {
-			var that = this;
+			var _this = this;
 			var oUser;
 
 			$.ajax({
@@ -44,7 +43,7 @@ sap.ui.define([
 				async: false,
 				success: function(user) {
 					if (!user) {
-						oUser = that.createUser(oUserData);
+						oUser = _this.createUser(oUserData);
 					} else {
 						oUser = user;
 					}

@@ -7,15 +7,16 @@
 		<content>
 			<HBox>
 				<VBox class="ssmsPersonalCenter_vbox1">
-					<Label text="{i18n>LABEL_PERSONALCENTER_USERNAME}" design="Bold"/>
+					<Label text="{i18n>LABEL_PERSONALCENTER_USERNAME}"/>
+					<Text text="{UserModel1>/firstName} {UserModel1>/lastName}"/>
 					<Label text="{i18n>LABEL_PERSONALCENTER_ID}"/>
-					<Text text="{UserModel>/name}"/>
+					<Text text="{UserModel1>/name}"/>
 					<Label text="{i18n>LABEL_PERSONALCENTER_EMAIL}"/>
-					<Text text="{UserModel>/email}"/>
+					<Text text="{UserModel1>/email}"/>
 					<Label text="{i18n>LABEL_PERSONALCENTER_ROLE}"/>
-					<Text id="ssms-role" text="{UserModel>/name}"/>
+					<Text id="ssms-role" text="{UserModel1>/role}"/>
 					<Label text="{i18n>LABEL_PERSONALCENTER_TEAM}"/>
-					<Text id="ssms-team" text="{UserModel>/email}"/>
+					<Text id="ssms-team" text="{UserModel1>/team}"/>
 				</VBox>
 			    <VBox justifyContent="Center" class="sapUiMediumMarginTop ssmsPersonalCenter_vbox2">
 				<StandardTile id="createSession" icon="sap-icon://create" title="{i18n>TITLE_PERSONALCENTER_CREATESESSION}"  press="onPressTile" class="ssmsPersonalCenter_create ssmsPersonalCenter_common"/>
