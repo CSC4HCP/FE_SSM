@@ -13,16 +13,16 @@
 					<Label text="{i18n>LABEL_PERSONALCENTER_EMAIL}"/>
 					<Text text="{UserModel1>/email}"/>
 					<Label text="{i18n>LABEL_PERSONALCENTER_ROLE}"/>
-					<Text id="ssms-role" text="{UserModel1>/role}"/>
+					<Text  text="{UserModel1>/role}"/>
 					<Label text="{i18n>LABEL_PERSONALCENTER_TEAM}"/>
-					<Text id="ssms-team" text="{UserModel1>/team}"/>
+					<Text  text="{UserModel1>/team}"/>
 				</VBox>
 			    <VBox justifyContent="Center" class="sapUiMediumMarginTop ssmsPersonalCenter_vbox2">
 				<StandardTile id="createSession" icon="sap-icon://create" title="{i18n>TITLE_PERSONALCENTER_CREATESESSION}"  press="onPressTile" class="ssmsPersonalCenter_create ssmsPersonalCenter_common"/>
-				<StandardTile id="ownSession" icon="sap-icon://account" title="{i18n>TITLE_PERSONALCENTER_OWNSESSION}" press="onPressTile" class="ssmsPersonalCenter_common"/>
+				<StandardTile id="ownedSession" icon="sap-icon://account" title="{i18n>TITLE_PERSONALCENTER_OWNSESSION}" press="onPressTile" class="ssmsPersonalCenter_common"/>
 				</VBox>
 				<VBox justifyContent="Center" class="sapUiMediumMarginTop">
-				<StandardTile id="commentSession" icon="sap-icon://comment" title="{i18n>TITLE_PERSONALCENTER_COMMENTEDSESSION}" press="onPressTile" class="ssmsPersonalCenter_create ssmsPersonalCenter_common"/>
+				<StandardTile id="commentedSession" icon="sap-icon://comment" title="{i18n>TITLE_PERSONALCENTER_COMMENTEDSESSION}" press="onPressTile" class="ssmsPersonalCenter_create ssmsPersonalCenter_common"/>
 				<StandardTile id="JoinedSession" icon="sap-icon://collaborate" title="{i18n>TITLE_PERSONALCENTER_JOINEDSESSION}" press="onPressTile" class="ssmsPersonalCenter_common"/>
 				</VBox>
 			</HBox>

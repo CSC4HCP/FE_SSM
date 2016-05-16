@@ -92,13 +92,13 @@ sap.ui.define([
 				case sId.indexOf("createSession") > -1:
 					this.getRouter().navTo("createSession");
 					break;
-				case sId.indexOf("joinSession") > -1:
+				case sId.indexOf("joinedSession") > -1:
 					MessageToast.show("Will go to the joinSession Page");
 					break;
-				case sId.indexOf("ownSession") > -1:
-					MessageToast.show("Will go to the ownSession Page");
+				case sId.indexOf("ownedSession") > -1:
+					this.getRouter().navTo("ownSession");
 					break;
-				case sId.indexOf("commentSession") > -1:
+				case sId.indexOf("commentedSession") > -1:
 					MessageToast.show("Will go to the ownSession Page");
 					break;
 				default:
