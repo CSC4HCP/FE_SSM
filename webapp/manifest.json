@@ -78,6 +78,9 @@
 				},
 				{
 					"uri": "css/personalCenter.css"
+				},
+				{
+				    "uri": "css/ownSession.css"
 				}
 			]
 		},
@@ -110,6 +113,11 @@
 					"pattern": "personalCenter",
 					"name": "personalCenter",
 					"target": "personalCenter"
+				},
+				{
+				    "pattern": "ownSession",
+				    "name": "ownSession",
+				    "target": "ownSession"
 				}
 			],
 			"targets": {
@@ -124,6 +132,10 @@
 				},
 				"personalCenter": {
 					"viewName": "PersonalCenter"
+				},
+				"ownSession": 
+				{
+				    "viewName": "OwnSession"
 				}
 			}
 		}
