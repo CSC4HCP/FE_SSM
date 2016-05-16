@@ -12,11 +12,25 @@
     margin-top: -2px;
     margin-bottom: 0;
 }
-div#__group0 {
-    margin-top: -10px;
+.ssmsSessionDetail_Grid_RadioButtonGroup {
+    margin-top: -5px;
     margin-left: -5px;
     margin-bottom: 0;
+    padding-top:0;
+    padding-bottom:0;
 }
-.ssmsSessionDetail_Status {
-    color:black;
+.ssmsYellowFont {
+    color:yellow;
+}
+
+.ssmsRedFont {
+    color:red;
+}
+
+.ssmsGreenFont {
+    color:green;
+}
+
+.ssmsGrayFont {
+    color:gray;
 }
