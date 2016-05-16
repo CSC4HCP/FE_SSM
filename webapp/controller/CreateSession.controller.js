@@ -178,7 +178,7 @@ sap.ui.define([
 			}
 		},
 
-		onUploadComplete: function(oEvent) {
+		onUploadComplete: function() {
 			this.getView().setBusy(false);
 			MessageToast.show("Create Success!");
 			this.getRouter().navTo("sessionDetail", {

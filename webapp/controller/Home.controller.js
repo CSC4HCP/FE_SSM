@@ -44,7 +44,6 @@ sap.ui.define([
 					} else {
 					    oUser = user;
 					}
-					console.log(oUser);
 				}
 			});
 			
