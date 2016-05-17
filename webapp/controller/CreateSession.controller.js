@@ -57,10 +57,10 @@ sap.ui.define([
 			var oSessionModel = new sap.ui.model.json.JSONModel();
 			oSessionModel.loadData("mockData/newSession.json", null, false);
 			oSessionModel.getData().owner = sUserId;
-			this.byId("ssmsCreateSession-Session").setModel(oSessionModel);
+			this.byId("session").setModel(oSessionModel);
 
 			this.getView().setBusy(false);
-			this._oUploadCollection = this.byId("ssmsCreateSession-UploadCollection");
+			this._oUploadCollection = this.byId("uploadCollection");
 		},
 
 		/**
@@ -109,18 +109,18 @@ sap.ui.define([
 
 			if (!bValid) {
 				// this.byId("dateValidMsg").setVisible(true);
-				this.byId("ssmsCreateSession-DateErrorMsg").setVisible(false);
+				this.byId("dateErrorMsg").setVisible(false);
 				bDateValid = false;
 				oDatePicker.setValueState(sap.ui.core.ValueState.Error);
 			} else {
 				// this.byId("dateValidMsg").setVisible(false);
 
 				if (dSelectedDate <= dNowDate) {
-					this.byId("ssmsCreateSession-DateErrorMsg").setVisible(true);
+					this.byId("dateErrorMsg").setVisible(true);
 					bDateValid = false;
 					oDatePicker.setValueState(sap.ui.core.ValueState.Error);
 				} else {
-					this.byId("ssmsCreateSession-DateErrorMsg").setVisible(false);
+					this.byId("dateErrorMsg").setVisible(false);
 					bDateValid = true;
 					oDatePicker.setValueState(sap.ui.core.ValueState.None);
 				}
@@ -134,8 +134,8 @@ sap.ui.define([
 		 */
 		onPressCreate: function() {
 			if (iPressCount === 0) {
-				var oTopicInput = this.byId("ssmsCreateSession-Topic");
-				var oPlannedTime = this.byId("ssmsCreateSession-Date");
+				var oTopicInput = this.byId("topic");
+				var oPlannedTime = this.byId("date");
 
 				oTopicInput.fireChange();
 				oPlannedTime.fireChange({
@@ -146,7 +146,7 @@ sap.ui.define([
 			}
 
 			if (bTopicValid && bDateValid) {
-				var oSessionData = this.byId("ssmsCreateSession-Session").getModel().getData();
+				var oSessionData = this.byId("session").getModel().getData();
 
 				if (!this._checkDuplicateFile()) {
 					var that = this;
@@ -178,7 +178,7 @@ sap.ui.define([
 			}
 		},
 
-		onUploadComplete: function(oEvent) {
+		onUploadComplete: function() {
 			this.getView().setBusy(false);
 			MessageToast.show("Create Success!");
 			this.getRouter().navTo("sessionDetail", {

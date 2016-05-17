@@ -44,7 +44,6 @@ sap.ui.define([
 					} else {
 					    oUser = user;
 					}
-					console.log(oUser);
 				}
 			});
 			
@@ -116,8 +115,8 @@ sap.ui.define([
 					this.getRouter().navTo("createSession");
 					break;
 				case sId.indexOf("sessionList") > -1:
-				// 	MessageToast.show("Will go to the sessionList Page");
-				    this.getRouter().navTo("personalCenter");
+					MessageToast.show("Will go to the sessionList Page");
+				    // this.getRouter().navTo("personalCenter");
 					break;
 				default:
 					break;

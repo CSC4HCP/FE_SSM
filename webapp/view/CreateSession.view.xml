@@ -5,7 +5,7 @@
 			<core:Fragment fragmentName="ssms.view.Header" type="XML"/>
 		</subHeader>
 		<content>
-			<f:SimpleForm width="95%" id="ssmsCreateSession-Session" class="sapUiMediumMargin" title="{i18n>TITLE_CREATESESSION_NEWSESSION}"
+			<f:SimpleForm width="95%" id="session" class="sapUiMediumMargin" title="{i18n>TITLE_CREATESESSION_NEWSESSION}"
 				editable="true" layout="ResponsiveGridLayout">
 				<f:content>
 					<Label text="{i18n>LABEL_CREATESESSION_CREATEDBY}"/>
@@ -16,7 +16,7 @@
 						<RadioButton text="{i18n>BTN_CREATESESSION_PRIVATE}"/>
 					</RadioButtonGroup>
 					<Label text="{i18n>LABEL_CREATESESSION_TOPIC}"/>
-					<Input id="ssmsCreateSession-Topic" class="ssmsInput" value="{/topic}" placeholder="{i18n>TEXT_CREATESESSION_TOPICPLACEHOLDER}"
+					<Input id="topic" class="ssmsInput" value="{/topic}" placeholder="{i18n>TEXT_CREATESESSION_TOPICPLACEHOLDER}"
 						change="onCheckTopic"/>
 					<!--<Label/>-->
 					<!--<MessageStrip id="topicEmptyMsg" text="Please enter the Topic" type="Error" showIcon="true" visible="false"/>-->
@@ -29,24 +29,24 @@
 						</items>
 					</Select>
 					<Label text="{i18n>LABEL_CREATESESSION_TIME}"/>
-					<DatePicker id="ssmsCreateSession-Date" class="ssmsInput" valueFormat="yyyy-MM-dd HH:mm:ss" displayFormat="short" dateValue="{/meetingTime}"
+					<DatePicker id="date" class="ssmsInput" valueFormat="yyyy-MM-dd HH:mm:ss" displayFormat="short" dateValue="{/meetingTime}"
 						change="onCheckDate"/>
 					<!--<Label/>-->
 					<!--<MessageStrip id="dateValidMsg" text="Please enter a valid Planned Date" type="Error" showIcon="true" visible="false"/>-->
 					<Label/>
-					<MessageStrip id="ssmsCreateSession-DateErrorMsg" text="{i18n>TEXT_CREATESESSION_DATEERORRMESSAGE}" type="Error" showIcon="true"
+					<MessageStrip id="dateErrorMsg" text="{i18n>TEXT_CREATESESSION_DATEERORRMESSAGE}" type="Error" showIcon="true"
 						visible="false"/>
 					<Label text="{i18n>LABEL_CREATESESSION_DESCRIPTION}"/>
 					<TextArea placeholder="{i18n>TEXT_CREATESESSION_DESCRIPTIONPLACEHODER}" value="{/description}"/>
 					<Label text="{i18n>LABEL_CREATESESSION_ATTACHMENT}"/>
-					<ssms:SSMSUploadCollection id="ssmsCreateSession-UploadCollection" multiple="true" instantUpload="false" uploadComplete="onUploadComplete"/>
+					<ssms:SSMSUploadCollection id="uploadCollection" multiple="true" instantUpload="false" uploadComplete="onUploadComplete"/>
 				</f:content>
 			</f:SimpleForm>
 		</content>
 		<footer>
 			<Bar>
 				<contentRight>
-					<Button id="ssmsCreateSession-Create" class="ssmsEmphasizedButton" type="Emphasized" text="{i18n>BTN_CREATESESSION_CREATE}"
+					<Button id="create" class="ssmsEmphasizedButton" type="Emphasized" text="{i18n>BTN_CREATESESSION_CREATE}"
 						press="onPressCreate"/>
 					<Button text="{i18n>BTN_CREATESESSION_CANCEL}" press="onPressCancel"/>
 				</contentRight>
