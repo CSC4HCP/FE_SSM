@@ -4,6 +4,7 @@
 		<content>
 			<ssms:SSMSUploadCollection id="ssmsuploadCollection" multiple="true" instantUpload="false" change="onFileChange" fileDeleted="onFileDelete"
 				uploadComplete="onUploadComplete"/>
+			<Button text="Upload" press="onPressUploadButton" />
 		</content>
 	</Page>
 </mvc:View>
