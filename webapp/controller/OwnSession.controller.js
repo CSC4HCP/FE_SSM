@@ -42,11 +42,9 @@ sap.ui.define([
 					type: "GET",
 					url: "/destinations/SSM_DEST/api/session",
 					contentType: "application/json",
-					async: false,
+					async: true,
 					success: function(aSessions) {
 						_that.getView().getModel("UserModel1").setData(aSessions);
-						var oControl = aSessions.getId();
-			            this._formatStateBackground(oControl, aSessions);
 					}
 				});
 			} else {
@@ -54,7 +52,7 @@ sap.ui.define([
 					type: "GET",
 					url: "/destinations/SSM_DEST/api/session/?status=" + sStatus,
 					contentType: "application/json",
-					async: false,
+					async: true,
 					success: function(aSessions) {
 						_that.getView().getModel("UserModel1").setData(aSessions);
 					}

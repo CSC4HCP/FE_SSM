@@ -19,7 +19,7 @@
 								<Column width="18em" demandPopin="true">
 									<Text text="{i18n>TEXT_OWNSESSION_TIME}"/>
 								</Column>
-								<Column width="18em" demandPopin="true">
+								<Column width="16em" demandPopin="true">
 									<Text text="{i18n>TEXT_OWNSESSION_LOCATION}"/>
 								</Column>
 								<Column >
@@ -52,7 +52,7 @@
 								<Column width="18em" demandPopin="true">
 									<Text text="{i18n>TEXT_OWNSESSION_TIME}"/>
 								</Column>
-								<Column width="18em" demandPopin="true">
+								<Column width="16em" demandPopin="true">
 									<Text text="{i18n>TEXT_OWNSESSION_LOCATION}"/>
 								</Column>
 								<Column >
@@ -72,7 +72,7 @@
 							</items>
 						</Table>
 					</IconTabFilter>
-					<IconTabFilter icon="sap-icon://begin" iconColor="Positive" text="{i18n>TEXT_OWNSESSION_INPROCESS}" key="In Process">
+					<IconTabFilter icon="sap-icon://begin" iconColor="Positive" text="{i18n>TEXT_OWNSESSION_INPROCESS}" key="In Progress">
 						<Table id="ssms_ownsession_Table2" inset="false" items="{UserModel1>/}">
 							<columns>
 								<Column width="18em">
@@ -84,7 +84,7 @@
 								<Column width="18em" demandPopin="true">
 									<Text text="{i18n>TEXT_OWNSESSION_TIME}"/>
 								</Column>
-								<Column width="18em" demandPopin="true">
+								<Column width="16em" demandPopin="true">
 									<Text text="{i18n>TEXT_OWNSESSION_LOCATION}"/>
 								</Column>
 								<Column >
@@ -117,7 +117,7 @@
 								<Column width="18em" demandPopin="true">
 									<Text text="{i18n>TEXT_OWNSESSION_TIME}"/>
 								</Column>
-								<Column width="18em" demandPopin="true">
+								<Column width="16em" demandPopin="true">
 									<Text text="{i18n>TEXT_OWNSESSION_LOCATION}"/>
 								</Column>
 								<Column >
@@ -149,7 +149,7 @@
 								<Column width="18em" demandPopin="true">
 									<Text text="{i18n>TEXT_OWNSESSION_TIME}"/>
 								</Column>
-								<Column width="18em" demandPopin="true">
+								<Column width="16em" demandPopin="true">
 									<Text text="{i18n>TEXT_OWNSESSION_LOCATION}"/>
 								</Column>
 								<Column >
