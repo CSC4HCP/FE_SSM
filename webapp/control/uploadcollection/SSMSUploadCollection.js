@@ -93,6 +93,28 @@ sap.ui.define([
 			return this._oFileUploader;
 		},
 
+		_onCloseMessageBoxDeleteItem: function(A) {
+			this._oItemForDelete._status = this._toBeDeletedStatus;
+			if (A === sap.m.MessageBox.Action.OK) {
+				this.fireFileDeleted({
+					documentId: this._oItemForDelete.getDocumentId(),
+					item: this._oItemForDelete
+				});
+				if (this.aItems.length === 1) {
+					this.sFocusId = this._oFileUploader.$().find(':button')[0].id;
+				} else {
+					if (this._oItemForDelete._iLineNumber < this.aItems.length - 1) {
+						this.sFocusId = this.aItems[this._oItemForDelete._iLineNumber + 1].getId() + '-cli';
+					} else {
+						this.sFocusId = this.aItems[0].getId() + '-cli';
+					}
+				}
+				this._aDeletedItemForPendingUpload.push(this._oItemForDelete);
+				this.aItems.splice(this._oItemForDelete._iLineNumber, 1);
+				this.removeAggregation('items', this._oItemForDelete, false);
+			}
+		},
+
 		renderer: "sap.m.UploadCollectionRenderer"
 	});
 });

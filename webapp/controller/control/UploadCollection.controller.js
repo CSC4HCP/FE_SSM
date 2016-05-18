@@ -10,9 +10,17 @@ sap.ui.define([
 		 * Can be used to modify the View before it is displayed, to bind event handlers and do other one-time initialization.
 		 * @memberOf ssms.view.controls.view.UploadCollection
 		 */
-		//	onInit: function() {
-		//
-		//	},
+		onInit: function() {
+
+		},
+		
+		onFileChange: function(oEvent) {
+		    var oSource = oEvent.getSource();
+		},
+		
+		onFileDelete: function(oEvent) {
+		    var oSource = oEvent.getSource();
+		}
 
 		/**
 		 * Similar to onAfterRendering, but this hook is invoked before the controller's View is re-rendered

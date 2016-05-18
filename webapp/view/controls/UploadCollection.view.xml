@@ -1,8 +1,9 @@
-<mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" xmlns:ssms="ssms.control.uploadcollection" controllerName="ssms.controller.control.UploadCollection"
-	xmlns:html="http://www.w3.org/1999/xhtml">
+<mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" xmlns:ssms="ssms.control.uploadcollection"
+	controllerName="ssms.controller.control.UploadCollection" xmlns:html="http://www.w3.org/1999/xhtml">
 	<Page title="Upload Collection">
 		<content>
-		    <ssms:SSMSUploadCollection id="uploadCollection" multiple="true" instantUpload="false" uploadComplete="onUploadComplete"/>
+			<ssms:SSMSUploadCollection id="ssmsuploadCollection" multiple="true" instantUpload="false" change="onFileChange" fileDeleted="onFileDelete"
+				uploadComplete="onUploadComplete"/>
 		</content>
 	</Page>
 </mvc:View>
