@@ -1,0 +1,176 @@
+<mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" controllerName="ssms.controller.OwnSession"
+	xmlns:f="sap.ui.layout.form" xmlns:html="http://www.w3.org/1999/xhtml" xmlns:l="sap.ui.layout" xmlns:ssms="ssms.control.EvaText">
+	<Page showHeader="false">
+		<subHeader>
+			<core:Fragment fragmentName="ssms.view.Header" type="XML"/>
+		</subHeader>
+		<content>
+			<IconTabBar id="ssms-IconTabBar" select="getSessionByStatus" class="sapUiResponsiveContentPadding">
+				<items>
+					<IconTabFilter showAll="true" id="iconTabFilterAll" text="{i18n>TEXT_OWNSESSION_SESSIONS}" key="All">
+						<Table id="ssms_ownsession_Table" inset="false" items="{UserModel1>/}">
+							<columns>
+								<Column width="18em">
+									<Text text="{i18n>TEXT_OWNSESSION_TOPIC}"/>
+								</Column>
+								<Column width="18em" demandPopin="true">
+									<Text text="{i18n>TEXT_OWNSESSION_CATEGORY}"/>
+								</Column>
+								<Column width="18em" demandPopin="true">
+									<Text text="{i18n>TEXT_OWNSESSION_TIME}"/>
+								</Column>
+								<Column width="18em" demandPopin="true">
+									<Text text="{i18n>TEXT_OWNSESSION_LOCATION}"/>
+								</Column>
+								<Column >
+									<Text text="{i18n>TEXT_OWNSESSION_STATUS}"/>
+								</Column>
+							</columns>
+							<items>
+								<ColumnListItem press="onPressedColumnListItem"  type="Navigation" counter="{UserModel1>id}">
+									<cells>
+										<Text text="{UserModel1>topic}"/>
+										<Text text="{UserModel1>category}"/>
+										<Text text="{UserModel1>meetingTime}"/>
+										<Text text="{UserModel1>meetingRoom}"/>
+										<ssms:ColorChangableText text="{UserModel1>status}"/>
+									</cells>
+								</ColumnListItem>
+							</items>
+						</Table>
+					</IconTabFilter>
+					<IconTabSeparator/>
+					<IconTabFilter icon="sap-icon://accept" id="iconTabFilterOpen" iconColor="Default" text="{i18n>TEXT_OWNSESSION_OPEN}" key="Open">
+						<Table id="ssms_ownsession_Table1" inset="false" items="{UserModel1>/}">
+							<columns>
+								<Column width="18em">
+									<Text text="{i18n>TEXT_OWNSESSION_TOPIC}"/>
+								</Column>
+								<Column width="18em" demandPopin="true">
+									<Text text="{i18n>TEXT_OWNSESSION_CATEGORY}"/>
+								</Column>
+								<Column width="18em" demandPopin="true">
+									<Text text="{i18n>TEXT_OWNSESSION_TIME}"/>
+								</Column>
+								<Column width="18em" demandPopin="true">
+									<Text text="{i18n>TEXT_OWNSESSION_LOCATION}"/>
+								</Column>
+								<Column >
+									<Text text="{i18n>TEXT_OWNSESSION_STATUS}"/>
+								</Column>
+							</columns>
+							<items>
+								<ColumnListItem press="onPressedColumnListItem" counter="{UserModel1>id}" type="Navigation">
+									<cells>
+										<Text text="{UserModel1>topic}"/>
+										<Text text="{UserModel1>category}"/>
+										<Text text="{UserModel1>meetingTime}"/>
+										<Text text="{UserModel1>meetingRoom}"/>
+										<ssms:ColorChangableText text="{UserModel1>status}"/>
+									</cells>
+								</ColumnListItem>
+							</items>
+						</Table>
+					</IconTabFilter>
+					<IconTabFilter icon="sap-icon://begin" iconColor="Positive" text="{i18n>TEXT_OWNSESSION_INPROCESS}" key="In Process">
+						<Table id="ssms_ownsession_Table2" inset="false" items="{UserModel1>/}">
+							<columns>
+								<Column width="18em">
+									<Text text="{i18n>TEXT_OWNSESSION_TOPIC}"/>
+								</Column>
+								<Column width="18em" demandPopin="true">
+									<Text text="{i18n>TEXT_OWNSESSION_CATEGORY}"/>
+								</Column>
+								<Column width="18em" demandPopin="true">
+									<Text text="{i18n>TEXT_OWNSESSION_TIME}"/>
+								</Column>
+								<Column width="18em" demandPopin="true">
+									<Text text="{i18n>TEXT_OWNSESSION_LOCATION}"/>
+								</Column>
+								<Column >
+									<Text text="{i18n>TEXT_OWNSESSION_STATUS}"/>
+								</Column>
+							</columns>
+							<items>
+								<ColumnListItem press="onPressedColumnListItem" type="Navigation" counter="{UserModel1>id}">
+									<cells>
+										<Text text="{UserModel1>topic}"/>
+										<Text text="{UserModel1>category}"/>
+										<Text text="{UserModel1>meetingTime}"/>
+										<Text text="{UserModel1>meetingRoom}"/>
+										<ssms:ColorChangableText text="{UserModel1>status}"/>
+									</cells>
+								</ColumnListItem>
+							</items>
+						</Table>
+					</IconTabFilter>
+					<IconTabFilter icon="sap-icon://decline" id="iconTabFilterCanceled" iconColor="Critical" text="{i18n>TEXT_OWNSESSION_CANCELED}"
+						key="Canceled">
+						<Table id="ssms_ownsession_Table3" inset="false" items="{UserModel1>/}">
+							<columns>
+								<Column width="18em">
+									<Text text="{i18n>TEXT_OWNSESSION_TOPIC}"/>
+								</Column>
+								<Column width="18em" demandPopin="true">
+									<Text text="{i18n>TEXT_OWNSESSION_CATEGORY}"/>
+								</Column>
+								<Column width="18em" demandPopin="true">
+									<Text text="{i18n>TEXT_OWNSESSION_TIME}"/>
+								</Column>
+								<Column width="18em" demandPopin="true">
+									<Text text="{i18n>TEXT_OWNSESSION_LOCATION}"/>
+								</Column>
+								<Column >
+									<Text text="{i18n>TEXT_OWNSESSION_STATUS}"/>
+								</Column>
+							</columns>
+							<items>
+								<ColumnListItem press="onPressedColumnListItem" type="Navigation" counter="{UserModel1>id}">
+									<cells>
+										<Text text="{UserModel1>topic}"/>
+										<Text text="{UserModel1>category}"/>
+										<Text text="{UserModel1>meetingTime}"/>
+										<Text text="{UserModel1>meetingRoom}"/>
+										<ssms:ColorChangableText text="{UserModel1>status}"/>
+									</cells>
+								</ColumnListItem>
+							</items>
+						</Table>
+					</IconTabFilter>
+					<IconTabFilter icon="sap-icon://complete" iconColor="Negative" id="iconTabFilterClosed" text="{i18n>TEXT_OWNSESSION_CLOSED}" key="Closed">
+						<Table id="ssms_ownsession_Table4" inset="false" items="{UserModel1>/}">
+							<columns>
+								<Column width="18em">
+									<Text text="{i18n>TEXT_OWNSESSION_TOPIC}"/>
+								</Column>
+								<Column width="18em" demandPopin="true">
+									<Text text="{i18n>TEXT_OWNSESSION_CATEGORY}"/>
+								</Column>
+								<Column width="18em" demandPopin="true">
+									<Text text="{i18n>TEXT_OWNSESSION_TIME}"/>
+								</Column>
+								<Column width="18em" demandPopin="true">
+									<Text text="{i18n>TEXT_OWNSESSION_LOCATION}"/>
+								</Column>
+								<Column >
+									<Text text="{i18n>TEXT_OWNSESSION_STATUS}"/>
+								</Column>
+							</columns>
+							<items>
+								<ColumnListItem press="onPressedColumnListItem" type="Navigation" counter="{UserModel1>id}">
+									<cells>
+										<Text text="{UserModel1>topic}"/>
+										<Text text="{UserModel1>category}"/>
+										<Text text="{UserModel1>meetingTime}"/>
+										<Text text="{UserModel1>meetingRoom}"/>
+										<ssms:ColorChangableText text="{UserModel1>status}"/>
+									</cells>
+								</ColumnListItem>
+							</items>
+						</Table>
+					</IconTabFilter>
+				</items>
+			</IconTabBar>
+		</content>
+	</Page>
+</mvc:View>
