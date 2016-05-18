@@ -35,11 +35,17 @@ sap.ui.define([
 				this._aFileUploadersForPendingUpload[j].upload();
 			}
 		},
-
+        
+        /**
+         * @function
+         * @name _getFileUploader
+         * @description Overwrite the origin method to useMultipart = true
+         * @return {sap.m.FileUploader} - The current file uploader
+         */ 
 		_getFileUploader: function() {
-			var t = this,
-				u = this.getInstantUpload();
-			if (!u || !this._oFileUploader) {
+			var that = this,
+				bInstantUpload = this.getInstantUpload();
+			if (!bInstantUpload || !this._oFileUploader) {
 				var s = (sap.ui.Device.browser.msie && sap.ui.Device.browser.version <= 9) ? false : true;
 				this._iFUCounter = this._iFUCounter + 1;
 				this._oFileUploader = new sap.ui.unified.FileUploader(this.getId() + "-" + this._iFUCounter + "-uploader", {
@@ -57,61 +63,67 @@ sap.ui.define([
 					mimeType: this.getMimeType(),
 					multiple: this.getMultiple(),
 					name: "uploadCollection",
-					uploadOnChange: u,
+					uploadOnChange: bInstantUpload,
 					sameFilenameAllowed: true,
 					uploadUrl: this.getUploadUrl(),
 					useMultipart: true,
 					sendXHR: s,
 					change: function(e) {
-						t._onChange(e);
+						that._onChange(e);
 					},
 					filenameLengthExceed: function(e) {
-						t._onFilenameLengthExceed(e);
+						that._onFilenameLengthExceed(e);
 					},
 					fileSizeExceed: function(e) {
-						t._onFileSizeExceed(e);
+						that._onFileSizeExceed(e);
 					},
 					typeMissmatch: function(e) {
-						t._onTypeMissmatch(e);
+						that._onTypeMissmatch(e);
 					},
 					uploadAborted: function(e) {
-						t._onUploadTerminated(e);
+						that._onUploadTerminated(e);
 					},
 					uploadComplete: function(e) {
-						t._onUploadComplete(e);
+						that._onUploadComplete(e);
 					},
 					uploadProgress: function(e) {
-						if (t.getInstantUpload()) {
-							t._onUploadProgress(e);
+						if (that.getInstantUpload()) {
+							that._onUploadProgress(e);
 						}
 					},
 					uploadStart: function(e) {
-						t._onUploadStart(e);
+						that._onUploadStart(e);
 					}
 				});
 			}
 			return this._oFileUploader;
 		},
 
-		_onCloseMessageBoxDeleteItem: function(A) {
+        /**
+         * @function
+         * @name _onCloseMessageBoxDeleteItem
+         * @description Overwrite the origin name to activate fileDeleted event when set instantUpload = false
+         * @param {sap.m.MessageBox.Action} - User's option for the showed MessageBox
+         */
+		_onCloseMessageBoxDeleteItem: function(oOption) {
 			this._oItemForDelete._status = this._toBeDeletedStatus;
-			if (A === sap.m.MessageBox.Action.OK) {
+			if (oOption === sap.m.MessageBox.Action.OK) {
 				this.fireFileDeleted({
 					documentId: this._oItemForDelete.getDocumentId(),
 					item: this._oItemForDelete
 				});
 				if (this.aItems.length === 1) {
-					this.sFocusId = this._oFileUploader.$().find(':button')[0].id;
+					this.sFocusId = this._oFileUploader.$().find(":button")[0].id;
 				} else {
 					if (this._oItemForDelete._iLineNumber < this.aItems.length - 1) {
-						this.sFocusId = this.aItems[this._oItemForDelete._iLineNumber + 1].getId() + '-cli';
+						this.sFocusId = this.aItems[this._oItemForDelete._iLineNumber + 1].getId() + "-cli";
 					} else {
-						this.sFocusId = this.aItems[0].getId() + '-cli';
+						this.sFocusId = this.aItems[0].getId() + "-cli";
 					}
 				}
 				this._aDeletedItemForPendingUpload.push(this._oItemForDelete);
 				this.aItems.splice(this._oItemForDelete._iLineNumber, 1);
-				this.removeAggregation('items', this._oItemForDelete, false);
+				this.removeAggregation("items", this._oItemForDelete, false);
 			}
 		},
 
