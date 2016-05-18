@@ -105,7 +105,7 @@
 						</Table>
 					</IconTabFilter>
 					<IconTabFilter icon="sap-icon://decline" id="iconTabFilterCanceled" iconColor="Critical" text="{i18n>TEXT_OWNSESSION_CANCELED}"
-						key="Canceled">
+						key="Cancelled">
 						<Table id="ssms_ownsession_Table3" inset="false" items="{UserModel1>/}">
 							<columns>
 								<Column width="18em">
