@@ -11,17 +11,14 @@ ssms.util.formatter = {
 	    return sResult;
 	},
 	formatDateTime: function(sValue) {
-	    var dDate,dTime;
-	    
-	        dDate = sValue.substring(0,sValue.indexOf("T"));
-	    dTime = sValue.substring(sValue.indexOf("T") +1,sValue.indexOf("+") );
-
-	    return dDate + " " +dTime;
+	    return new Date(sValue).toLocaleString();
 	},
 	formatDate: function(sValue){
-	    return sValue.substring(0,sValue.indexOf("T"));
+	    var dDateTime = new Date(sValue).toLocaleString();
+	    return dDateTime.substring(0,dDateTime.indexOf(","));
 	},
 	formatTime: function(sValue) {
-	    return sValue.substring(sValue.indexOf("T") +1,sValue.indexOf("+") );
+	    var dDateTime = new Date(sValue).toLocaleString();
+	    return dDateTime.substring(dDateTime.indexOf(",") +2);
 	}
 };
