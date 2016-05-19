@@ -14,7 +14,16 @@ sap.ui.define([
 	RichTooltip) {
 	"use strict";
 
-	// 	var iSessionId;
+	/**
+	 * @private
+	 * @description Some specified variables of this controller. Can't be access out of this controller.
+	 * @var {String} sUserRole The string of user's permission role.
+	 * @var {Boolean} bOwner Whether the access user is the owner.
+	 * @var {Boolean} bBeforeSelect Whether the access user is the owner.
+	 * @var {Boolean} bTopicValid Whether the value of date input is valid
+	 * @var {Boolean} bDateValid Whether the value of date picker is valid
+	 * @var {Integer} iPressCount The number of press event triggered for Create Button
+	 */
 	var sUserRole;
 	var bOwner = false;
 	var bBeforeSelect;
@@ -29,7 +38,6 @@ sap.ui.define([
 	var oModel;
 	var oFileModel;
 	var iSessionId;
-	var iPressCount = 0;
 	var aDocumentId = [];
 	var iDelete = 0;
 	var oUploadCollection;
@@ -66,7 +74,6 @@ sap.ui.define([
 			this._getBeforeValue();
 
 			this.getUserRole(oModel.getData());
-			//this.setUserPermission(oModel.getData(), oSessionModel.getData());
 			this.checkDetailPermission();
 
 			this.byId("ssms-UploadCollection").setUploadUrl("/destinations/SSM_DEST/api/document/upload/" + iSessionId);
@@ -202,51 +209,13 @@ sap.ui.define([
 		},
 		onFileDeleted: function(oEvent) {
 			var oDeleteUploadCollection = oEvent.getParameters();
-			//	var aSelectedItems = oUploadCollection.getSelectedItems();
 			aDocumentId[iDelete] = oDeleteUploadCollection.documentId;
 			iDelete++;
-			//	var oEditCollection = this.byId("ssms-UploadCollection");
-			//	oEditCollection.removeItem(oDeleteUploadCollection);
 		},
-		/*onChange: function(oEvent) {
-		var oUploadCollection = oEvent.getSource();
-		oTransferUpload.addItem((oUploadCollection));
-			//oAddItems[iAdd] = oUploadCollection;
-		//	iAdd++;
-				
-			//	var oCustomerHeaderToken = new UploadCollectionParameter({
-			//		name : "x-csrf-token",
-			//		value : "securityTokenFromModel"
-			//	});
-			//oUploadCollection.addHeaderParameter(oCustomerHeaderToken);
-			 			//oUploadCollection.setUploadUrl("/destinations/SSM_DEST/api/document/upload/" + iSessionId);
-			 		//	oUploadCollection.upload();
-		},
-		*/
-		
+
 		onUploadComplete: function() {
-// 			this.getView().setBusy(false);
 			MessageToast.show(" Success!");
 		},
-		/*	onUploadComplate: function(oEvent){
-			    	var oEditCollection = this.byId("ssms-UploadCollection");
-				var iShowItems = new UploadCollectionItem({
-						fileName: sFileName,
-						documentId: "",
-						thumbnailUrl: "",
-						enableEdit: false,
-						enableDelete: true,
-						visibleDelete: true,
-						visibleEdit: false
-					});
-					oEditCollection.addItem(iShowItems);
-			},
-
-			onBeforeUploadStarts: function(oEvent) {
-				
-			sFileName = oEvent.getParameter("fileName");
-			},*/
-
 		onSelectionChange: function() {
 			var oShowUploadCollection = this.getView().byId("ssms-document");
 			// If there's any item selected, sets download button enabled
@@ -341,23 +310,18 @@ sap.ui.define([
 		},
 
 		onEditSession: function() {
-			var sIdShow = this.byId("ssms-showVBox");
-			var sIdEdit = this.byId("ssms-editVBox");
+			var oIdShow = this.byId("ssms-showVBox");
+			var oIdEdit = this.byId("ssms-editVBox");
 
-			if (sIdShow.getVisible()) {
-				sIdShow.setVisible(false);
-				sIdEdit.setVisible(true);
+			if (oIdShow.getVisible()) {
+				oIdShow.setVisible(false);
+				oIdEdit.setVisible(true);
 				iDelete = 0;
 				this.byId("ssms-UploadCollection").addStyleClass("ssmsSessionDetail_Upload");
 				this.addAttachment();
 				this.checkDetailPermission();
 				this.onCheckStatus();
 				this._oSupplier = jQuery.extend({}, this.getView().getModel().getData());
-				/*	$(".ssmsSessionDetail_Upload .sapMUCDeleteBtn").click(function() {
-						var $deleteButton = $(this);
-						var iFileIndex = $(".ssmsSessionDetail_Upload").index($deleteButton);
-						//   var oUploadItem = oUploadColletion.getItems()[iFileIndex];
-					});*/
 			} else {
 				this.onPressCreate();
 				if (bEditVaild) {
@@ -366,15 +330,11 @@ sap.ui.define([
 					this._getBeforeValue();
 					this.addAttachment();
 					this.checkDetailPermission();
-					sIdEdit.setVisible(false);
-					sIdShow.setVisible(true);
-					
-					this.getView().setBusy(false);
+					oIdEdit.setVisible(false);
+					this.showBusyIndicator(4000, 0);
+					oIdShow.setVisible(true);
 
 				}
-				/*else {
-					this._createConfirmDialog();
-				}*/
 			}
 
 		},
@@ -536,12 +496,9 @@ sap.ui.define([
 				if (oSessionData.status === "Closed") {
 					this.onSendSession();
 				}
-				//	this._showBusyIndicator();
 				var bAttachment = this._checkDuplicateFile();
 
-				
 				if (!bAttachment) {
-				    //this.getView().setBusy(true);
 					var oSaveCollection = this.byId("ssms-UploadCollection");
 					for (var i = 0; i < oFileModel.getData().length; i++) {
 						for (var j = 0; j < iDelete; j++) {
@@ -564,19 +521,19 @@ sap.ui.define([
 					}
 					oSaveCollection.setUploadUrl("/destinations/SSM_DEST/api/document/upload/" + iSessionId);
 					oSaveCollection.upload();
-					
-				// 	var that = this;
-				// 	$.ajax({
-				// 	    async: false,
-				// 		type: "PUT",
-				// 		url: "/destinations/SSM_DEST/api/session/" + iSessionId,
-				// 		data: JSON.stringify(oSessionData),
-				// 		dataType: "json",
-				// 		contentType: "application/json",
-				// 		success: function() {
-				// 			MessageToast.show("Edit Success!");
-				// 		}
-				// 	});
+
+						//var that = this;
+						$.ajax({
+						    async: false,
+							type: "PUT",
+							url: "/destinations/SSM_DEST/api/session/" + iSessionId,
+							data: JSON.stringify(oSessionData),
+							dataType: "json",
+							contentType: "application/json",
+							success: function() {
+								MessageToast.show("Edit Success!");
+							}
+						});
 
 					bEditVaild = true;
 				}
@@ -634,6 +591,24 @@ sap.ui.define([
 			});
 
 			dialog.open();
+		},
+		hideBusyIndicator: function() {
+			sap.ui.core.BusyIndicator.hide();
+		},
+
+		showBusyIndicator: function(iDuration, iDelay) {
+			sap.ui.core.BusyIndicator.show(iDelay);
+
+			if (iDuration && iDuration > 0) {
+				if (this._sTimeoutId) {
+					jQuery.sap.clearDelayedCall(this._sTimeoutId);
+					this._sTimeoutId = null;
+				}
+
+				this._sTimeoutId = jQuery.sap.delayedCall(iDuration, this, function() {
+					this.hideBusyIndicator();
+				});
+			}
 		}
 
 	});
