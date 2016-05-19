@@ -191,7 +191,7 @@
 													<l:GridData span="L2 M2 S4"/>
 												</layoutData>
 											</Label>
-											<ssms:SSMSUploadCollection id="ssms-UploadCollection" multiple="true" instantUpload="false" fileDeleted="onFileDeleted" uploadComplete="onUploadComplete" >
+											<ssms:SSMSUploadCollection id="ssms-UploadCollection" multiple="true" instantUpload="false" fileDeleted="onFileDeleted" uploadComplete= "onUploadComplete"  >
 											
 												<ssms:items id="ssms-UploadCollectionItems"></ssms:items>
 												<ssms:layoutData>
