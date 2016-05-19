@@ -98,7 +98,7 @@ sap.ui.define([
 		/**
 		 * @function
 		 * @name onCheckDate
-		 * @description Event handler for checking topic validation. If its value is empty or is ealier than today, show message.
+		 * @description Event handler for checking date validation. If its value is empty or is ealier than today, show message.
 		 * @param {sap.ui.base.Event} - oEvent The fired event.
 		 */
 		onCheckDate: function(oEvent) {
