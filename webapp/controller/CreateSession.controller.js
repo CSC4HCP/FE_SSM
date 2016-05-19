@@ -177,7 +177,12 @@ sap.ui.define([
 				}
 			}
 		},
-
+        
+        /**
+		 * @function
+		 * @name onUploadComplete
+		 * @description Event handler when file upload completed.
+		 */
 		onUploadComplete: function() {
 			this.getView().setBusy(false);
 			MessageToast.show("Create Success!");
