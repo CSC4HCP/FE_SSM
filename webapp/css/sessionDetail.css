@@ -1,14 +1,14 @@
 .ssmsSessionDetail_Grid {
-    line-height:30px;
+    line-height: 30px;
 }
-.ssmsSessionDetail_Grid Label{
-    display:block;
+.ssmsSessionDetail_Grid Label {
+    display: block;
 }
-.ssmsSessionDetail_Grid Input{
+.ssmsSessionDetail_Grid Input {
     margin-top: -2px;
     margin-bottom: 0;
 }
-.ssmsSessionDetail_Grid Select{
+.ssmsSessionDetail_Grid Select {
     margin-top: -2px;
     margin-bottom: 0;
 }
@@ -16,21 +16,21 @@
     margin-top: -5px;
     margin-left: -5px;
     margin-bottom: 0;
-    padding-top:0;
-    padding-bottom:0;
+    padding-top: 0;
+    padding-bottom: 0;
 }
 .ssmsYellowFont {
-    color:yellow;
+    color: yellow;
 }
-
 .ssmsRedFont {
-    color:red;
+    color: red;
 }
-
 .ssmsGreenFont {
-    color:green;
+    color: green;
 }
-
 .ssmsGrayFont {
-    color:gray;
+    color: gray;
+}
+.ssmsfailure {
+    text-decoration: line-through;
 }

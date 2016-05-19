@@ -1,6 +1,6 @@
 <core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:ssmsLogo="ssms.control.logo" controllerName="ssms.controller.Header">
 	<Toolbar class="ssmsHeader" design="Transparent">
-		<Image class="sapUiSmallMarginTop sapUiSmallMarginBottom sapUiMediumMarginBegin" src="img/logo_small.png" press="onPressLogo" />
+		<Image tooltip="{i18n>TEXT_HEADERFRAGMENT_LOGOTOOLTIP}" class="sapUiSmallMarginTop sapUiSmallMarginBottom sapUiMediumMarginBegin" src="img/logo_small.png" press="onPressLogo" />
 		<ToolbarSpacer/>
 		<SearchField class="ssmsSearchField" width="20%" placeholder="{i18n>TEXT_HEADERFRAGMENT_SEARCHPLACEHODER}" search="onHeaderSearch"/>
 		<Button class="ssmsEmphasizedButton sapUiSmallMarginEnd sapUiMediumMarginBegin" type="Emphasized" icon="sap-icon://employee" text="{UserModel>/displayName}"

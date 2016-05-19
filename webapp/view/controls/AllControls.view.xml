@@ -1,0 +1,10 @@
+<mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" controllerName="ssms.controller.control.AllControls"
+	xmlns:html="http://www.w3.org/1999/xhtml">
+	<Page title="{i18n>TITLE_CUSTOMCONTROL_ALLCONTROLS}">
+		<content>
+		    <TileContainer height="80%">
+			     <StandardTile icon="sap-icon://folder" title="{i18n>TITLE_CUSTOMCONTROL_UPLOADCOLLECTION}" press="onPressTile"/>
+		    </TileContainer>
+		</content>
+	</Page>
+</mvc:View>

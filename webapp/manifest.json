@@ -118,6 +118,16 @@
 				    "pattern": "ownSession",
 				    "name": "ownSession",
 				    "target": "ownSession"
+				},
+				{
+				    "pattern": "allControls",
+				    "name": "allControls",
+				    "target": "allControls"
+				},
+				{
+				    "pattern": "control_uploadCollection",
+				    "name": "control_uploadCollection",
+				    "target": "control_uploadCollection"
 				}
 			],
 			"targets": {
@@ -136,6 +146,16 @@
 				"ownSession": 
 				{
 				    "viewName": "OwnSession"
+				},
+				"control_uploadCollection":
+				{   
+				    "viewPath": "ssms.view.controls",
+				    "viewName": "UploadCollection"
+				},
+				"allControls":
+				{
+				    "viewPath": "ssms.view.controls",
+				    "viewName": "AllControls"
 				}
 			}
 		}
