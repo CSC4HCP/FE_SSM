@@ -31,7 +31,8 @@
 									<cells>
 										<Text text="{UserModel1>topic}"/>
 										<Text text="{UserModel1>category}"/>
-										<Text text="{UserModel1>meetingTime}"/>
+										<Text text="{path: 'UserModel1>meetingTime', formatter:'ssms.util.formatter.formatDateTime'}"/>
+										<!--<Text text="{UserModel1>meetingTime}"/>-->
 										<Text text="{UserModel1>meetingRoom}"/>
 										<ssms:ColorChangableText text="{UserModel1>status}"/>
 									</cells>
