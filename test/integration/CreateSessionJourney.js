@@ -41,15 +41,6 @@ sap.ui.require(
 			Then.onTheCreateSessionPage.iShouldSeeTheCalendar()
 				.and.iShouldSeeTheDateValidError();
 		});
-
-		// 		opaTest("Should see the error message when I click a early date", function(Given, When, Then) {
-		// 			//   Assertions
-		// 			When.onTheCreateSessionPage.iPressOnClickEarlyDate();
-
-		// 			//Assertions
-		// 			Then.onTheCreateSessionPage.iShouldSeeTheErrorMessage();
-		// 		});
-
 		opaTest("Should see the file upload window when I click the file-upload button", function(Given, When, Then) {
 			//Assertion
 			When.onTheCreateSessionPage.iPressOnFileUploadButton();
@@ -68,15 +59,6 @@ sap.ui.require(
 			Then.onTheCreateSessionPage.iShouldSeeTheTopicFieldValidError()
 				.and.iShouldSeeTheDateFieldNullError();
 		});
-// 		opaTest("Should see the detail page when I click the create button", function(Given, When, Then) {
-// 			//Actions
-// 			When.onTheCreateSessionPage.iPressOnClickTheInputField()
-// 				.and.iPressOnSetRightDate();
-// 			When.onTheCreateSessionPage.iPressOnCreateButton();
-
-// 			//Assertions
-// 			Then.onTheCreateSessionPage.iShouldSeeTheDetailPage();
-// 		});
 		opaTest("Should see the last page when I click cancel buton", function(Given, When, Then) {
 			//Actions
 			When.onTheCreateSessionPage.iPressOnTheCancelButton();

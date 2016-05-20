@@ -45,20 +45,6 @@ sap.ui.require([
 							errorMesssage: "The DatePicker does not exist."
 						});
 					},
-				// 	iPressOnClickEarlyDate: function() {
-				// 		return this.waitFor({
-				// 			viewName: "CreateSession",
-				// 			id: "date",
-				// 			success: function(oDatePicker) {
-				// 				var dNowDate = new Date();
-				// 				var sToday = dNowDate.getDate();
-				// 				var sYesterday = sToday - 1;
-				// 				var dYesterday = new Date(dNowDate.setDate(sYesterday));
-				// 				oDatePicker.setDateValue(dYesterday);
-				// 			},
-				// 			errorMessage: "The DatePicker does not exist."
-				// 		});
-				// 	},
 					iPressOnFileUploadButton: function() {
 						return this.waitFor({
 							viewName: "CreateSession",
@@ -100,26 +86,6 @@ sap.ui.require([
 							errorMessage: "The create button does not exist."
 						});
 					},
-				// 	iPressOnSetRightDate: function(){
-				// 	    return this.waitFor({
-				// 	        viewName: "CreateSession",
-				// 	        controlType: "sap.m.DatePicker",
-				// 	        success: function(oDatePicker) {
-				// 	            var dNowDate = new Date();
-				// 	            var day =dNowDate.getDate();
-				// 	            var rightDay = day + 2;
-				// 	            var  date = dNowDate.toLocaleDateString();
-				// 	            var sDay = date.split("/");
-				// 	            var yearAll = sDay[2].split("");
-				// 	            var month = sDay[0];
-				// 	            var sRightDate = rightDay.toString();
-				// 	            var year = yearAll[2]+yearAll[3];
-				// 	            var newDate = month + "/" + sRightDate + "/" + year;
-				// 				oDatePicker[0].setValue(newDate);
-				// 			},
-				// 			errorMesssage: "The DatePicker does not exist."
-				// 	    });
-				// 	},
 					iPressOnTheCancelButton: function() {
 					    return this.waitFor({
 					        viewName: "CreateSession",
@@ -195,19 +161,6 @@ sap.ui.require([
 							errorMesssage: "The parameter can not check."
 						});
 					},
-				// 	iShouldSeeTheErrorMessage: function() {
-				// 		return this.waitFor({
-				// 			viewName: "CreateSession",
-				// 			controlType: "sap.m.DatePicker",
-				// 			matchers: function(oMessage) {
-				// 				return oMessage.$("#ssmsCreateSession-DateErrorMsg").visible();
-				// 			},
-				// 			success: function() {
-				// 				Opa5.assert.ok(true, "The error message is there.");
-				// 			},
-				// 			errorMessage: "The date judgement does not work."
-				// 		});
-				// 	},
 					iShouldSeeTheFileWindow: function() {
 						return this.waitFor({
 							viewName: "CreateSession",
@@ -247,16 +200,6 @@ sap.ui.require([
 						  errorMessage: "The parameter can not check."
 					  });
 					},
-				// 	iShouldSeeTheDetailPage: function(){
-				// 	    return this.waitFor({
-				// 	        viewName: "SessionDetail",
-				// 	        id: "ObjectPageLayout",
-				// 	        success: function(){
-				// 	          Opa5.assert.ok(true, "There is the session-detail page."); 
-				// 	        },
-				// 	        errorMessage: "Can't go to the session detail page."
-				// 	    });
-				// 	},
 					iShouldSeeTheLastPage: function() {
 					    return this.waitFor({
 					        viewName: "CreateSession",
