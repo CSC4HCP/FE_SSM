@@ -3,12 +3,10 @@ sap.ui.define([
 	"sap/m/TextRenderer"
 ], function(Text, TextRenderer) {
 	"use strict";
-	return Text.extend("ssms.control.EvaText.ColorChangableText", {
+	return Text.extend("ssms.control.ColorText.ColorChangableText", {
 		metadata: {},
 
 		renderer: function(oRM, oControl) {
-
-			// oRM.addClass("xmTextMain");
 
 			var sColor = oControl.getText();
 			switch (sColor) {

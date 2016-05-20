@@ -14,31 +14,51 @@ sap.ui.define([
 	RichTooltip) {
 	"use strict";
 
-	// 	var iSessionId;
+	/**
+	 * @private
+	 * @description Some specified variables of this controller. Can't be access out of this controller.
+	 * @var {String} sUserRole the string of user's permission role.
+	 * @var {Boolean} bOwner Whether the access user is the owner.
+	 * @var {Boolean} bBeforeSelect Whether the value of session's visibility.
+	 * @var {String} sBeforeStatus The value of session's status.
+	 * @var {Boolean} bDateValid Whether the value of date picker is valid.
+	 * @var {Boolean} bSummaryVaild Whether the value of summary textarea is valid.
+	 * @var {Boolean} bLocationVaild Whether the value of location textarea is valid.
+	 * @var {Boolean} bEditVaild Whether the value of upload is valid.
+	 * @var {Boolean} bSupporterW Whether the supporter modify the location textarea.
+	 * @var {Boolean} bSupporterT Whether the supporter modify the data & time picker.
+	 * @var {Object} oModel The model of user information.
+	 * @var {Object} oSessionModel The model of session detail.
+	 * @var {Object} oFileModel The model of attachment.
+	 * @var {Integer} iSessionId The number of session's id.
+	 * @var {Array} aDocumentId The array to record the deleted items' document id.
+	 * @var {Integer} iDelete The number of deleted items.
+	 * @var {Object} oUploadCollection The controller of uploadcollection in edit panel.
+	 * 
+	 */
 	var sUserRole;
 	var bOwner = false;
 	var bBeforeSelect;
 	var sBeforeStatus;
 	var bDateValid = false;
-	var bEditVaild = false;
 	var bSummaryVaild = false;
 	var bLocationVaild = false;
+	var bEditVaild = false;
 	var bSupporterW = false;
 	var bSupporterT = false;
-	var oSessionModel;
 	var oModel;
+	var oSessionModel;
 	var oFileModel;
 	var iSessionId;
-	var iPressCount = 0;
 	var aDocumentId = [];
 	var iDelete = 0;
 	var oUploadCollection;
 	return BaseController.extend("ssms.controller.SessionDetail", {
-
 		/**
-		 * Called when a controller is instantiated and its View controls (if available) are already created.
-		 * Can be used to modify the View before it is displayed, to bind event handlers and do other one-time initialization.
-		 * @memberOf ssms.view.view.createSession
+		 * @event
+		 * @name onInit
+		 * @description Called when a controller is instantiated and its View controls (if available) are already created. Mainly set user model.
+		 * @memberOf ssms.view.SessionDetail
 		 */
 		onInit: function() {
 			oModel = new sap.ui.model.json.JSONModel();
@@ -50,6 +70,12 @@ sap.ui.define([
 
 		},
 
+		/**
+		 * @function
+		 * @name _onRouteMatched
+		 * @description Event handler for getting the session id, then set session detail model and set page.
+		 * @param {sap.ui.base.Event} - oEvent The fired event.
+		 */
 		_onRouteMatched: function(oEvent) {
 			var oArgs;
 			oArgs = oEvent.getParameter("arguments");
@@ -60,24 +86,20 @@ sap.ui.define([
 			this.getView().bindElement("/");
 
 			var oControl = this.getView().byId("ssms-Status");
-			this._formatStateBackground(oControl, oControl.getText());
-
-			this.addAttachment();
-			this._getBeforeValue();
+			this._formatStateColor(oControl, oControl.getText());
 
 			this.getUserRole(oModel.getData());
-			//this.setUserPermission(oModel.getData(), oSessionModel.getData());
+			this.setUserPermission(oModel.getData(), oSessionModel.getData());
+			this.addAttachment();
+			this._getBeforeValue();
 			this.checkDetailPermission();
-
-			this.byId("ssms-UploadCollection").setUploadUrl("/destinations/SSM_DEST/api/document/upload/" + iSessionId);
 		},
 
 		/**
 		 * @function
 		 * @name getUserRole
-		 * @description Get user's role and team then set the _oUser.
+		 * @description Get user's role then set the sUserRole.
 		 * @param {Object} oUserData - User information got from the userAPI
-		 * @return {Object} oUser - User information with all details
 		 */
 		getUserRole: function(oUserData) {
 
@@ -87,11 +109,17 @@ sap.ui.define([
 				contentType: "application/json",
 				success: function(user) {
 					sUserRole = user.role;
-
 				}
 			});
 		},
 
+		/**
+		 * @function
+		 * @name setUserPermission
+		 * @description Set user's permission by user's role.
+		 * @param {Object} oUserData - User information got from the userAPI
+		 * @param {Object} oSessionData - Session information got from the sessionAPI
+		 */
 		setUserPermission: function(oUserData, oSessionData) {
 			var oEditBtn = this.getView().byId("ssms-editBtn");
 			var oCategory = this.getView().byId("ssms-category");
@@ -153,6 +181,12 @@ sap.ui.define([
 			}
 
 		},
+
+		/**
+		 * @function
+		 * @name addAttachment
+		 * @description Add attachment in both detail view's and edit view's UploadCollection.
+		 */
 		addAttachment: function() {
 			oFileModel = new sap.ui.model.json.JSONModel();
 			oFileModel.loadData("/destinations/SSM_DEST/api/document/file/" + iSessionId, null, false);
@@ -166,8 +200,6 @@ sap.ui.define([
 				var iShowItems = new UploadCollectionItem({
 					fileName: data[i].fileName,
 					documentId: data[i].fileId,
-					thumbnailUrl: "",
-					url: "/destinations/SSM_DEST/api/document/download/" + data[i].fileId,
 					enableEdit: false,
 					enableDelete: false,
 					visibleDelete: false,
@@ -179,77 +211,88 @@ sap.ui.define([
 				var iEditItems = new UploadCollectionItem({
 					fileName: data[j].fileName,
 					documentId: data[j].fileId,
-					url: "/destinations/SSM_DEST/api/document/download/" + data[j].fileId,
 					enableEdit: false,
 					enableDelete: true,
 					visibleDelete: true,
 					visibleEdit: false
 				});
+				if (!bOwner) {
+					iEditItems.setEnableDelete(false);
+					iEditItems.setVisibleDelete(false);
+				}
 				oEditCollection.addItem(iEditItems);
 			}
 		},
 
+		/**
+		 * @function
+		 * @name onDownloadAttachment
+		 * @description Download the selected items.
+		 */
 		onDownloadAttachment: function() {
 			var oShowUploadCollection = this.getView().byId("ssms-document");
 			var aSelectedItems = oShowUploadCollection.getSelectedItems();
 			if (aSelectedItems) {
 				for (var i = 0; i < aSelectedItems.length; i++) {
+					var sUrl = "/destinations/SSM_DEST/api/document/download/" + aSelectedItems[i].getDocumentId();
+					aSelectedItems[i].setUrl(sUrl);
 					oShowUploadCollection.downloadItem(aSelectedItems[i], true);
+					aSelectedItems[i].setUrl("");
 				}
 			} else {
 				MessageToast.show("Select an item to download");
 			}
 		},
+
+		/**
+		 * @function
+		 * @name onFileDeleted
+		 * @description Recording the items which chosed to be deleted in array aDocumentId.
+		 */
 		onFileDeleted: function(oEvent) {
 			var oDeleteUploadCollection = oEvent.getParameters();
-			//	var aSelectedItems = oUploadCollection.getSelectedItems();
 			aDocumentId[iDelete] = oDeleteUploadCollection.documentId;
 			iDelete++;
-			//	var oEditCollection = this.byId("ssms-UploadCollection");
-			//	oEditCollection.removeItem(oDeleteUploadCollection);
 		},
-		/*onChange: function(oEvent) {
-		var oUploadCollection = oEvent.getSource();
-		oTransferUpload.addItem((oUploadCollection));
-			//oAddItems[iAdd] = oUploadCollection;
-		//	iAdd++;
-				
-			//	var oCustomerHeaderToken = new UploadCollectionParameter({
-			//		name : "x-csrf-token",
-			//		value : "securityTokenFromModel"
-			//	});
-			//oUploadCollection.addHeaderParameter(oCustomerHeaderToken);
-			 			//oUploadCollection.setUploadUrl("/destinations/SSM_DEST/api/document/upload/" + iSessionId);
-			 		//	oUploadCollection.upload();
-		},
-		*/
-		
+
+		/**
+		 * @function
+		 * @name onUploadComplete
+		 * @description While attachment upload complete, show the detail view.
+		 */
 		onUploadComplete: function() {
-// 			this.getView().setBusy(false);
-			MessageToast.show(" Success!");
+			MessageToast.show("Upload Complete!");
+			this.getView().setBusy(false);
+			bEditVaild = true;
+			this.onShowDetail();
 		},
-		/*	onUploadComplate: function(oEvent){
-			    	var oEditCollection = this.byId("ssms-UploadCollection");
-				var iShowItems = new UploadCollectionItem({
-						fileName: sFileName,
-						documentId: "",
-						thumbnailUrl: "",
-						enableEdit: false,
-						enableDelete: true,
-						visibleDelete: true,
-						visibleEdit: false
-					});
-					oEditCollection.addItem(iShowItems);
-			},
 
-			onBeforeUploadStarts: function(oEvent) {
-				
-			sFileName = oEvent.getParameter("fileName");
-			},*/
+		/**
+		 * @function
+		 * @name onShowDetail
+		 * @description Show the detail view, and reset page.
+		 */
+		onShowDetail: function() {
+			if (bEditVaild) {
+				var oIdShow = this.byId("ssms-showVBox");
+				var oIdEdit = this.byId("ssms-editVBox");
+				var oControl = this.getView().byId("ssms-Status");
+				this._formatStateColor(oControl, oControl.getText());
+				this._getBeforeValue();
+				this.addAttachment();
+				this.checkDetailPermission();
+				oIdEdit.setVisible(false);
+				oIdShow.setVisible(true);
+			}
+		},
 
+		/**
+		 * @function
+		 * @name onSelectionChange
+		 * @description If there's any item selected in detail view's UploadCollection, set download button enabled.
+		 */
 		onSelectionChange: function() {
 			var oShowUploadCollection = this.getView().byId("ssms-document");
-			// If there's any item selected, sets download button enabled
 			if (oShowUploadCollection.getSelectedItems().length > 0) {
 				this.getView().byId("ssms-downloadButton").setEnabled(true);
 			} else {
@@ -257,20 +300,25 @@ sap.ui.define([
 			}
 		},
 
+		/**
+		 * @function
+		 * @name checkDetailPermission
+		 * @description Set detail permission by visibility and status.
+		 */
 		checkDetailPermission: function() {
 			var oEditBtn = this.getView().byId("ssms-editBtn");
-			//check visibility
+
 			if (!bBeforeSelect) {
 				this.byId("ssms-private").setSelected(true);
 			} else {
 				this.byId("ssms-private").setEditable(false);
 			}
-			//check status
+
 			if (sBeforeStatus === "Open") {
 				this.byId("ssms-open").setEnabled(true);
 				this.byId("ssms-inprogress").setEnabled(false);
 				this.byId("ssms-closed").setEnabled(false);
-				this.byId("ssms-cancelled").setEnabled(false);
+				this.byId("ssms-cancelled").setEnabled(true);
 			}
 			if (sBeforeStatus === "In progress") {
 				this.byId("ssms-open").setEnabled(false);
@@ -289,7 +337,12 @@ sap.ui.define([
 			}
 		},
 
-		_formatStateBackground: function(oControl, sText) {
+		/**
+		 * @function
+		 * @name _formatStateColor
+		 * @description Set status fon color in detail view.
+		 */
+		_formatStateColor: function(oControl, sText) {
 			switch (sText) {
 				case "Open":
 					oControl.removeStyleClass("ssmsGreenFont");
@@ -318,85 +371,74 @@ sap.ui.define([
 			}
 		},
 
+		/**
+		 * @function
+		 * @name _getBeforeValue
+		 * @description Get session's visibility and status from sessionAPI.
+		 */
 		_getBeforeValue: function() {
 			bBeforeSelect = oSessionModel.getData().visibility;
 			sBeforeStatus = oSessionModel.getData().status;
 		},
 
+		/**
+		 * @function
+		 * @name onSendSession
+		 * @description Send notification to supporter.
+		 */
 		onSendSession: function() {
 			MessageToast.show("Will Send notification to supporter!");
 		},
 
+		/**
+		 * @function
+		 * @name onDeclineSession
+		 * @description Exit the edit view without saving the changes.
+		 */
 		onDeclineSession: function() {
-			var sIdShow = this.byId("ssms-showVBox");
-			var sIdEdit = this.byId("ssms-editVBox");
+			var oIdShow = this.byId("ssms-showVBox");
+			var oIdEdit = this.byId("ssms-editVBox");
 			var oInitModel = this.getView().getModel();
 			var oData = oInitModel.getData();
 
 			oData = this._oSupplier;
 			oInitModel.setData(oData);
 			iDelete = 0;
-			sIdShow.setVisible(true);
-			sIdEdit.setVisible(false);
+			bEditVaild = false;
+			oIdShow.setVisible(true);
+			oIdEdit.setVisible(false);
 		},
 
+		/**
+		 * @function
+		 * @name onEditSession
+		 * @description Change view between detail view and edit view. If change from detail to edit, check status and save detail page data, then change view. If change from edit to detail, event handled to save all the change. 
+		 */
 		onEditSession: function() {
-			var sIdShow = this.byId("ssms-showVBox");
-			var sIdEdit = this.byId("ssms-editVBox");
+			var oIdShow = this.byId("ssms-showVBox");
+			var oIdEdit = this.byId("ssms-editVBox");
 
-			if (sIdShow.getVisible()) {
-				sIdShow.setVisible(false);
-				sIdEdit.setVisible(true);
+			if (oIdShow.getVisible()) {
+				oIdShow.setVisible(false);
+				oIdEdit.setVisible(true);
 				iDelete = 0;
+				bEditVaild = false;
 				this.byId("ssms-UploadCollection").addStyleClass("ssmsSessionDetail_Upload");
 				this.addAttachment();
 				this.checkDetailPermission();
 				this.onCheckStatus();
 				this._oSupplier = jQuery.extend({}, this.getView().getModel().getData());
-				/*	$(".ssmsSessionDetail_Upload .sapMUCDeleteBtn").click(function() {
-						var $deleteButton = $(this);
-						var iFileIndex = $(".ssmsSessionDetail_Upload").index($deleteButton);
-						//   var oUploadItem = oUploadColletion.getItems()[iFileIndex];
-					});*/
 			} else {
 				this.onPressCreate();
-				if (bEditVaild) {
-					var oControl = this.getView().byId("ssms-Status");
-					this._formatStateBackground(oControl, oControl.getText());
-					this._getBeforeValue();
-					this.addAttachment();
-					this.checkDetailPermission();
-					sIdEdit.setVisible(false);
-					sIdShow.setVisible(true);
-					
-					this.getView().setBusy(false);
-
-				}
-				/*else {
-					this._createConfirmDialog();
-				}*/
 			}
 
 		},
-		/*_createConfirmDialog: function() {
-			var dialog = new Dialog({
-				title: "Error",
-				type: "Message",
-				state: "Error",
-				content: new Text({
-					text: "Please check the warning of the input and modified according to the requirement!"
-				}),
-				beginButton: new Button({
-					text: "OK",
-					press: function() {
-						dialog.close();
-					}
-				})
-			});
-
-			this._oDialog = dialog;
-			this._oDialog.open();
-		},*/
+		
+		/**
+		 * @function
+		 * @name onCheckDate
+		 * @description Event handler for checking date validation. If its value is ealier than today, show message.
+		 */
 		onCheckDate: function() {
 			var dNowDate = new Date();
 			var oDatePicker = this.byId("ssms-datetime");
@@ -421,10 +463,21 @@ sap.ui.define([
 			}
 
 		},
+		
+		/**
+		 * @function
+		 * @name onCheckTime
+		 * @description Checking time change. If its time input is change, set bSupporterT true.
+		 */
 		onCheckTime: function() {
 			bSupporterT = true;
 		},
-
+		
+		/**
+		 * @function
+		 * @name onCheckStatus
+		 * @description Checking the status, if the status change in edit view, other inputs permission will be changed.
+		 */
 		onCheckStatus: function() {
 			var sStatus = this.getView().byId("ssms-selectStatus").getSelectedKey();
 			var oCategory = this.getView().byId("ssms-category");
@@ -436,11 +489,6 @@ sap.ui.define([
 			var oDescription = this.getView().byId("ssms-description");
 			oUploadCollection = this.getView().byId("ssms-UploadCollection");
 			var oSummary = this.getView().byId("ssms-summary");
-			// 			if (sBeforeStatus === "In progress") {
-			// 				if (sStatus === "Cancelled") {
-			// 					this.onSendSession();
-			// 				}
-			// 			}
 			if (sStatus === "Closed") {
 				oCategory.setEnabled(false);
 				oMeetingRoom.setEnabled(false);
@@ -469,7 +517,12 @@ sap.ui.define([
 			}
 
 		},
-
+		
+		/**
+		 * @function
+		 * @name onCheckLocation
+		 * @description Checking the location input, if user role is supporter, location cannot be empty.
+		 */
 		onCheckLocation: function() {
 			var oLocation = this.byId("ssms-meetingRoom");
 			var sValue = oLocation.getValue();
@@ -487,7 +540,12 @@ sap.ui.define([
 				oLocation.setValueState(sap.ui.core.ValueState.None);
 			}
 		},
-
+		
+		/**
+		 * @function
+		 * @name onCheckSummary
+		 * @description Checking the summary input, if change status to 'Closed', summary cannot be empty.
+		 */
 		onCheckSummary: function() {
 			var sStatus = this.getView().byId("ssms-selectStatus").getSelectedKey();
 			var oSummary = this.getView().byId("ssms-summary");
@@ -506,16 +564,13 @@ sap.ui.define([
 				oSummary.setValueState(sap.ui.core.ValueState.None);
 			}
 		},
-
+		
+		/**
+		 * @function
+		 * @name onPressCreate
+		 * @description Save session detail page data.
+		 */
 		onPressCreate: function() {
-			/*	if (iPressCount === 0) {
-					var oLocation = this.byId("ssms-meetingRoom");
-					var oSummary = this.byId("ssms-summary");
-					oLocation.fireChange();
-					oSummary.fireChange();
-					iPressCount++;
-				}*/
-
 			var oSessionData = this.byId("ssms-editVBox").getModel().getData();
 			if (bSupporterT && bSupporterW) {
 				if (oSessionData.status !== "In progress") {
@@ -531,18 +586,17 @@ sap.ui.define([
 				var meetingTime = new Date(dDateTime);
 				this.byId("ssms-editdatatime").setText(meetingTime.toLocaleString());
 
-				oSessionData.file = this.byId("ssms-UploadCollection").getItems().length;
 				oSessionData.meetingTime = meetingTime;
-				if (oSessionData.status === "Closed") {
+				if (oSessionData.status === "Cancelled") {
 					this.onSendSession();
 				}
-				//	this._showBusyIndicator();
 				var bAttachment = this._checkDuplicateFile();
 
-				
 				if (!bAttachment) {
-				    //this.getView().setBusy(true);
+					this.getView().setBusy(true);
 					var oSaveCollection = this.byId("ssms-UploadCollection");
+					oSessionData.file = oSaveCollection.getItems().length;
+
 					for (var i = 0; i < oFileModel.getData().length; i++) {
 						for (var j = 0; j < iDelete; j++) {
 							if (aDocumentId[j]) {
@@ -550,57 +604,68 @@ sap.ui.define([
 									$.ajax({
 										type: "DELETE",
 										url: "/destinations/SSM_DEST/api/document/delete/" + aDocumentId[j],
-										contentType: "application/json",
-										success: function() {}
+										contentType: "application/json"
 									});
 								}
 							}
 						}
 					}
-					for (var k = 0; k < oSaveCollection.getItems().length; k++) {
-						if (oSaveCollection.getItems()[k].getDocumentId()) {
-							oSaveCollection.removeItem(oSaveCollection.getItems()[k]);
+					var iRemoveId = 0;
+					for (var k = 0; k < oSessionData.file; k++) {
+						if (oSaveCollection.getItems()[iRemoveId].getDocumentId()) {
+							oSaveCollection.removeItem(oSaveCollection.getItems()[iRemoveId]);
+						} else {
+							iRemoveId++;
 						}
 					}
-					oSaveCollection.setUploadUrl("/destinations/SSM_DEST/api/document/upload/" + iSessionId);
-					oSaveCollection.upload();
 					
-				// 	var that = this;
-				// 	$.ajax({
-				// 	    async: false,
-				// 		type: "PUT",
-				// 		url: "/destinations/SSM_DEST/api/session/" + iSessionId,
-				// 		data: JSON.stringify(oSessionData),
-				// 		dataType: "json",
-				// 		contentType: "application/json",
-				// 		success: function() {
-				// 			MessageToast.show("Edit Success!");
-				// 		}
-				// 	});
+					$.ajax({
+						async: false,
+						type: "PUT",
+						url: "/destinations/SSM_DEST/api/session/" + iSessionId,
+						data: JSON.stringify(oSessionData),
+						dataType: "json",
+						contentType: "application/json"
+					});
+					
+					if (oSaveCollection.getItems().length > 0) {
+						oSaveCollection.setUploadUrl("/destinations/SSM_DEST/api/document/upload/" + iSessionId);
+						oSaveCollection.upload();
+					} else {
+						this.getView().setBusy(false);
+						bEditVaild = true;
+						MessageToast.show("Edit Success!");
+						this.onShowDetail();
+					}
 
-					bEditVaild = true;
 				}
 			}
 		},
+		
+		/**
+		 * @function
+		 * @name _checkDuplicateFile
+		 * @description Check whether there is any duplicate file.
+		 * @return {Boolean} If true, there are at least two same files.
+		 */
 		_checkDuplicateFile: function() {
 			var mFiles = {};
 
 			var i = oUploadCollection.getItems().length;
 
 			while (i--) {
-				if (!oUploadCollection.getItems()[i].getDocumentId()) {
-					var oFileItem = oUploadCollection.getItems()[i];
-					var sFileName = oFileItem.getFileName();
+				//if (!oUploadCollection.getItems()[i].getDocumentId()) {
+				var oFileItem = oUploadCollection.getItems()[i];
+				var sFileName = oFileItem.getFileName();
 
-					if (!mFiles[sFileName]) {
-						mFiles[sFileName] = true;
-					} else {
+				if (!mFiles[sFileName]) {
+					mFiles[sFileName] = true;
+				} else {
+					this._createFileConfirmDialog(oFileItem);
 
-						this._createFileConfirmDialog(oFileItem);
-
-						return true;
-					}
+					return true;
 				}
+				//}
 			}
 
 			return false;
@@ -610,6 +675,7 @@ sap.ui.define([
 		 * @function
 		 * @name _createFileConfirmDialog
 		 * @description Show a confirm dialog to ask user delete the duplicate files automatically or himself.
+		 * @param {Object} oFileItem - The duplication file which asked to be deleted.
 		 */
 		_createFileConfirmDialog: function(oFileItem) {
 			var dialog = new Dialog({
