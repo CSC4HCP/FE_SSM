@@ -25,3 +25,19 @@ html.sap-desktop .sapMBtn:focus>.sapMFocusable {
 	text-align: center !important;
 	color: #0099CC;
 }
+
+.ssmsPointer {
+	cursor: pointer;
+}
+
+.ssmsNotification img {
+	width: 1.5rem;
+	height: 1.5rem;
+	margin-top: 0.575rem;
+}
+
+.ssmsNotification-Unread img {
+	width: 1.5rem;
+	height: 1.5rem;
+	margin-top: 0.425rem;
+}

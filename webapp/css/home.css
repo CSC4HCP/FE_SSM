@@ -32,18 +32,10 @@
 }
 
 .ssmsHome-ContentBox-Image {
-	cursor: pointer;
+	width: 8.5rem;
+	height: 8.5rem;
 }
 
 .ssmsHome-ContentBox-Background {
 	background-color: #eeefff;
-	cursor: pointer;
-}
-
-.ssmsHome-ContentBox-Background-Label {
-	cursor: pointer;
-}
-
-.ssmsHome-ContentBox-Background-Text {
-	cursor: pointer;
 }
