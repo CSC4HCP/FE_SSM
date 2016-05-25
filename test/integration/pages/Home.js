@@ -23,9 +23,9 @@ sap.ui.require([
 					iPressTheCreateSession: function() {
 						return this.waitFor({
 							viewName: "Home",
-							id: "createSession",
+							id: "img-createSession",
 							success: function(aButtons) {
-								aButtons.$().trigger("tap");
+								aButtons.$().trigger("mouseup");
 							},
 							errorMessage: "Did not find the Create Session on the Home Page"
 						});
