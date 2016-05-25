@@ -1,11 +1,13 @@
+jQuery.sap.require("ssms.util.formatter");
 sap.ui.define([
 	"ssms/controller/BaseController",
+	"ssms/util/formatter",
 	"sap/m/MessageToast",
 	'jquery.sap.global',
 	'sap/ui/core/mvc/Controller',
 	'sap/ui/model/Filter',
 	'sap/ui/model/json/JSONModel'
-], function(BaseController, MessageToast, jQuery, Controller, Filter, JSONModel) {
+], function(BaseController, MessageToast, jQuery, Controller, Filter, JSONModel,formatter) {
 	"use strict";
 
 	return BaseController.extend("ssms.controller.OwnSession", {
@@ -22,11 +24,10 @@ sap.ui.define([
 			var oModel1 = new sap.ui.model.json.JSONModel();
 			oModel1.loadData("/destinations/SSM_DEST/api/session", null, false);
 			this.getView().setModel(oModel1, "UserModel1");
-            this.byId("iconTabFilterAll").setCount(oModel1.getData().length);
-             
-            
+			this.byId("iconTabFilterAll").setCount(oModel1.getData().length);
+
 		},
-		
+
 		/**
 		 * @function
 		 * @name getSessionByStatus
@@ -42,7 +43,7 @@ sap.ui.define([
 					type: "GET",
 					url: "/destinations/SSM_DEST/api/session",
 					contentType: "application/json",
-					async: true,
+					async: false,
 					success: function(aSessions) {
 						_that.getView().getModel("UserModel1").setData(aSessions);
 					}
@@ -52,21 +53,21 @@ sap.ui.define([
 					type: "GET",
 					url: "/destinations/SSM_DEST/api/session/?status=" + sStatus,
 					contentType: "application/json",
-					async: true,
+					async: false,
 					success: function(aSessions) {
 						_that.getView().getModel("UserModel1").setData(aSessions);
 					}
 				});
 			}
 		},
-			/**
+		/**
 		 * @function
 		 * @name onPressedColumnListItem
 		 * @description Event handler when click on the session. Will go to the next view.
 		 * @param {sap.ui.base.Event} - oEvent The fired event.
 		 */
-		onPressedColumnListItem:function(oEvent) {
-		    var Sid = oEvent.getSource().getCounter();
+		onPressedColumnListItem: function(oEvent) {
+			var Sid = oEvent.getSource().getCounter();
 			this.getRouter().navTo("sessionDetail", {
 				id: Sid
 			});
