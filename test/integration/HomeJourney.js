@@ -44,8 +44,9 @@ sap.ui.require(
 			When.onTheHomePage.iPressTheCreateSession();
 
 			// Assertions
-			Then.onTheHomePage.iShouldSeeTheCreateSessionPage().
-			and.iTeardownMyAppFrame();
+			Then.onTheHomePage.iShouldSeeTheCreateSessionPage();
+			
+			Given.iTearDownMyApp();
 		});
 
 	}
