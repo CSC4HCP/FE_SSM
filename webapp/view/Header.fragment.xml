@@ -6,9 +6,9 @@
 		<SearchField class="ssmsSearchField sapUiSmallMarginEnd" width="20%" placeholder="{i18n>TEXT_HEADERFRAGMENT_SEARCHPLACEHODER}"
 			search="onHeaderSearch"/>
 		<Button class="ssmsEmphasizedButton ssmsNotification" type="Emphasized" icon="img/notification.png"
-			tooltip="{i18n>TEXT_HEADERFRAGMENT_NOTIFICATIONTOOLTIP}" visible="{path: '', formatter: ''}" press="onPressNotification"/>
+			tooltip="{i18n>TEXT_HEADERFRAGMENT_NOTIFICATIONTOOLTIP}" press="onPressNotification"/>
 		<Button class="ssmsEmphasizedButton ssmsNotification-Unread" type="Emphasized" icon="img/notification-unread.png"
-			tooltip="{i18n>TEXT_HEADERFRAGMENT_NOTIFICATIONUNREADTOOLTIP}" visible="{path: '', formatter: ''}" press="onPressNotification"/>
+			tooltip="{i18n>TEXT_HEADERFRAGMENT_NOTIFICATIONUNREADTOOLTIP}" press="onPressNotification"/>
 		<Button class="ssmsEmphasizedButton" type="Emphasized" icon="sap-icon://add-coursebook"
 			tooltip="{i18n>TEXT_HEADERFRAGMENT_NEWSESSIONTOOLTIP}" press="onPressNewSession"/>
 		<Button class="ssmsEmphasizedButton sapUiMediumMarginEnd" type="Emphasized" icon="sap-icon://employee"
