@@ -64,18 +64,6 @@ sap.ui.define([
 		},
 
 		/**
-		 * @event
-		 * @name onAfterRendering
-		 * @description Called when the View has been rendered (so its HTML is part of the document). Set focus in the topic input.
-		 * @memberOf ssms.view.CreateSession
-		 */
-		onAfterRendering: function() {
-			var $topicInput = $("#" + this.getView().getId() + "--ssmsCreateSession-Topic-inner");
-
-			$topicInput.attr("autofocus", "autofocus");
-		},
-
-		/**
 		 * @function
 		 * @name onCheckTopic
 		 * @description Event handler for checking topic validation. If its value is empty, show message.

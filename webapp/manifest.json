@@ -81,6 +81,9 @@
 				},
 				{
 				    "uri": "css/ownSession.css"
+				},
+				{
+				    "uri": "css/notificationList.css"
 				}
 			]
 		},
@@ -120,6 +123,11 @@
 				    "target": "ownSession"
 				},
 				{
+				    "pattern": "notificationList",
+				    "name": "notificationList",
+				    "target": "notificationList"
+				},
+				{
 				    "pattern": "allControls",
 				    "name": "allControls",
 				    "target": "allControls"
@@ -146,6 +154,10 @@
 				"ownSession": 
 				{
 				    "viewName": "OwnSession"
+				},
+				"notificationList":
+				{
+					"viewName": "NotificationList"	
 				},
 				"control_uploadCollection":
 				{   

@@ -21,6 +21,7 @@ sap.ui.define([
 			this.getView().setBusy(false);
 
 			this._oUser = this.getUserRole(oUserModel.getData());
+			this._attachEvent();
 		},
         
         /**
@@ -75,17 +76,6 @@ sap.ui.define([
 		},
 
 		/**
-		 * @event
-		 * @name onAfterRendering
-		 * @description Called when the View has been rendered (so its HTML is part of the document). Set focus in the search field.
-		 * @memberOf ssms.view.Home
-		 */
-		onAfterRendering: function() {
-			var $searchInput = $("#" + this.getView().getId() + "--ssmsHome-Panel-SearchField-I");
-			$searchInput.attr("autofocus", "autofocus");
-		},
-
-		/**
 		 * @function
 		 * @name onSearch
 		 * @description Event handler when enter some words in the search field.
@@ -99,29 +89,6 @@ sap.ui.define([
 				MessageToast.show("You are searching for " + sQuery);
 			}
 		},
-
-		/**
-		 * @function
-		 * @name onPressTile
-		 * @description Event handler when click on the tile. Will go to the next view.
-		 * @param {sap.ui.base.Event} - oEvent The fired event.
-		 */
-		onPressTile: function(oEvent) {
-			var sId = oEvent.getSource().getId();
-
-			switch (true) {
-				case sId.indexOf("createSession") > -1:
-					// 	MessageToast.show("Will go to the createSession Page");
-					this.getRouter().navTo("createSession");
-					break;
-				case sId.indexOf("sessionList") > -1:
-					MessageToast.show("Will go to the sessionList Page");
-				    // this.getRouter().navTo("personalCenter");
-					break;
-				default:
-					break;
-			}
-		},
 		
 		/**
 		 * @event
@@ -131,6 +98,37 @@ sap.ui.define([
 		 */
 		onExit: function() {
 			this._oUser.destroy();
+		},
+		
+		/**
+		 * @function
+		 * @name _attachEvent
+		 * @description Event handler when click on the box. Will go to the next view.
+		 */
+		_attachEvent: function() {
+			var that = this;
+			var oImgCreateSession = this.byId("img-createSession");
+			var oImgSessionList = this.byId("img-sessionList");
+			var oCreateSessionBox = this.byId("createSession");
+			var oSessionListBox = this.byId("sessionList");
+			
+			oImgCreateSession.attachBrowserEvent("mouseup", function() {
+				that.getRouter().navTo("createSession");
+			});
+			
+			oImgSessionList.attachBrowserEvent("mouseup", function() {
+				// that.getRouter().navTo("sessionList");
+				MessageToast.show("Will go to the sessionList Page");
+			});
+			
+			oCreateSessionBox.attachBrowserEvent("mouseup", function() {
+				that.getRouter().navTo("createSession");
+			});
+			
+			oSessionListBox.attachBrowserEvent("mouseup", function() {
+				// that.getRouter().navTo("sessionList");
+				MessageToast.show("Will go to the sessionList Page");
+			});
 		}
 	});
 

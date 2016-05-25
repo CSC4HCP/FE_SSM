@@ -92,6 +92,24 @@ sap.ui.define([
 				MessageToast.show("You are searching for " + sQuery);
 			}
 		},
+		
+		/**
+		 * @function
+		 * @name onNotification
+		 * @description Event handler for press the button on the header. Will go to the NotificationList Page.
+		 */
+		onPressNotification: function() {
+			this.getRouter().navTo("notificationList");
+		},
+		
+		/**
+		 * @function
+		 * @name onNewSession
+		 * @description Event handler for press the button on the header. Will go to the CreateSession Page.
+		 */
+		onPressNewSession: function() {
+			this.getRouter().navTo("createSession");
+		},
 
 		/**
 		 * @function
@@ -99,7 +117,6 @@ sap.ui.define([
 		 * @description Event handler for press the button on the header. Will go to the PersonalCenter Page.
 		 */
 		onPressUser: function() {
-			// 			MessageToast.show("Will go to Personal Center Page");
 			this.getRouter().navTo("personalCenter");
 		}
 	});
