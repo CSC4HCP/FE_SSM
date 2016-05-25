@@ -24,3 +24,26 @@
 .ssmsHome-Panel-SearchField {
 	margin: auto;
 }
+
+.ssmsHome-ContentBox {
+	width: 28rem;
+	height: 10rem;
+	text-align: center;
+}
+
+.ssmsHome-ContentBox-Image {
+	cursor: pointer;
+}
+
+.ssmsHome-ContentBox-Background {
+	background-color: #eeefff;
+	cursor: pointer;
+}
+
+.ssmsHome-ContentBox-Background-Label {
+	cursor: pointer;
+}
+
+.ssmsHome-ContentBox-Background-Text {
+	cursor: pointer;
+}
