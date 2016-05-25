@@ -49,7 +49,7 @@ sap.ui.require([
 					});
 
 				},
-			   iInputSummaryValueInTheField: function() {
+				iInputSummaryValueInTheField: function() {
 					return this.waitFor({
 						id: "ssms-summary",
 						viewName: "SessionDetail",
@@ -86,7 +86,7 @@ sap.ui.require([
 					});
 
 				},
-					iPressOnStatusSelection: function() {
+				iPressOnStatusSelection: function() {
 					return this.waitFor({
 						id: "ssms-selectStatus",
 						viewName: "SessionDetail",
@@ -163,7 +163,7 @@ sap.ui.require([
 						errorMessage: "The Save Button not be Clickable."
 					});
 				},
-					iShouldSeeTheUploadButtonbeClicked: function() {
+				iShouldSeeTheUploadButtonbeClicked: function() {
 					return this.waitFor({
 						controlType: "ssms.control.uploadcollection.SSMSUploadCollection",
 						viewName: "SessionDetail",
@@ -178,8 +178,8 @@ sap.ui.require([
 						id: "ssms-description",
 						viewName: "SessionDetail",
 						success: function(oInput) {
-							if(oInput.getValue()==="ssms-description"){
-							    Opa5.assert.ok(true, "Input Filed Can be inputed.");
+							if (oInput.getValue() === "ssms-description") {
+								Opa5.assert.ok(true, "Input Filed Can be inputed.");
 							}
 						},
 						errorMessage: "Input Filed Can not be inputed"
@@ -190,8 +190,8 @@ sap.ui.require([
 						id: "ssms-summary",
 						viewName: "SessionDetail",
 						success: function(oInput) {
-							if(oInput.getValue()==="ssms-summary"){
-							    Opa5.assert.ok(true, "Input Filed Can be inputed.");
+							if (oInput.getValue() === "ssms-summary") {
+								Opa5.assert.ok(true, "Input Filed Can be inputed.");
 							}
 						},
 						errorMessage: "Input Filed Can not be inputed"
