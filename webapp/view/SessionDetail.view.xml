@@ -41,7 +41,7 @@
 													<l:GridData span="L2 M2 S4"/>
 												</layoutData>
 											</Label>
-											<Text text="{path:'/visibility',formatter:'ssms.util.formatter.formatVisibility'}"/>
+											<Text text="{path:'/visibility',formatter:'.formatter.formatVisibility'}"/>
 											<Label text="{i18n>OBJECTPAGESECTION_SESSIONDETAIL_LOCATION}:">
 												<layoutData>
 													<l:GridData span="L2 M2 S4"/>
@@ -59,7 +59,7 @@
 													<l:GridData span="L2 M2 S4"/>
 												</layoutData>
 											</Label>
-											<Text id="ssms-editdatatime" text="{path:'/meetingTime',formatter:'ssms.util.formatter.formatDateTime'}"/>
+											<Text id="ssms-editdatatime" text="{path:'/meetingTime',formatter:'.formatter.formatDateTime'}"/>
 											<Label text="{i18n>OBJECTPAGESECTION_SESSIONDETAIL_DESCRIPTION}:">
 												<layoutData>
 													<l:GridData span="L2 M2 S4"/>
@@ -163,13 +163,13 @@
 											</Label>
 											<!--DateTimeInput type="DateTime" id="ssms-datetime" value="{/meetingTime}" valueFormat="yyyy-MM-ddTHH:mm:ss+0000" change="onCheckDate"/-->
 											<HBox class="sapUiSmallMarginBottom">
-												<DatePicker id="ssms-datetime" value="{path:'/meetingTime',formatter:'ssms.util.formatter.formatDate'}" valueFormat="M/dd/yyyy"
+												<DatePicker id="ssms-datetime" value="{path:'/meetingTime',formatter:'.formatter.formatDate'}" valueFormat="M/dd/yyyy"
 													displayFormat="yyyy-MM-dd" change="onCheckDate">
 													<layoutData>
 														<FlexItemData growFactor="1"/>
 													</layoutData>
 												</DatePicker>
-												<TimePicker id="ssms-timepicker" value="{path:'/meetingTime',formatter:'ssms.util.formatter.formatTime'}" valueFormat="HH:mm:ss"
+												<TimePicker id="ssms-timepicker" value="{path:'/meetingTime',formatter:'.formatter.formatTime'}" valueFormat="HH:mm:ss"
 													displayFormat="hh:mm a" change="onCheckTime">
 													<layoutData>
 														<FlexItemData growFactor="1"/>

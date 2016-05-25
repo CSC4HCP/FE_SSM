@@ -9,9 +9,10 @@ sap.ui.define([
 	"sap/m/Dialog",
 	"sap/m/Text",
 	"sap/m/Button",
-	"sap/ui/commons/RichTooltip"
+	"sap/ui/commons/RichTooltip",
+	"ssms/util/formatter"
 ], function(jQuery, Fragment, BaseController, MessageToast, UploadCollectionParameter, UploadCollectionItem, Dialog, Text, Button,
-	RichTooltip) {
+	RichTooltip, formatter) {
 	"use strict";
 
 	/**
@@ -54,6 +55,7 @@ sap.ui.define([
 	var iDelete = 0;
 	var oUploadCollection;
 	return BaseController.extend("ssms.controller.SessionDetail", {
+		formatter: formatter,
 		/**
 		 * @event
 		 * @name onInit
