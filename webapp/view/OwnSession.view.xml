@@ -5,7 +5,7 @@
 			<core:Fragment fragmentName="ssms.view.Header" type="XML"/>
 		</subHeader>
 		<content>
-			<IconTabBar id="ssms-IconTabBar" select="getSessionByStatus" class="sapUiResponsiveContentPadding">
+			<IconTabBar id="ssms-IconTabBar" select="getSessionByStatus" class="sapUiResponsiveContentPadding" expandable="false">
 				<items>
 					<IconTabFilter showAll="true" id="iconTabFilterAll" text="{i18n>TEXT_OWNSESSION_SESSIONS}" key="All">
 						<Table id="ssms_ownsession_Table" inset="false" items="{UserModel1>/}">
@@ -31,7 +31,7 @@
 									<cells>
 										<Text text="{UserModel1>topic}"/>
 										<Text text="{UserModel1>category}"/>
-										<Text text="{UserModel1>meetingTime}"/>
+										<Text text="{path: 'UserModel1>meetingTime', formatter:'ssms.util.formatter.formatDateTime'}"/>
 										<Text text="{UserModel1>meetingRoom}"/>
 										<ssms:ColorChangableText text="{UserModel1>status}"/>
 									</cells>
@@ -64,7 +64,7 @@
 									<cells>
 										<Text text="{UserModel1>topic}"/>
 										<Text text="{UserModel1>category}"/>
-										<Text text="{UserModel1>meetingTime}"/>
+										<Text text="{path: 'UserModel1>meetingTime', formatter:'ssms.util.formatter.formatDateTime'}"/>
 										<Text text="{UserModel1>meetingRoom}"/>
 										<ssms:ColorChangableText text="{UserModel1>status}"/>
 									</cells>
@@ -96,7 +96,7 @@
 									<cells>
 										<Text text="{UserModel1>topic}"/>
 										<Text text="{UserModel1>category}"/>
-										<Text text="{UserModel1>meetingTime}"/>
+										<Text text="{path: 'UserModel1>meetingTime', formatter:'ssms.util.formatter.formatDateTime'}"/>
 										<Text text="{UserModel1>meetingRoom}"/>
 										<ssms:ColorChangableText text="{UserModel1>status}"/>
 									</cells>
@@ -129,7 +129,7 @@
 									<cells>
 										<Text text="{UserModel1>topic}"/>
 										<Text text="{UserModel1>category}"/>
-										<Text text="{UserModel1>meetingTime}"/>
+										<Text text="{path: 'UserModel1>meetingTime', formatter:'ssms.util.formatter.formatDateTime'}"/>
 										<Text text="{UserModel1>meetingRoom}"/>
 										<ssms:ColorChangableText text="{UserModel1>status}"/>
 									</cells>
@@ -161,7 +161,7 @@
 									<cells>
 										<Text text="{UserModel1>topic}"/>
 										<Text text="{UserModel1>category}"/>
-										<Text text="{UserModel1>meetingTime}"/>
+										<Text text="{path: 'UserModel1>meetingTime', formatter:'ssms.util.formatter.formatDateTime'}"/>
 										<Text text="{UserModel1>meetingRoom}"/>
 										<ssms:ColorChangableText text="{UserModel1>status}"/>
 									</cells>

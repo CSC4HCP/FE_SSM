@@ -1,3 +1,11 @@
+html.sap-desktop .sapMBtn:focus>.sapMFocusable {
+	outline: none;
+}
+
+.sapUiView.sapUiXMLView {
+	background-color: #fff;
+}
+
 .ssmsHeader {
 	background-color: #0099CC;
 	border-bottom: none;
@@ -10,4 +18,26 @@
 .ssmsEmphasizedButton > .sapMBtnInner.sapMBtnEmphasized {
     background-color: #0099CC;
     border: none;
+}
+
+.ssmsLabel { 
+	font-size: 1.5rem;
+	text-align: center !important;
+	color: #0099CC;
+}
+
+.ssmsPointer {
+	cursor: pointer;
+}
+
+.ssmsNotification img {
+	width: 1.5rem;
+	height: 1.5rem;
+	margin-top: 0.575rem;
+}
+
+.ssmsNotification-Unread img {
+	width: 1.5rem;
+	height: 1.5rem;
+	margin-top: 0.425rem;
 }

@@ -1,6 +1,6 @@
 sap.ui.define([
 	"test/unit/model/Model",
-	"test/unit/model/SSMSUploadCollection"
+	"test/unit/control/SSMSUploadCollection"
 ], function() {
 	"use strict";
 });

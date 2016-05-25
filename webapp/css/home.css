@@ -24,3 +24,18 @@
 .ssmsHome-Panel-SearchField {
 	margin: auto;
 }
+
+.ssmsHome-ContentBox {
+	width: 28rem;
+	height: 10rem;
+	text-align: center;
+}
+
+.ssmsHome-ContentBox-Image {
+	width: 8.5rem;
+	height: 8.5rem;
+}
+
+.ssmsHome-ContentBox-Background {
+	background-color: #eeefff;
+}

@@ -2,40 +2,38 @@
 	xmlns:semantic="sap.m.semantic" xmlns:html="http://www.w3.org/1999/xhtml">
 	<Page showHeader="false">
 		<content>
-		    <Toolbar class="ssmsHeader" design="Transparent">
+			<Toolbar class="ssmsHeader" design="Transparent">
 				<Image class="sapUiSmallMarginTop sapUiSmallMarginBottom sapUiSmallMarginBegin" src="img/logo_small.png"/>
 				<ToolbarSpacer/>
+				<Button class="ssmsEmphasizedButton" type="Emphasized" icon="sap-icon://notification-2" tooltip="{i18n>TEXT_HEADERFRAGMENT_NOTIFICATIONTOOLTIP}" press="onPressNotification"/>
 				<Button class="ssmsEmphasizedButton sapUiSmallMarginEnd" type="Emphasized" icon="sap-icon://employee" text="{UserModel>/displayName}"
-					press="onPressUser"></Button>
+					tooltip="{i18n>TEXT_HEADERFRAGMENT_SELFCENTERTOOLTIP}" press="onPressUser"/>
 			</Toolbar>
 			<Panel backgroundDesign="Transparent" class="ssmsHome-Panel">
 				<content>
 					<VBox>
 						<Title class="ssmsHome-Panel-Title" text="{i18n>TITLE_HOME_TITLE}"/>
 						<Text class="ssmsHome-Panel-Description" text="{i18n>TEXT_HOME_DESCRIPTION}"/>
-						<SearchField id="ssmsHome-Panel-SearchField" class="ssmsSearchField ssmsHome-Panel-SearchField" width="40%" placeholder="{i18n>TEXT_HOME_SEARCHPLACEHODER}" search="onSearch"/>
+						<SearchField id="ssmsHome-Panel-SearchField" class="ssmsSearchField ssmsHome-Panel-SearchField" width="40%"
+							placeholder="{i18n>TEXT_HOME_SEARCHPLACEHODER}" search="onSearch"/>
 					</VBox>
 				</content>
 			</Panel>
 			<HBox justifyContent="Center" class="sapUiMediumMarginTop">
-				<GenericTile id="createSession" class="sapUiSmallMargin" backgroundImage="img/1.jpg" frameType="TwoByOne" press="onPressTile">
-					<tileContent>
-						<TileContent footer="{i18n>TEXT_HOME_TILEFOOTER}">
-							<content>
-								<NewsContent contentText="{i18n>TEXT_HOME_CREATESESSIONCONTENTTEXT}" subheader="{i18n>TEXT_HOME_CREATESESSIONSUBHEADER}"></NewsContent>
-							</content>
-						</TileContent>
-					</tileContent>
-				</GenericTile>
-				<GenericTile id="sessionList" class="sapUiSmallMargin" backgroundImage="img/2.jpg" frameType="TwoByOne" press="onPressTile">
-					<tileContent>
-						<TileContent footer="{i18n>TEXT_HOME_TILEFOOTER}">
-							<content>
-								<NewsContent contentText="{i18n>TEXT_HOME_SESSIONLISTCONTENTTEXT}" subheader="{i18n>TEXT_HOME_SESSIONLISTSUBHEADER}"></NewsContent>
-							</content>
-						</TileContent>
-					</tileContent>
-				</GenericTile>
+				<VBox class="sapUiLargeMarginEnd ssmsHome-ContentBox">
+					<Image id="img-createSession" class="ssmsPointer ssmsHome-ContentBox-Image" src="img/25.1.png"/>
+					<VBox id="createSession" class="sapUiSmallMarginTop ssmsPointer ssmsHome-ContentBox-Background">
+						<Label class="ssmsLabel ssmsPointer" width="100%" text="{i18n>TEXT_HOME_CREATESESSIONSUBHEADER}"/>
+						<Text class="ssmsPointer" text="{i18n>TEXT_HOME_CREATESESSIONCONTENTTEXT}"/>
+					</VBox>
+				</VBox>
+				<VBox class="sapUiLargeMarginBegin ssmsHome-ContentBox">
+					<Image id="img-sessionList" class="ssmsPointer ssmsHome-ContentBox-Image" src="img/25.2.png"/>
+					<VBox id="sessionList" class="sapUiSmallMarginTop ssmsHome-ContentBox-Background">
+						<Label class="ssmsLabel ssmsPointer" width="100%" text="{i18n>TEXT_HOME_SESSIONLISTSUBHEADER}"/>
+						<Text class="ssmsPointer" text="{i18n>TEXT_HOME_SESSIONLISTCONTENTTEXT}"/>
+					</VBox>
+				</VBox>
 			</HBox>
 		</content>
 	</Page>
