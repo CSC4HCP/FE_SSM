@@ -7,13 +7,13 @@
 		<content>
 			<HBox>
 				<VBox class="ssmsPersonalCenter_vbox1">
-					<Text text="{UserModel1>/firstName} {UserModel1>/lastName}"/>
+					<Text text="{UserModel1>/firstName} {UserModel1>/lastName}" class="ssmsPersonalCenter_vbox_name"/>
 					<Label text="{i18n>LABEL_PERSONALCENTER_ID}"/>
-					<Text text="{UserModel1>/name}"/>
+					<Text text="{UserModel1>/name}" class="ssmsPersonalCenter_vbox_id"/>
 					<Label text="{i18n>LABEL_PERSONALCENTER_EMAIL}"/>
-					<Text text="{UserModel1>/email}"/>
+					<Text text="{UserModel1>/email}" class="ssmsPersonalCenter_vbox_id"/>
 					<Label text="{i18n>LABEL_PERSONALCENTER_ROLE}"/>
-					<Text  text="{UserModel1>/role}"/>
+					<Text  text="{UserModel1>/role}" class="ssmsPersonalCenter_vbox_id"/>
 					<Label text="{i18n>LABEL_PERSONALCENTER_TEAM}"/>
 					<Text  text="{UserModel1>/team}"/>
 				</VBox>

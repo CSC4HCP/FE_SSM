@@ -1,24 +1,37 @@
 .ssmsPersonalCenter_vbox1 {
-    width: 12rem;
-    height: 37rem;
-    margin-left: 0rem!important;
-    margin-top: 0rem!important;
-    margin-right: 14rem!important;
-    background-color: rgba(255,255, 255, 0.6)!important;
+    width: 16rem;
+    height: 31.7rem;
+    margin-left: 3rem;
+    margin-top: 2.5rem;
+    margin-right: 10.5rem;
+    background-color: rgba(255,255, 255, 0.6);
     font-size: 2rem;
-    padding-top: 5rem;
-    padding-left: 3rem
+    padding-top: 2.5rem;
+    padding-left: 3rem;
+    border:1px solid #0099cc;
+    border-radius:10px;
+}
+.ssmsPersonalCenter_vbox_name{
+	font-size: 2rem ;
+	color:#0099cc;
+    font-family: Arial,Helvetica,sans-serif;
+    line-height: normal;
+    padding-bottom: 1rem;
+}
+.ssmsPersonalCenter_vbox_id{
+	 padding-bottom: 2rem ;
 }
 .ssmsPersonalCenter_vbox2{
-    margin-right: 5rem!important;
+    margin-right: 5rem;
 }
 .ssmsPersonalCenter_create{
-     margin-bottom: 3rem!important;
+     margin-bottom: 3rem;
     
 }
 .ssmsPersonalCenter_common{
      background-color: rgba(255,255,255,0.6);
      border-radius: 10px;
-     width:16rem!important;
-     height:14rem!important;
+     width:16rem;
+     height:14rem;
+     box-shadow: 10px 10px 3px rgba(0,153,254,0.15);
 }
