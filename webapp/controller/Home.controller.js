@@ -16,12 +16,16 @@ sap.ui.define([
 			var oUserModel = new sap.ui.model.json.JSONModel();
 
 			this.getView().setBusy(true);
-			oUserModel.loadData("/services/userapi/currentUser", null, false);
-			this.getView().setModel(oUserModel, "UserModel");
-			this.getView().setBusy(false);
-
-			this._oUser = this.getUserRole(oUserModel.getData());
-			this._attachEvent();
+			try {
+				oUserModel.loadData("/services/userapi/currentUser", null, false);
+				this.getView().setModel(oUserModel, "UserModel");
+				this._oUser = this.getUserRole(oUserModel.getData());
+				this._attachEvent();
+			} catch (except) {
+				MessageToast.show("Please refresh your page to login.");
+			} finally {
+				this.getView().setBusy(false);
+			}
 		},
         
         /**
