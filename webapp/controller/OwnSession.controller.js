@@ -7,10 +7,11 @@ sap.ui.define([
 	'sap/ui/core/mvc/Controller',
 	'sap/ui/model/Filter',
 	'sap/ui/model/json/JSONModel'
-], function(BaseController, MessageToast, jQuery, Controller, Filter, JSONModel,formatter) {
+], function(BaseController,formatter, MessageToast, jQuery, Controller, Filter, JSONModel) {
 	"use strict";
 
 	return BaseController.extend("ssms.controller.OwnSession", {
+		formatter: formatter,
 		/**
 		 * @event
 		 * @name onInit

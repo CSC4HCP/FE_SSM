@@ -31,7 +31,7 @@
 									<cells>
 										<Text text="{UserModel1>topic}"/>
 										<Text text="{UserModel1>category}"/>
-										<Text text="{path: 'UserModel1>meetingTime', formatter:'ssms.util.formatter.formatDateTime'}"/>
+										<Text text="{path: 'UserModel1>meetingTime',formatter:'.formatter.formatDateTime'}"/>
 										<Text text="{UserModel1>meetingRoom}"/>
 										<ssms:ColorChangableText text="{UserModel1>status}"/>
 									</cells>
@@ -64,7 +64,7 @@
 									<cells>
 										<Text text="{UserModel1>topic}"/>
 										<Text text="{UserModel1>category}"/>
-										<Text text="{path: 'UserModel1>meetingTime', formatter:'ssms.util.formatter.formatDateTime'}"/>
+										<Text text="{path: 'UserModel1>meetingTime',formatter:'.formatter.formatDateTime'}"/>
 										<Text text="{UserModel1>meetingRoom}"/>
 										<ssms:ColorChangableText text="{UserModel1>status}"/>
 									</cells>
@@ -96,7 +96,7 @@
 									<cells>
 										<Text text="{UserModel1>topic}"/>
 										<Text text="{UserModel1>category}"/>
-										<Text text="{path: 'UserModel1>meetingTime', formatter:'ssms.util.formatter.formatDateTime'}"/>
+										<Text text="{path: 'UserModel1>meetingTime',formatter:'.formatter.formatDateTime'}"/>
 										<Text text="{UserModel1>meetingRoom}"/>
 										<ssms:ColorChangableText text="{UserModel1>status}"/>
 									</cells>
@@ -129,7 +129,7 @@
 									<cells>
 										<Text text="{UserModel1>topic}"/>
 										<Text text="{UserModel1>category}"/>
-										<Text text="{path: 'UserModel1>meetingTime', formatter:'ssms.util.formatter.formatDateTime'}"/>
+										<Text text="{path: 'UserModel1>meetingTime',formatter:'.formatter.formatDateTime'}"/>
 										<Text text="{UserModel1>meetingRoom}"/>
 										<ssms:ColorChangableText text="{UserModel1>status}"/>
 									</cells>
@@ -161,7 +161,7 @@
 									<cells>
 										<Text text="{UserModel1>topic}"/>
 										<Text text="{UserModel1>category}"/>
-										<Text text="{path: 'UserModel1>meetingTime', formatter:'ssms.util.formatter.formatDateTime'}"/>
+										<Text text="{path: 'UserModel1>meetingTime',formatter:'.formatter.formatDateTime'}"/>
 										<Text text="{UserModel1>meetingRoom}"/>
 										<ssms:ColorChangableText text="{UserModel1>status}"/>
 									</cells>
