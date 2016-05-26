@@ -21,7 +21,7 @@ sap.ui.define([
 				this.getView().setModel(oUserModel, "UserModel");
 				this._oUser = this.getUserRole(oUserModel.getData());
 				this._attachEvent();
-			} catch (except) {
+			} catch (exception) {
 				MessageToast.show("Please refresh your page to login.");
 			} finally {
 				this.getView().setBusy(false);
