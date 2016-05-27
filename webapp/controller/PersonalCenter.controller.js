@@ -16,8 +16,6 @@ sap.ui.define([
 			var oModel = new sap.ui.model.json.JSONModel();
 			oModel.loadData("/services/userapi/currentUser", null, false);
 			this.getView().setModel(oModel, "UserModel");
-			var sUserId = oModel.getData().name;
-			console.log(sUserId);
 
 			this._oUser = this.getUserRole(oModel.getData());
             var oModel1 = new sap.ui.model.json.JSONModel();
@@ -47,7 +45,6 @@ sap.ui.define([
 					} else {
 						oUser = user;
 					}
-					console.log(oUser);
 				}
 			});
 
