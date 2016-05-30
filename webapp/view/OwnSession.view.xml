@@ -10,16 +10,19 @@
 					<IconTabFilter showAll="true" id="iconTabFilterAll" text="{i18n>TEXT_OWNSESSION_SESSIONS}" key="All">
 						<Table id="ssms_ownsession_Table" inset="false" items="{UserModel1>/}">
 							<columns>
-								<Column width="18em">
+								<Column width="14em">
 									<Text text="{i18n>TEXT_OWNSESSION_TOPIC}"/>
 								</Column>
-								<Column width="18em" demandPopin="true">
+								<Column width="14em" demandPopin="true">
 									<Text text="{i18n>TEXT_OWNSESSION_CATEGORY}"/>
 								</Column>
-								<Column width="18em" demandPopin="true">
+								<Column width="14em" demandPopin="true">
+									<Text text="{i18n>TEXT_OWNSESSION_VISIBILITY}"/>
+								</Column>
+								<Column width="14em" demandPopin="true">
 									<Text text="{i18n>TEXT_OWNSESSION_TIME}"/>
 								</Column>
-								<Column width="16em" demandPopin="true">
+								<Column width="14em" demandPopin="true">
 									<Text text="{i18n>TEXT_OWNSESSION_LOCATION}"/>
 								</Column>
 								<Column >
@@ -27,10 +30,11 @@
 								</Column>
 							</columns>
 							<items>
-								<ColumnListItem press="onPressedColumnListItem"  type="Navigation" counter="{UserModel1>id}">
+								<ColumnListItem press="onPressedColumnListItem" type="Navigation" counter="{UserModel1>id}">
 									<cells>
 										<Text text="{UserModel1>topic}"/>
 										<Text text="{UserModel1>category}"/>
+										<Text text="{UserModel1>visibility}"/>
 										<Text text="{path: 'UserModel1>meetingTime',formatter:'.formatter.formatDateTime'}"/>
 										<Text text="{UserModel1>meetingRoom}"/>
 										<ssms:ColorChangableText text="{UserModel1>status}"/>
@@ -43,16 +47,19 @@
 					<IconTabFilter icon="sap-icon://accept" id="iconTabFilterOpen" iconColor="Default" text="{i18n>TEXT_OWNSESSION_OPEN}" key="Open">
 						<Table id="ssms_ownsession_Table1" inset="false" items="{UserModel1>/}">
 							<columns>
-								<Column width="18em">
+								<Column width="14em">
 									<Text text="{i18n>TEXT_OWNSESSION_TOPIC}"/>
 								</Column>
-								<Column width="18em" demandPopin="true">
+								<Column width="14em" demandPopin="true">
 									<Text text="{i18n>TEXT_OWNSESSION_CATEGORY}"/>
 								</Column>
-								<Column width="18em" demandPopin="true">
+								<Column width="14em" demandPopin="true">
+									<Text text="{i18n>TEXT_OWNSESSION_VISIBILITY}"/>
+								</Column>
+								<Column width="14em" demandPopin="true">
 									<Text text="{i18n>TEXT_OWNSESSION_TIME}"/>
 								</Column>
-								<Column width="16em" demandPopin="true">
+								<Column width="14em" demandPopin="true">
 									<Text text="{i18n>TEXT_OWNSESSION_LOCATION}"/>
 								</Column>
 								<Column >
@@ -64,6 +71,7 @@
 									<cells>
 										<Text text="{UserModel1>topic}"/>
 										<Text text="{UserModel1>category}"/>
+										<Text text="{UserModel1>visibility}"/>
 										<Text text="{path: 'UserModel1>meetingTime',formatter:'.formatter.formatDateTime'}"/>
 										<Text text="{UserModel1>meetingRoom}"/>
 										<ssms:ColorChangableText text="{UserModel1>status}"/>
@@ -75,16 +83,19 @@
 					<IconTabFilter icon="sap-icon://begin" iconColor="Positive" text="{i18n>TEXT_OWNSESSION_INPROCESS}" key="In Progress">
 						<Table id="ssms_ownsession_Table2" inset="false" items="{UserModel1>/}">
 							<columns>
-								<Column width="18em">
+								<Column width="14em">
 									<Text text="{i18n>TEXT_OWNSESSION_TOPIC}"/>
 								</Column>
-								<Column width="18em" demandPopin="true">
+								<Column width="14em" demandPopin="true">
 									<Text text="{i18n>TEXT_OWNSESSION_CATEGORY}"/>
 								</Column>
-								<Column width="18em" demandPopin="true">
+								<Column width="14em" demandPopin="true">
+									<Text text="{i18n>TEXT_OWNSESSION_VISIBILITY}"/>
+								</Column>
+								<Column width="14em" demandPopin="true">
 									<Text text="{i18n>TEXT_OWNSESSION_TIME}"/>
 								</Column>
-								<Column width="16em" demandPopin="true">
+								<Column width="14em" demandPopin="true">
 									<Text text="{i18n>TEXT_OWNSESSION_LOCATION}"/>
 								</Column>
 								<Column >
@@ -96,6 +107,7 @@
 									<cells>
 										<Text text="{UserModel1>topic}"/>
 										<Text text="{UserModel1>category}"/>
+										<Text text="{UserModel1>visibility}"/>
 										<Text text="{path: 'UserModel1>meetingTime',formatter:'.formatter.formatDateTime'}"/>
 										<Text text="{UserModel1>meetingRoom}"/>
 										<ssms:ColorChangableText text="{UserModel1>status}"/>
@@ -108,16 +120,19 @@
 						key="Cancelled">
 						<Table id="ssms_ownsession_Table3" inset="false" items="{UserModel1>/}">
 							<columns>
-								<Column width="18em">
+								<Column width="14em">
 									<Text text="{i18n>TEXT_OWNSESSION_TOPIC}"/>
 								</Column>
-								<Column width="18em" demandPopin="true">
+								<Column width="14em" demandPopin="true">
 									<Text text="{i18n>TEXT_OWNSESSION_CATEGORY}"/>
 								</Column>
-								<Column width="18em" demandPopin="true">
+								<Column width="14em" demandPopin="true">
+									<Text text="{i18n>TEXT_OWNSESSION_VISIBILITY}"/>
+								</Column>
+								<Column width="14em" demandPopin="true">
 									<Text text="{i18n>TEXT_OWNSESSION_TIME}"/>
 								</Column>
-								<Column width="16em" demandPopin="true">
+								<Column width="14em" demandPopin="true">
 									<Text text="{i18n>TEXT_OWNSESSION_LOCATION}"/>
 								</Column>
 								<Column >
@@ -129,6 +144,7 @@
 									<cells>
 										<Text text="{UserModel1>topic}"/>
 										<Text text="{UserModel1>category}"/>
+										<Text text="{UserModel1>visibility}"/>
 										<Text text="{path: 'UserModel1>meetingTime',formatter:'.formatter.formatDateTime'}"/>
 										<Text text="{UserModel1>meetingRoom}"/>
 										<ssms:ColorChangableText text="{UserModel1>status}"/>
@@ -140,16 +156,19 @@
 					<IconTabFilter icon="sap-icon://complete" iconColor="Negative" id="iconTabFilterClosed" text="{i18n>TEXT_OWNSESSION_CLOSED}" key="Closed">
 						<Table id="ssms_ownsession_Table4" inset="false" items="{UserModel1>/}">
 							<columns>
-								<Column width="18em">
+								<Column width="14em">
 									<Text text="{i18n>TEXT_OWNSESSION_TOPIC}"/>
 								</Column>
-								<Column width="18em" demandPopin="true">
+								<Column width="14em" demandPopin="true">
 									<Text text="{i18n>TEXT_OWNSESSION_CATEGORY}"/>
 								</Column>
-								<Column width="18em" demandPopin="true">
+								<Column width="14em" demandPopin="true">
+									<Text text="{i18n>TEXT_OWNSESSION_VISIBILITY}"/>
+								</Column>
+								<Column width="14em" demandPopin="true">
 									<Text text="{i18n>TEXT_OWNSESSION_TIME}"/>
 								</Column>
-								<Column width="16em" demandPopin="true">
+								<Column width="14em" demandPopin="true">
 									<Text text="{i18n>TEXT_OWNSESSION_LOCATION}"/>
 								</Column>
 								<Column >
@@ -161,6 +180,7 @@
 									<cells>
 										<Text text="{UserModel1>topic}"/>
 										<Text text="{UserModel1>category}"/>
+										<Text text="{UserModel1>visibility}"/>
 										<Text text="{path: 'UserModel1>meetingTime',formatter:'.formatter.formatDateTime'}"/>
 										<Text text="{UserModel1>meetingRoom}"/>
 										<ssms:ColorChangableText text="{UserModel1>status}"/>
