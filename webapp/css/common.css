@@ -1,7 +1,3 @@
-html.sap-desktop .sapMBtn:focus>.sapMFocusable {
-	outline: none;
-}
-
 .sapUiView.sapUiXMLView {
 	background-color: #fff;
 }
