@@ -5,7 +5,7 @@ sap.ui.define([
 	"use strict";
 
 	return BaseController.extend("ssms.controller.Home", {
-	    _oUser: null,
+		_oUser: null,
 		/**
 		 * @event
 		 * @name onInit
@@ -14,10 +14,25 @@ sap.ui.define([
 		 */
 		onInit: function() {
 			var oUserModel = new sap.ui.model.json.JSONModel();
+			var sUserId;
 
 			this.getView().setBusy(true);
 			try {
 				oUserModel.loadData("/services/userapi/currentUser", null, false);
+				sUserId = oUserModel.getData().name;
+
+				$.ajax({
+					type: "GET",
+					async: false,
+					url: "/destinations/SSM_DEST/api/notify/" + sUserId,
+					data: sUserId,
+					dataType: "text",
+					contentType: "text/plain",
+					success: function(bHaveNotificationUnread) {
+						oUserModel.notificationUnread = bHaveNotificationUnread;
+					}
+				});
+				
 				this.getView().setModel(oUserModel, "UserModel");
 				this._oUser = this.getUserRole(oUserModel.getData());
 				this._attachEvent();
@@ -27,14 +42,14 @@ sap.ui.define([
 				this.getView().setBusy(false);
 			}
 		},
-        
-        /**
-         * @function
-         * @name getUserRole
-         * @description Get user's role and team then set the _oUser.
-         * @param {Object} oUserData - User information got from the userAPI
-         * @return {Object} oUser - User information with all details
-         */ 
+
+		/**
+		 * @function
+		 * @name getUserRole
+		 * @description Get user's role and team then set the _oUser.
+		 * @param {Object} oUserData - User information got from the userAPI
+		 * @return {Object} oUser - User information with all details
+		 */
 		getUserRole: function(oUserData) {
 			var that = this;
 			var oUser;
@@ -47,23 +62,23 @@ sap.ui.define([
 					if (!user) {
 						oUser = that.createUser(oUserData);
 					} else {
-					    oUser = user;
+						oUser = user;
 					}
 				}
 			});
-			
+
 			return oUser;
 		},
-        
-        /**
-         * @function
-         * @name createUser
-         * @description Add a new user when the logined user is not in the backend database.
-         * @param {Object} oUserData - User information got from the userAPI
-         * @return {Object} oUser - User information with all details
-         */ 
+
+		/**
+		 * @function
+		 * @name createUser
+		 * @description Add a new user when the logined user is not in the backend database.
+		 * @param {Object} oUserData - User information got from the userAPI
+		 * @return {Object} oUser - User information with all details
+		 */
 		createUser: function(oUserData) {
-		    var oUser;
+			var oUser;
 
 			$.ajax({
 				type: "POST",
@@ -75,7 +90,7 @@ sap.ui.define([
 					oUser = user;
 				}
 			});
-			
+
 			return oUser;
 		},
 
@@ -93,7 +108,7 @@ sap.ui.define([
 				MessageToast.show("You are searching for " + sQuery);
 			}
 		},
-		
+
 		/**
 		 * @event
 		 * @name onExit
@@ -103,7 +118,7 @@ sap.ui.define([
 		onExit: function() {
 			this._oUser.destroy();
 		},
-		
+
 		/**
 		 * @function
 		 * @name _attachEvent
@@ -115,20 +130,20 @@ sap.ui.define([
 			var oImgSessionList = this.byId("img-sessionList");
 			var oCreateSessionBox = this.byId("createSession");
 			var oSessionListBox = this.byId("sessionList");
-			
+
 			oImgCreateSession.attachBrowserEvent("mouseup", function() {
 				that.getRouter().navTo("createSession");
 			});
-			
+
 			oImgSessionList.attachBrowserEvent("mouseup", function() {
 				// that.getRouter().navTo("sessionList");
 				MessageToast.show("Will go to the sessionList Page");
 			});
-			
+
 			oCreateSessionBox.attachBrowserEvent("mouseup", function() {
 				that.getRouter().navTo("createSession");
 			});
-			
+
 			oSessionListBox.attachBrowserEvent("mouseup", function() {
 				// that.getRouter().navTo("sessionList");
 				MessageToast.show("Will go to the sessionList Page");

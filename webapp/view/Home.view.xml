@@ -5,7 +5,12 @@
 			<Toolbar class="ssmsHeader" design="Transparent">
 				<Image class="sapUiSmallMarginTop sapUiSmallMarginBottom sapUiSmallMarginBegin" src="img/logo_small.png"/>
 				<ToolbarSpacer/>
-				<Button class="ssmsEmphasizedButton" type="Emphasized" icon="sap-icon://notification-2" tooltip="{i18n>TEXT_HEADERFRAGMENT_NOTIFICATIONTOOLTIP}" press="onPressNotification"/>
+				<Button class="ssmsEmphasizedButton ssmsNotification" type="Emphasized" icon="img/notification.png"
+					visible="{path: 'UserModel>/notificationUnread', formatter: '.formatter.getReadIconVisibility'}"
+					tooltip="{i18n>TEXT_HEADERFRAGMENT_NOTIFICATIONTOOLTIP}" press="onPressNotification"/>
+				<Button class="ssmsEmphasizedButton ssmsNotification-Unread" type="Emphasized" icon="img/notification-unread.png"
+					visible="{path: 'UserModel>/notificationUnread', formatter: '.formatter.getUnreadIconVisibility'}"
+					tooltip="{i18n>TEXT_HEADERFRAGMENT_NOTIFICATIONUNREADTOOLTIP}" press="onPressNotification"/>
 				<Button class="ssmsEmphasizedButton sapUiSmallMarginEnd" type="Emphasized" icon="sap-icon://employee" text="{UserModel>/displayName}"
 					tooltip="{i18n>TEXT_HEADERFRAGMENT_SELFCENTERTOOLTIP}" press="onPressUser"/>
 			</Toolbar>

@@ -27,9 +27,25 @@ sap.ui.define([
 			var dDateTime = new Date(sValue).toLocaleString();
 			return dDateTime.substring(dDateTime.indexOf(",") + 2);
 		},
-		
-		getUnreadIconVisibility: function(sValue) {
-			return sValue;
+		/**
+		 * @function
+		 * @name getReadIconVisibility
+		 * @description the function use to format the visibility of readIcon
+		 * @param {Boolean} bValue the value need to format
+		 * @return {Boolean} fomattered result
+		 */
+		getReadIconVisibility: function(bValue) {
+			return !bValue;
+		},
+		/**
+		 * @function
+		 * @name getUnreadIconVisibility
+		 * @description the function use to format the visibility of unreadIcon
+		 * @param {Boolean} bValue the value need to format
+		 * @return {Boolean} fomattered result
+		 */
+		getUnreadIconVisibility: function(bValue) {
+			return bValue;
 		}
 	};
 });
