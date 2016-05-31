@@ -31,6 +31,7 @@ sap.ui.define([
 	 * @var {Object} oModel The model of user information.
 	 * @var {Object} oSessionModel The model of session detail.
 	 * @var {Object} oFileModel The model of attachment.
+	 * @var {Object} oSessionUserModel The model of session owner's information.
 	 * @var {Integer} iSessionId The number of session's id.
 	 * @var {Array} aDocumentId The array to record the deleted items' document id.
 	 * @var {Integer} iDelete The number of deleted items.
@@ -50,6 +51,7 @@ sap.ui.define([
 	var oModel;
 	var oSessionModel;
 	var oFileModel;
+	var oSessionUserModel;
 	var iSessionId;
 	var aDocumentId = [];
 	var iDelete = 0;
@@ -85,6 +87,10 @@ sap.ui.define([
 			oSessionModel = new sap.ui.model.json.JSONModel();
 			oSessionModel.loadData("/destinations/SSM_DEST/api/session/" + iSessionId, null, false);
 			this.getView().setModel(oSessionModel);
+			
+			oSessionUserModel = new sap.ui.model.json.JSONModel();
+			oSessionUserModel.loadData("/destinations/SSM_DEST/api/user/" + oSessionModel.getData().owner, null, false);
+			this.getView().setModel(oSessionUserModel,"OwnerModel");
 
 			var oControl = this.getView().byId("ssms-Status");
 			this._formatStateColor(oControl, oControl.getText());
