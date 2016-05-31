@@ -26,6 +26,10 @@ sap.ui.define([
 		formatTime: function(sValue) {
 			var dDateTime = new Date(sValue).toLocaleString();
 			return dDateTime.substring(dDateTime.indexOf(",") + 2);
+		},
+		
+		getUnreadIconVisibility: function(sValue) {
+			return sValue;
 		}
 	};
 });

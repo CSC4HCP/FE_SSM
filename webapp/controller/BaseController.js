@@ -2,8 +2,9 @@
 sap.ui.define([
 	"sap/ui/core/mvc/Controller",
 	"sap/ui/core/routing/History",
-	"sap/m/MessageToast"
-], function(Controller, History, MessageToast) {
+	"sap/m/MessageToast",
+	"ssms/util/formatter"
+], function(Controller, History, MessageToast, formatter) {
 	"use strict";
 
 	return Controller.extend("ssms.controller.BaseController", {
@@ -118,7 +119,13 @@ sap.ui.define([
 		 */
 		onPressUser: function() {
 			this.getRouter().navTo("personalCenter");
-		}
+		},
+		/**
+		 * @function
+		 * @name formatter
+		 * @description Formatter function
+		 */ 
+		formatter: formatter
 	});
 
 });
