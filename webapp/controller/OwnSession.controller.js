@@ -1,17 +1,13 @@
-jQuery.sap.require("ssms.util.formatter");
 sap.ui.define([
 	"ssms/controller/BaseController",
-	"ssms/util/formatter",
-	"sap/m/MessageToast",
-	'jquery.sap.global',
-	'sap/ui/core/mvc/Controller',
-	'sap/ui/model/Filter',
-	'sap/ui/model/json/JSONModel'
-], function(BaseController,formatter, MessageToast, jQuery, Controller, Filter, JSONModel) {
+	"jquery.sap.global",
+	"sap/ui/core/mvc/Controller",
+	"sap/ui/model/Filter",
+	"sap/ui/model/json/JSONModel"
+], function(BaseController) {
 	"use strict";
 
 	return BaseController.extend("ssms.controller.OwnSession", {
-		formatter: formatter,
 		/**
 		 * @event
 		 * @name onInit
