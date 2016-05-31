@@ -31,6 +31,7 @@ sap.ui.define([
 	 * @var {Object} oModel The model of user information.
 	 * @var {Object} oSessionModel The model of session detail.
 	 * @var {Object} oFileModel The model of attachment.
+	 * @var {Object} oSessionUserModel The model of session owner's information.
 	 * @var {Integer} iSessionId The number of session's id.
 	 * @var {Array} aDocumentId The array to record the deleted items' document id.
 	 * @var {Integer} iDelete The number of deleted items.
@@ -50,6 +51,7 @@ sap.ui.define([
 	var oModel;
 	var oSessionModel;
 	var oFileModel;
+	var oSessionUserModel;
 	var iSessionId;
 	var aDocumentId = [];
 	var iDelete = 0;
@@ -85,7 +87,10 @@ sap.ui.define([
 			oSessionModel = new sap.ui.model.json.JSONModel();
 			oSessionModel.loadData("/destinations/SSM_DEST/api/session/" + iSessionId, null, false);
 			this.getView().setModel(oSessionModel);
-			this.getView().bindElement("/");
+
+			oSessionUserModel = new sap.ui.model.json.JSONModel();
+			oSessionUserModel.loadData("/destinations/SSM_DEST/api/user/" + oSessionModel.getData().owner, null, false);
+			this.getView().setModel(oSessionUserModel, "OwnerModel");
 
 			var oControl = this.getView().byId("ssms-Status");
 			this._formatStateColor(oControl, oControl.getText());
@@ -123,6 +128,7 @@ sap.ui.define([
 		 * @param {Object} oSessionData - Session information got from the sessionAPI
 		 */
 		setUserPermission: function(oUserData, oSessionData) {
+			var oSendBtn = this.getView().byId("ssms-sendBtn");
 			var oEditBtn = this.getView().byId("ssms-editBtn");
 			var oCategory = this.getView().byId("ssms-category");
 			var oVisibility = this.getView().byId("ssms-radioBtn");
@@ -144,6 +150,7 @@ sap.ui.define([
 				oEditBtn.setVisible(true);
 
 				if (bOwner) {
+					oSendBtn.setVisible(true);
 					oCategory.setEnabled(true);
 					oVisibility.setEditable(true);
 					oMeetingRoom.setEnabled(false);
@@ -168,6 +175,7 @@ sap.ui.define([
 				}
 
 				if (bOwner && sUserRole === "Supporter") {
+					oSendBtn.setVisible(true);
 					oCategory.setEnabled(true);
 					oVisibility.setEditable(true);
 					oMeetingRoom.setEnabled(true);
@@ -309,7 +317,7 @@ sap.ui.define([
 		 */
 		checkDetailPermission: function() {
 			var oEditBtn = this.getView().byId("ssms-editBtn");
-
+			var oSendBtn = this.getView().byId("ssms-sendBtn");
 			if (!bBeforeSelect) {
 				this.byId("ssms-private").setSelected(true);
 			} else {
@@ -323,17 +331,20 @@ sap.ui.define([
 				this.byId("ssms-cancelled").setEnabled(true);
 			}
 			if (sBeforeStatus === "In progress") {
+				oSendBtn.setEnabled(false);
 				this.byId("ssms-open").setEnabled(false);
 				this.byId("ssms-inprogress").setEnabled(true);
 				this.byId("ssms-closed").setEnabled(true);
 				this.byId("ssms-cancelled").setEnabled(true);
 				this.byId("ssms-radioBtn").setEditable(false);
 			}
-			if (sBeforeStatus === "Closed") {
+			if (sBeforeStatus === "Completed") {
 				oEditBtn.setEnabled(false);
+				oSendBtn.setEnabled(false);
 			}
 			if (sBeforeStatus === "Cancelled") {
 				oEditBtn.setEnabled(false);
+				oSendBtn.setEnabled(false);
 				this.byId("ssms-location").addStyleClass("ssmsfailure");
 				this.byId("ssms-editdatatime").addStyleClass("ssmsfailure");
 			}
@@ -358,7 +369,7 @@ sap.ui.define([
 					oControl.removeStyleClass("ssmsRedFont");
 					oControl.addStyleClass("ssmsGreenFont");
 					break;
-				case "Closed":
+				case "Completed":
 					oControl.removeStyleClass("ssmsGreenFont");
 					oControl.removeStyleClass("ssmsYellowFont");
 					oControl.removeStyleClass("ssmsRedFont");
@@ -390,6 +401,79 @@ sap.ui.define([
 		 */
 		onSendSession: function() {
 			MessageToast.show("Will Send notification to supporter!");
+			var sStatus = this.getView().byId("ssms-selectStatus").getSelectedKey();
+			var sContent = "";
+			var sTarget = "I326960";
+			var sChecked = "false";
+			if (sBeforeStatus === "Open" && sStatus === "Open" && bBeforeSelect === true) {
+				sContent = "To supporter:\n Please modify the session '" + oSessionModel.getData().topic + "' location and time.";
+				$.ajax({
+					type: "POST",
+					url: "/destinations/SSM_DEST/api/notify",
+					data: JSON.stringify({
+						target: sTarget,
+						content: sContent,
+						checked: sChecked
+					}),
+					dataType: "json",
+					contentType: "application/json",
+					success: function(oNotification) {
+						console.log(oNotification.id);
+					}
+				});
+
+			}
+			if (sBeforeStatus === "Open" && sStatus === "In progress") {
+				var dDateTime = this.byId("ssms-datetime").getValue() + ", " + this.byId("ssms-timepicker").getValue();
+				var meetingTime = new Date(dDateTime);
+				var oLocation = this.byId("ssms-meetingRoom");
+				sContent = "The session '" + oSessionModel.getData().topic + "' will start in " + meetingTime + " at " + oLocation + ".";
+				$.ajax({
+					type: "POST",
+					url: "/destinations/SSM_DEST/api/notify",
+					data: JSON.stringify({
+						target: sTarget,
+						content: sContent,
+						checked: sChecked
+					}),
+					dataType: "json",
+					contentType: "application/json",
+					success: function(oNotification) {
+						console.log(oNotification.id);
+					}
+				});
+				$.ajax({
+					type: "POST",
+					url: "/destinations/SSM_DEST/api/notify",
+					data: JSON.stringify({
+						target: oModel.name,
+						content: sContent,
+						checked: sChecked
+					}),
+					dataType: "json",
+					contentType: "application/json",
+					success: function(oNotification) {
+						console.log(oNotification.id);
+					}
+				});
+			}
+			if (sBeforeStatus === "In progress" && sStatus === "Cancelled") {
+				sContent = "User " + oModel.displayName + " closed the session '" + oSessionModel.getData().topic + "', please check it.";
+				$.ajax({
+					type: "POST",
+					url: "/destinations/SSM_DEST/api/notify",
+					data: JSON.stringify({
+						target: sTarget,
+						content: sContent,
+						checked: sChecked
+					}),
+					dataType: "json",
+					contentType: "application/json",
+					success: function(oNotification) {
+						console.log(oNotification.id);
+					}
+				});
+			}
 		},
 
 		/**
@@ -435,7 +519,7 @@ sap.ui.define([
 			}
 
 		},
-		
+
 		/**
 		 * @function
 		 * @name onCheckDate
@@ -465,7 +549,7 @@ sap.ui.define([
 			}
 
 		},
-		
+
 		/**
 		 * @function
 		 * @name onCheckTime
@@ -474,7 +558,7 @@ sap.ui.define([
 		onCheckTime: function() {
 			bSupporterT = true;
 		},
-		
+
 		/**
 		 * @function
 		 * @name onCheckStatus
@@ -491,7 +575,7 @@ sap.ui.define([
 			var oDescription = this.getView().byId("ssms-description");
 			oUploadCollection = this.getView().byId("ssms-UploadCollection");
 			var oSummary = this.getView().byId("ssms-summary");
-			if (sStatus === "Closed") {
+			if (sStatus === "Completed") {
 				oCategory.setEnabled(false);
 				oMeetingRoom.setEnabled(false);
 				oStatus.setEnabled(true);
@@ -519,7 +603,7 @@ sap.ui.define([
 			}
 
 		},
-		
+
 		/**
 		 * @function
 		 * @name onCheckLocation
@@ -542,16 +626,16 @@ sap.ui.define([
 				oLocation.setValueState(sap.ui.core.ValueState.None);
 			}
 		},
-		
+
 		/**
 		 * @function
 		 * @name onCheckSummary
-		 * @description Checking the summary input, if change status to 'Closed', summary cannot be empty.
+		 * @description Checking the summary input, if change status to 'Completed', summary cannot be empty.
 		 */
 		onCheckSummary: function() {
 			var sStatus = this.getView().byId("ssms-selectStatus").getSelectedKey();
 			var oSummary = this.getView().byId("ssms-summary");
-			if (sStatus === "Closed") {
+			if (sStatus === "Completed") {
 				var sValue = oSummary.getValue();
 				if (sValue === "") {
 					bSummaryVaild = false;
@@ -566,7 +650,7 @@ sap.ui.define([
 				oSummary.setValueState(sap.ui.core.ValueState.None);
 			}
 		},
-		
+
 		/**
 		 * @function
 		 * @name onPressCreate
@@ -589,13 +673,12 @@ sap.ui.define([
 				this.byId("ssms-editdatatime").setText(meetingTime.toLocaleString());
 
 				oSessionData.meetingTime = meetingTime;
-				if (oSessionData.status === "Cancelled") {
-					this.onSendSession();
-				}
 				var bAttachment = this._checkDuplicateFile();
 
 				if (!bAttachment) {
 					this.getView().setBusy(true);
+
+					this.onSendSession();
 					var oSaveCollection = this.byId("ssms-UploadCollection");
 					oSessionData.file = oSaveCollection.getItems().length;
 
@@ -620,7 +703,7 @@ sap.ui.define([
 							iRemoveId++;
 						}
 					}
-					
+
 					$.ajax({
 						async: false,
 						type: "PUT",
@@ -629,7 +712,7 @@ sap.ui.define([
 						dataType: "json",
 						contentType: "application/json"
 					});
-					
+
 					if (oSaveCollection.getItems().length > 0) {
 						oSaveCollection.setUploadUrl("/destinations/SSM_DEST/api/document/upload/" + iSessionId);
 						oSaveCollection.upload();
@@ -643,7 +726,7 @@ sap.ui.define([
 				}
 			}
 		},
-		
+
 		/**
 		 * @function
 		 * @name _checkDuplicateFile
@@ -656,7 +739,6 @@ sap.ui.define([
 			var i = oUploadCollection.getItems().length;
 
 			while (i--) {
-				//if (!oUploadCollection.getItems()[i].getDocumentId()) {
 				var oFileItem = oUploadCollection.getItems()[i];
 				var sFileName = oFileItem.getFileName();
 
@@ -667,7 +749,6 @@ sap.ui.define([
 
 					return true;
 				}
-				//}
 			}
 
 			return false;
