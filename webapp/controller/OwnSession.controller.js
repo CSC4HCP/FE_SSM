@@ -38,11 +38,12 @@ sap.ui.define([
 		 */
 		getSessionByStatus: function(oEvent) {
 			var sStatus = oEvent.getSource().mProperties.selectedKey;
+			var sOwner=this.getView().getModel("UserModel").getData().name;
 			var _that = this;
 			if (sStatus === "All") {
 				$.ajax({
 					type: "GET",
-					url: "/destinations/SSM_DEST/api/session",
+					url: "/destinations/SSM_DEST/api/session?owner="+sOwner,
 					contentType: "application/json",
 					async: false,
 					success: function(aSessions) {
@@ -52,7 +53,7 @@ sap.ui.define([
 			} else {
 				$.ajax({
 					type: "GET",
-					url: "/destinations/SSM_DEST/api/session/?status=" + sStatus,
+					url: "/destinations/SSM_DEST/api/session/?status=" + sStatus+"&&owner="+sOwner,
 					contentType: "application/json",
 					async: false,
 					success: function(aSessions) {
