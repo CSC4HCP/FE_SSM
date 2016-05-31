@@ -18,7 +18,7 @@
 									<l:Grid id="ssms-showVBox" defaultSpan="L4 M4 S8" class="ssmsSessionDetail_Grid" width="100%" hSpacing="2">
 										<l:content>
 											<HBox alignItems="End" justifyContent="End">
-												<Button icon="sap-icon://action" type="Transparent" tooltip="Send notification to supporter" press="onSendSession"/>
+												<Button id="ssms-sendBtn" icon="sap-icon://action" type="Transparent" tooltip="Send notification to supporter" press="onSendSession" visible = "false"/>
 												<Button id="ssms-editBtn" icon="sap-icon://edit" type="Transparent" press="onEditSession"/>
 												<layoutData>
 													<l:GridData span="L12 M12 S12"/>
@@ -29,7 +29,7 @@
 													<l:GridData span="L2 M2 S4"/>
 												</layoutData>
 											</Label>
-											<Text text="{UserModel>/displayName}"/>
+											<Text text="{OwnerModel>/firstName} {OwnerModel>/lastName} ({OwnerModel>/name})"/>
 											<Label text="{i18n>OBJECTPAGESECTION_SESSIONDETAIL_CATEGORY}:">
 												<layoutData>
 													<l:GridData span="L2 M2 S4"/>
@@ -114,7 +114,7 @@
 													<l:GridData span="L2 M2 S4"/>
 												</layoutData>
 											</Label>
-											<Text text="{UserModel>/displayName}"/>
+											<Text text="{OwnerModel>/firstName} {OwnerModel>/lastName} ({OwnerModel>/name})"/>
 											<Label text="{i18n>OBJECTPAGESECTION_SESSIONDETAIL_CATEGORY}:">
 												<layoutData>
 													<l:GridData span="L2 M2 S4"/>
@@ -152,7 +152,7 @@
 												<items>
 													<core:Item id="ssms-open" text="Open" key="Open"/>
 													<core:Item id="ssms-inprogress" text="In progress" key="In progress"/>
-													<core:Item id="ssms-closed" text="Closed" key="Closed"/>
+													<core:Item id="ssms-closed" text="Completed" key="Completed"/>
 													<core:Item id="ssms-cancelled" text="Cancelled" key="Cancelled"/>
 												</items>
 											</Select>
