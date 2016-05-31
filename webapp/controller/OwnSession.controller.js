@@ -1,17 +1,13 @@
-jQuery.sap.require("ssms.util.formatter");
 sap.ui.define([
 	"ssms/controller/BaseController",
-	"ssms/util/formatter",
-	"sap/m/MessageToast",
-	'jquery.sap.global',
-	'sap/ui/core/mvc/Controller',
-	'sap/ui/model/Filter',
-	'sap/ui/model/json/JSONModel'
-], function(BaseController,formatter, MessageToast, jQuery, Controller, Filter, JSONModel) {
+	"jquery.sap.global",
+	"sap/ui/core/mvc/Controller",
+	"sap/ui/model/Filter",
+	"sap/ui/model/json/JSONModel"
+], function(BaseController) {
 	"use strict";
 
 	return BaseController.extend("ssms.controller.OwnSession", {
-		formatter: formatter,
 		/**
 		 * @event
 		 * @name onInit
@@ -38,11 +34,12 @@ sap.ui.define([
 		 */
 		getSessionByStatus: function(oEvent) {
 			var sStatus = oEvent.getSource().mProperties.selectedKey;
+			var sOwner=this.getView().getModel("UserModel").getData().name;
 			var _that = this;
 			if (sStatus === "All") {
 				$.ajax({
 					type: "GET",
-					url: "/destinations/SSM_DEST/api/session",
+					url: "/destinations/SSM_DEST/api/session?owner="+sOwner,
 					contentType: "application/json",
 					async: false,
 					success: function(aSessions) {
@@ -52,7 +49,7 @@ sap.ui.define([
 			} else {
 				$.ajax({
 					type: "GET",
-					url: "/destinations/SSM_DEST/api/session/?status=" + sStatus,
+					url: "/destinations/SSM_DEST/api/session/?status=" + sStatus+"&&owner="+sOwner,
 					contentType: "application/json",
 					async: false,
 					success: function(aSessions) {
