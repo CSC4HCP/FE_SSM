@@ -87,10 +87,10 @@ sap.ui.define([
 			oSessionModel = new sap.ui.model.json.JSONModel();
 			oSessionModel.loadData("/destinations/SSM_DEST/api/session/" + iSessionId, null, false);
 			this.getView().setModel(oSessionModel);
-			
+
 			oSessionUserModel = new sap.ui.model.json.JSONModel();
 			oSessionUserModel.loadData("/destinations/SSM_DEST/api/user/" + oSessionModel.getData().owner, null, false);
-			this.getView().setModel(oSessionUserModel,"OwnerModel");
+			this.getView().setModel(oSessionUserModel, "OwnerModel");
 
 			var oControl = this.getView().byId("ssms-Status");
 			this._formatStateColor(oControl, oControl.getText());
@@ -317,7 +317,7 @@ sap.ui.define([
 		 */
 		checkDetailPermission: function() {
 			var oEditBtn = this.getView().byId("ssms-editBtn");
-
+			var oSendBtn = this.getView().byId("ssms-sendBtn");
 			if (!bBeforeSelect) {
 				this.byId("ssms-private").setSelected(true);
 			} else {
@@ -331,6 +331,7 @@ sap.ui.define([
 				this.byId("ssms-cancelled").setEnabled(true);
 			}
 			if (sBeforeStatus === "In progress") {
+				oSendBtn.setEnabled(false);
 				this.byId("ssms-open").setEnabled(false);
 				this.byId("ssms-inprogress").setEnabled(true);
 				this.byId("ssms-closed").setEnabled(true);
@@ -339,9 +340,11 @@ sap.ui.define([
 			}
 			if (sBeforeStatus === "Completed") {
 				oEditBtn.setEnabled(false);
+				oSendBtn.setEnabled(false);
 			}
 			if (sBeforeStatus === "Cancelled") {
 				oEditBtn.setEnabled(false);
+				oSendBtn.setEnabled(false);
 				this.byId("ssms-location").addStyleClass("ssmsfailure");
 				this.byId("ssms-editdatatime").addStyleClass("ssmsfailure");
 			}
@@ -455,7 +458,7 @@ sap.ui.define([
 				});
 			}
 			if (sBeforeStatus === "In progress" && sStatus === "Cancelled") {
-				sContent = "User "+ oModel.displayName + " closed the session '" + oSessionModel.getData().topic + "', please check it.";
+				sContent = "User " + oModel.displayName + " closed the session '" + oSessionModel.getData().topic + "', please check it.";
 				$.ajax({
 					type: "POST",
 					url: "/destinations/SSM_DEST/api/notify",
@@ -674,7 +677,7 @@ sap.ui.define([
 
 				if (!bAttachment) {
 					this.getView().setBusy(true);
-					
+
 					this.onSendSession();
 					var oSaveCollection = this.byId("ssms-UploadCollection");
 					oSessionData.file = oSaveCollection.getItems().length;
