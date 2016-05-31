@@ -122,6 +122,7 @@ sap.ui.define([
 		 * @param {Object} oSessionData - Session information got from the sessionAPI
 		 */
 		setUserPermission: function(oUserData, oSessionData) {
+			var oSendBtn = this.getView().byId("ssms-sendBtn");
 			var oEditBtn = this.getView().byId("ssms-editBtn");
 			var oCategory = this.getView().byId("ssms-category");
 			var oVisibility = this.getView().byId("ssms-radioBtn");
@@ -143,6 +144,7 @@ sap.ui.define([
 				oEditBtn.setVisible(true);
 
 				if (bOwner) {
+					oSendBtn.setVisible(true);
 					oCategory.setEnabled(true);
 					oVisibility.setEditable(true);
 					oMeetingRoom.setEnabled(false);
@@ -167,6 +169,7 @@ sap.ui.define([
 				}
 
 				if (bOwner && sUserRole === "Supporter") {
+					oSendBtn.setVisible(true);
 					oCategory.setEnabled(true);
 					oVisibility.setEditable(true);
 					oMeetingRoom.setEnabled(true);

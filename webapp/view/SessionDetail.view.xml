@@ -18,7 +18,7 @@
 									<l:Grid id="ssms-showVBox" defaultSpan="L4 M4 S8" class="ssmsSessionDetail_Grid" width="100%" hSpacing="2">
 										<l:content>
 											<HBox alignItems="End" justifyContent="End">
-												<Button icon="sap-icon://action" type="Transparent" tooltip="Send notification to supporter" press="onSendSession"/>
+												<Button id="ssms-sendBtn" icon="sap-icon://action" type="Transparent" tooltip="Send notification to supporter" press="onSendSession" visible = "false"/>
 												<Button id="ssms-editBtn" icon="sap-icon://edit" type="Transparent" press="onEditSession"/>
 												<layoutData>
 													<l:GridData span="L12 M12 S12"/>
