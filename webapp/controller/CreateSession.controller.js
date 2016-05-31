@@ -51,8 +51,21 @@ sap.ui.define([
 
 			this.getView().setBusy(true);
 			oUserModel.loadData("/services/userapi/currentUser", null, false);
-			this.getView().setModel(oUserModel, "UserModel");
 			sUserId = oUserModel.getData().name;
+			
+			$.ajax({
+				type: "GET",
+				async: false,
+				url: "/destinations/SSM_DEST/api/notify/" + sUserId,
+				data: sUserId,
+				dataType: "text",
+				contentType: "text/plain",
+				success: function(bHaveNotificationUnread) {
+					oUserModel.notificationUnread = bHaveNotificationUnread;
+				}
+			});
+			
+			this.getView().setModel(oUserModel, "UserModel");
 
 			var oSessionModel = new sap.ui.model.json.JSONModel();
 			oSessionModel.loadData("mockData/newSession.json", null, false);
@@ -165,8 +178,8 @@ sap.ui.define([
 				}
 			}
 		},
-        
-        /**
+
+		/**
 		 * @function
 		 * @name onUploadComplete
 		 * @description Event handler when file upload completed.

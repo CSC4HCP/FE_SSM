@@ -5,7 +5,7 @@
 		<ToolbarSpacer/>
 		<SearchField class="ssmsSearchField sapUiSmallMarginEnd" width="20%" placeholder="{i18n>TEXT_HEADERFRAGMENT_SEARCHPLACEHODER}"
 			search="onHeaderSearch"/>
-		<Button class="ssmsEmphasizedButton ssmsNotification" type="Emphasized" icon="img/notification.png"
+		<Button class="ssmsEmphasizedButton ssmsNotification" type="Emphasized" icon="img/notification.png" visible="{path: 'UserModel>/notificationUnread', formatter: '.formatter.getUnreadIconVisibility'}"
 			tooltip="{i18n>TEXT_HEADERFRAGMENT_NOTIFICATIONTOOLTIP}" press="onPressNotification"/>
 		<Button class="ssmsEmphasizedButton ssmsNotification-Unread" type="Emphasized" icon="img/notification-unread.png"
 			tooltip="{i18n>TEXT_HEADERFRAGMENT_NOTIFICATIONUNREADTOOLTIP}" press="onPressNotification"/>
