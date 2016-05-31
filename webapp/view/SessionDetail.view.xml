@@ -152,7 +152,7 @@
 												<items>
 													<core:Item id="ssms-open" text="Open" key="Open"/>
 													<core:Item id="ssms-inprogress" text="In progress" key="In progress"/>
-													<core:Item id="ssms-closed" text="Closed" key="Closed"/>
+													<core:Item id="ssms-closed" text="Completed" key="Completed"/>
 													<core:Item id="ssms-cancelled" text="Cancelled" key="Cancelled"/>
 												</items>
 											</Select>
