@@ -1,4 +1,3 @@
-jQuery.sap.require("ssms.util.formatter");
 sap.ui.define([
 	"jquery.sap.global",
 	"sap/ui/core/Fragment",
@@ -9,10 +8,9 @@ sap.ui.define([
 	"sap/m/Dialog",
 	"sap/m/Text",
 	"sap/m/Button",
-	"sap/ui/commons/RichTooltip",
-	"ssms/util/formatter"
+	"sap/ui/commons/RichTooltip"
 ], function(jQuery, Fragment, BaseController, MessageToast, UploadCollectionParameter, UploadCollectionItem, Dialog, Text, Button,
-	RichTooltip, formatter) {
+	RichTooltip) {
 	"use strict";
 
 	/**
@@ -57,7 +55,6 @@ sap.ui.define([
 	var iDelete = 0;
 	var oUploadCollection;
 	return BaseController.extend("ssms.controller.SessionDetail", {
-		formatter: formatter,
 		/**
 		 * @event
 		 * @name onInit
@@ -109,13 +106,20 @@ sap.ui.define([
 		 * @param {Object} oUserData - User information got from the userAPI
 		 */
 		getUserRole: function(oUserData) {
-
+			var that = this;
+			that.getView().setBusy(true);
 			$.ajax({
+				async: false,
 				type: "GET",
 				url: "/destinations/SSM_DEST/api/user/" + oUserData.name,
 				contentType: "application/json",
 				success: function(user) {
 					sUserRole = user.role;
+					that.setUserPermission(oModel.getData(), oSessionModel.getData());
+					that.addAttachment();
+					that._getBeforeValue();
+					that.checkDetailPermission();
+					that.getView().setBusy(false);
 				}
 			});
 		},

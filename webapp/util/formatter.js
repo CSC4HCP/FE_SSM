@@ -1,9 +1,15 @@
-// jQuery.sap.declare("ssms.util.formatter");
 sap.ui.define([
 ], function() {
 	"use strict";
 
 	return {
+		/**
+		 * @function
+		 * @name formatVisibility
+		 * @description The function use to format the visibility.
+		 * @param {String} sValue -The value need to format
+		 * @return {String} -Fomattered result
+		 */
 		formatVisibility: function(sValue) {
 			var sResult;
 			if (sValue) {
@@ -14,19 +20,41 @@ sap.ui.define([
 			return sResult;
 		},
 		
+		/**
+		 * @function
+		 * @name formatDateTime
+		 * @description The function use to format the date and time in detail page.
+		 * @param {String} sValue -The value need to format.
+		 * @return {String} -Fomattered result.
+		 */
 		formatDateTime: function(sValue) {
 			return new Date(sValue).toLocaleString();
 		},
 		
+		/**
+		 * @function
+		 * @name formatDate
+		 * @description The function use to format the date in edit page.
+		 * @param {String} sValue -The value need to format.
+		 * @return {String} -Fomattered result.
+		 */
 		formatDate: function(sValue) {
 			var dDateTime = new Date(sValue).toLocaleString();
 			return dDateTime.substring(0, dDateTime.indexOf(","));
 		},
 		
+		/**
+		 * @function
+		 * @name formatTime
+		 * @description The function use to format the time in edit page.
+		 * @param {String} sValue -The value need to format.
+		 * @return {String} -Fomattered result.
+		 */
 		formatTime: function(sValue) {
 			var dDateTime = new Date(sValue).toLocaleString();
 			return dDateTime.substring(dDateTime.indexOf(",") + 2);
 		},
+		
 		/**
 		 * @function
 		 * @name getReadIconVisibility
@@ -37,6 +65,7 @@ sap.ui.define([
 		getReadIconVisibility: function(bValue) {
 			return !bValue;
 		},
+		
 		/**
 		 * @function
 		 * @name getUnreadIconVisibility
