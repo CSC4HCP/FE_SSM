@@ -85,7 +85,6 @@ sap.ui.define([
 			oSessionModel = new sap.ui.model.json.JSONModel();
 			oSessionModel.loadData("/destinations/SSM_DEST/api/session/" + iSessionId, null, false);
 			this.getView().setModel(oSessionModel);
-			//this.getView().bindElement("/");
 
 			var oControl = this.getView().byId("ssms-Status");
 			this._formatStateColor(oControl, oControl.getText());
@@ -728,7 +727,6 @@ sap.ui.define([
 			var i = oUploadCollection.getItems().length;
 
 			while (i--) {
-				//if (!oUploadCollection.getItems()[i].getDocumentId()) {
 				var oFileItem = oUploadCollection.getItems()[i];
 				var sFileName = oFileItem.getFileName();
 
@@ -739,7 +737,6 @@ sap.ui.define([
 
 					return true;
 				}
-				//}
 			}
 
 			return false;
