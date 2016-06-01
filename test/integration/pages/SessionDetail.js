@@ -24,20 +24,7 @@ sap.ui.require([
 						errorMessage: "No Edit button found."
 					});
 				},
-				iPressOnSaveButton: function() {
-					return this.waitFor({
-						controlType: "sap.m.Button",
-						viewName: "SessionDetail",
-						success: function(oButtons) {
-							oButtons.forEach(function(oButton) {
-								if (oButton.getIcon() === "sap-icon://save") {
-									oButton.$().trigger("tap");
-								}
-							});
-						},
-						errorMessage: "No save button found."
-					});
-				},
+				
 				iInputDescriptionValueInTheField: function() {
 					return this.waitFor({
 						id: "ssms-description",
@@ -86,6 +73,18 @@ sap.ui.require([
 					});
 
 				},
+				iPressOnOneOfTheCategorySelection: function() {
+					return this.waitFor({
+						id: "ssms-category",
+						viewName: "SessionDetail",
+						success: function(aSelect) {
+							aSelect.open();
+							aSelect.setSelectedKey("England");
+						},
+						errorMessage: "Category Selection not be clicked."
+					});
+
+				},
 				iPressOnStatusSelection: function() {
 					return this.waitFor({
 						id: "ssms-selectStatus",
@@ -97,6 +96,7 @@ sap.ui.require([
 					});
 
 				},
+				
 				iPressOnRadioButtonPrivate: function() {
 					return this.waitFor({
 						controlType: "sap.m.RadioButton",
@@ -120,6 +120,46 @@ sap.ui.require([
 							});
 						},
 						errorMessage: "No decline button found."
+					});
+				},
+				iPressOnOneOfTheStatusSelection: function() {
+					return this.waitFor({
+						id: "ssms-selectStatus",
+						viewName: "SessionDetail",
+						success: function(aSelect) {
+							aSelect.open();
+							aSelect.setSelectedKey("Cancelled");
+						},
+						errorMessage: "Status Selection not be clicked."
+					});
+
+				},
+				iPressOnSaveButton: function() {
+					return this.waitFor({
+						controlType: "sap.m.Button",
+						viewName: "SessionDetail",
+						success: function(oButtons) {
+							oButtons.forEach(function(oButton) {
+								if (oButton.getIcon() === "sap-icon://save") {
+									oButton.$().trigger("tap");
+								}
+							});
+						},
+						errorMessage: "No save button found."
+					});
+				},
+				iPressOnSendButton: function() {
+					return this.waitFor({
+						controlType: "sap.m.Button",
+						viewName: "SessionDetail",
+						success: function(oButtons) {
+							oButtons.forEach(function(oButton) {
+								if (oButton.getIcon() === "sap-icon://action") {
+									oButton.$().trigger("tap");
+								}
+							});
+						},
+						errorMessage: "No save button found."
 					});
 				}
 			},
@@ -151,16 +191,6 @@ sap.ui.require([
 							Opa5.assert.equal(aSections[1].getVisible(), true);
 						},
 						errorMessage: "The Edit Button not be Clickable."
-					});
-				},
-				iShouldSeeTheSaveButtonbeClicked: function() {
-					return this.waitFor({
-						controlType: "sap.ui.layout.Grid",
-						viewName: "SessionDetail",
-						success: function(aSections) {
-							Opa5.assert.equal(aSections[0].getVisible(), true);
-						},
-						errorMessage: "The Save Button not be Clickable."
 					});
 				},
 				iShouldSeeTheUploadButtonbeClicked: function() {
@@ -207,12 +237,32 @@ sap.ui.require([
 						errorMessage: "i Should not See Three Selections"
 					});
 				},
+				iShouldSeeOneOfTheCategorySelectionCanBeSelected: function() {
+					return this.waitFor({
+						id: "ssms-category",
+						viewName: "SessionDetail",
+						success: function(aSelect) {
+							Opa5.assert.equal(aSelect.getSelectedKey(), "England");
+						},
+						errorMessage: "i Should not See Three Selections"
+					});
+				},
 				iShouldSeetwoSelection: function() {
 					return this.waitFor({
 						id: "ssms-selectStatus",
 						viewName: "SessionDetail",
 						success: function(aSelect) {
 							Opa5.assert.equal(aSelect.getSelectableItems().length, 2);
+						},
+						errorMessage: "i Should not See two Selections"
+					});
+				},
+				iShouldSeeOneOfTheStatusSelectionCanBeSelected: function() {
+					return this.waitFor({
+						id: "ssms-selectStatus",
+						viewName: "SessionDetail",
+						success: function(aSelect) {
+							Opa5.assert.equal(aSelect.getSelectedKey(), "Cancelled");
 						},
 						errorMessage: "i Should not See two Selections"
 					});
@@ -235,6 +285,26 @@ sap.ui.require([
 							Opa5.assert.equal(aSections[0].getVisible(), true);
 						},
 						errorMessage: "The Save Button not be Clickable."
+					});
+				},	
+				iShouldSeeTheSaveButtonbeClicked: function() {
+					return this.waitFor({
+						controlType: "sap.ui.layout.Grid",
+						viewName: "SessionDetail",
+						success: function(aSections) {
+							Opa5.assert.equal(aSections[0].getVisible(), true);
+						},
+						errorMessage: "The Save Button not be Clickable."
+					});
+				},
+				iShouldSeeTheNotificationWillSendToSupporter: function() {
+					return this.waitFor({
+						controlType: "sap.ui.layout.Grid",
+						viewName: "SessionDetail",
+						success: function(aSections) {
+							Opa5.assert.equal(aSections[0].getVisible(), true);
+						},
+						errorMessage: "The Send Button not be Clickable."
 					});
 				}
 			}

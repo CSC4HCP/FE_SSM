@@ -7,7 +7,7 @@ sap.ui.require(
 		opaTest("Should see the SessionDetail Page", function(Given, When, Then) {
 			// Arrangements
 			Given.iStartMyApp({
-				hash: "sessionDetail/1"
+				hash: "sessionDetail/5"
 			});
 
 			// Actions
@@ -20,6 +20,14 @@ sap.ui.require(
 
 			Then.onSessionDetail.iShouldSeeSubSectionLoaded();
 			// Arragements
+		});
+		opaTest("Click the send button,Should the notification will send to supporter", function(Given, When, Then) {
+			// Actions
+			When.onSessionDetail.iPressOnSendButton();
+
+			// Assertions
+			Then.onSessionDetail.iShouldSeeTheNotificationWillSendToSupporter();
+
 		});
 
 		opaTest("Should See The Edit Button be clicked", function(Given, When, Then) {
@@ -58,12 +66,19 @@ sap.ui.require(
 			// Assertions
 			Then.onSessionDetail.iShouldSeeTheUploadButtonbeClicked();
 		});
-		opaTest("Should See The Category selection be clicked", function(Given, When, Then) {
+		opaTest("Should See The Category of Three Selections can be selected", function(Given, When, Then) {
 			// Actions
 			When.onSessionDetail.iPressOnCategorySelection();
 
 			// Assertions
 			Then.onSessionDetail.iShouldSeeThreeSelections();
+		});
+		opaTest(" one of the category selection can be clicked", function(Given, When, Then) {
+			// Actions
+			When.onSessionDetail.iPressOnOneOfTheCategorySelection();
+
+			// Assertions
+			Then.onSessionDetail.iShouldSeeOneOfTheCategorySelectionCanBeSelected();
 		});
 		opaTest("Should See The Status selection be clicked", function(Given, When, Then) {
 			// Actions
@@ -72,14 +87,20 @@ sap.ui.require(
 			// Assertions
 			Then.onSessionDetail.iShouldSeetwoSelection();
 		});
+			opaTest(" one of the Status selection can be clicked", function(Given, When, Then) {
+			// Actions
+			When.onSessionDetail.iPressOnOneOfTheStatusSelection();
 
+			// Assertions
+			Then.onSessionDetail.iShouldSeeOneOfTheStatusSelectionCanBeSelected();
+		});
 		opaTest("Should See The Decline Button be clicked", function(Given, When, Then) {
 			// Actions
 			When.onSessionDetail.iPressOnDeclineButton();
 
 			// Assertions
 			Then.onSessionDetail.iShouldSeeTheDeclineButtonbeClicked();
-
+				
 		});
 		opaTest("Should See The Save Button be clicked", function(Given, When, Then) {
 			// Actions
@@ -88,7 +109,7 @@ sap.ui.require(
 			// Assertions
 			Then.onSessionDetail.iShouldSeeTheSaveButtonbeClicked();
 			Given.iTearDownMyApp();
-
+			
 		});
 	}
 );
