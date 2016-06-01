@@ -1,0 +1,30 @@
+.ssmsNotificationMaster {
+    margin: 20px 10px 20px 20px;
+    border-radius: 5px;
+    border-bottom: none;
+}
+.ssmsNotificationMaster.sapMLIB {
+}
+.ssmsNotificationMaster.sapMLBSelected {
+    background-color: #0099CC;
+}
+.ssmNotificationMasterItemSelected {
+    background-color: #0099CC !important;
+}
+.ssmNotificationMasterItemSelected .sapMLIBCounter{
+	color: #ffffff;
+}
+.ssmNotificationMasterItemSelected .sapMSLITitleOnly{
+	color: #ffffff;
+}
+.ssmsNotificationDetail{
+    margin-left: 10px;
+    margin-right: 10px;
+}
+.ssmsNotificationDetail .sapMNLI-None{
+    background-color: #FFFFFF !important;
+}
+
+.ssmsNotificationDetail .sapMNLI-High{
+    background-color: #0099CC !important;
+}

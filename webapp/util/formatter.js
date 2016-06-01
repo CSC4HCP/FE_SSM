@@ -75,6 +75,16 @@ sap.ui.define([
 		 */
 		getUnreadIconVisibility: function(bValue) {
 			return bValue;
+		},
+
+		formatRead: function(bChecked) {
+			var sResult;
+			if (bChecked) {
+				sResult = "None";
+			} else {
+				sResult = "High";
+			}
+			return sResult;
 		}
 	};
 });
