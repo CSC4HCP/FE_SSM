@@ -15,7 +15,8 @@ sap.ui.require([
 	"test/integration/pages/Home",
 	"test/integration/pages/CreateSession",
 	"test/integration/pages/SessionDetail",
-	"test/integration/pages/PersonalCenter"
+	"test/integration/pages/PersonalCenter",
+	"test/integration/pages/NotificationList"
 ], function (Opa5, Common) {
 	"use strict";
 	Opa5.extendConfig({
@@ -27,7 +28,8 @@ sap.ui.require([
 	     "test/integration/HomeJourney",
 	     "test/integration/CreateSessionJourney",
 	     "test/integration/SessionDetailJourney",
-	     "test/integration/PersonalCenterJourney"
+	     "test/integration/PersonalCenterJourney",
+	     "test/integration/NotificationListJourney"
 	 ], function() {
 		 QUnit.start();
 	 });
