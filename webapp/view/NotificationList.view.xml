@@ -10,7 +10,7 @@
 					<Page>
 						<content>
 							<List id="notificationList" items="{NotificationModel>/}">
-								<ssms:notificationListItem  title="Notice" description="{NotificationModel>content}"
+								<ssms:notificationListItem  title="Notice" description="{NotificationModel>content}" notificationId="{NotificationModel>id}" notificationTarget="{NotificationModel>target}"
 									class="ssmsNotificationDetail" priority="{path: 'NotificationModel>checked',formatter:'.formatter.formatRead'}" close="onPressClose" press="onListitemPress"/>
 							</List>
 						</content>
@@ -21,9 +21,9 @@
 						<content>
 							<List>
 								<items>
-									<StandardListItem title="All" id="notificationAll" press="onPrssToAllNotices" counter="1" type="Active" 
+									<StandardListItem title="All" id="notificationAll" press="onPrssToAllNotices"  type="Active" selected="true"
 										class="ssmsNotificationMaster"/>
-									<StandardListItem title="Unread" id="notificationUnread" press="onPressToUnreadNotices" type="Active" counter="1" class="ssmsNotificationMaster"/>
+									<StandardListItem title="Unread" id="notificationUnread" press="onPressToUnreadNotices" type="Active"  class="ssmsNotificationMaster"/>
 								</items>
 							</List>
 						</content>

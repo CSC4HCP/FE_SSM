@@ -1,12 +1,10 @@
 sap.ui.define([
 	"ssms/controller/BaseController",
-	"jquery.sap.global",
-	"sap/ui/core/mvc/Controller",
-	"sap/ui/model/Filter",
-	"sap/ui/model/json/JSONModel"
+	"jquery.sap.global"
 ], function(BaseController) {
 	"use strict";
-
+	var bAll = true;
+	var bUnread = false;
 	return BaseController.extend("ssms.controller.NotificationList", {
 		/**
 		 * @event
@@ -15,46 +13,133 @@ sap.ui.define([
 		 * @memberOf ssms.view.view.ownSession
 		 */
 		onInit: function() {
-			var oModel = new sap.ui.model.json.JSONModel();
-			oModel.loadData("mockData/notificationList.json", null, false);
-			this.byId("notificationList").setModel(oModel, "NotificationModel");
-			var oModel1 = new sap.ui.model.json.JSONModel();
-			oModel1.loadData("mockData/notificationListUn.json", null, false);
-			this.byId("notificationAll").setCounter(oModel.getData().length);
-			this.byId("notificationUnread").setCounter(oModel1.getData().length);
+			var oModelAll = new sap.ui.model.json.JSONModel();
+			oModelAll.loadData("/destinations/SSM_DEST/api/notify", null, false);
+			this.byId("notificationList").setModel(oModelAll, "NotificationModel");
+			var oModelUnread = new sap.ui.model.json.JSONModel();
+			oModelUnread.loadData("/destinations/SSM_DEST/api/notify?checked=false", null, false);
+			this.byId("notificationAll").setCounter(oModelAll.getData().length);
+			this.byId("notificationUnread").setCounter(oModelUnread.getData().length);
 			this.byId("notificationAll").addStyleClass("ssmNotificationMasterItemSelected");
 		},
 
-		onPrssToAllNotices: function(oEvent) {
-			var that=this;
-			that.getView().byId("notificationList").getItems().forEach(function(e){
-				e.destroy();
-			});
+		onListitemPress: function(oEvent) {
+			var oNotificationData = new Object();
+			var oUnread = this.byId("notificationUnread");
+			var oItem = oEvent.getSource();
+			if (oItem.getPriority() === "High") {
+				oUnread.setCounter(oUnread.getCounter() - 1);
+				oNotificationData.id = oItem.getNotificationId();
+				oNotificationData.target = oItem.getNotificationTarget();
+				oNotificationData.content = oItem.getDescription();
+				oNotificationData.checked = true;
+
+				oItem.setPriority("None");
+				var sNotificationId = oEvent.getSource().getNotificationId();
 				$.ajax({
-					type: "GET",
-					url: "mockData/notificationList.json",
-					contentType: "application/json",
 					async: false,
-					success: function(data) {
-				that.getView().byId("notificationList").getModel("NotificationModel").setData(data);
-					}
+					type: "PUT",
+					url: "/destinations/SSM_DEST/api/notify/" + sNotificationId,
+					data: JSON.stringify(oNotificationData),
+					dataType: "json",
+					contentType: "application/json"
 				});
+			}
+
 		},
-		
-		onPressToUnreadNotices: function(oEvent) {
-			var that=this;
-			that.getView().byId("notificationList").getItems().forEach(function(e){
-				e.destroy();
-			});
-				$.ajax({
-					type: "GET",
-					url: "mockData/notificationListUn.json",
-					contentType: "application/json",
-					async: false,
-					success: function(data) {
-				that.getView().byId("notificationList").getModel("NotificationModel").setData(data);
+
+		onPressClose: function(oEvent) {
+			var oItem = oEvent.getSource();
+			var oUnread = this.byId("notificationUnread");
+			var oAll = this.byId("notificationAll");
+			var sNotificationId = oEvent.getSource().getNotificationId();
+			var reminder = new sap.m.Dialog({
+				title: "Confirm",
+				type: "Message",
+				content: new sap.m.Text({
+					text: "Are you sure you want to delete this notification?"
+				}),
+				beginButton: new sap.m.Button({
+					text: "OK",
+					press: function() {
+						if (oItem.getPriority() === "None") {
+							oAll.setCounter(oAll.getCounter() - 1);
+						} else {
+							oAll.setCounter(oAll.getCounter() - 1);
+							oUnread.setCounter(oUnread.getCounter() - 1);
+						}
+						oItem.destroy();
+						$.ajax({
+							url: "/destinations/SSM_DEST/api/notify/" + sNotificationId,
+							type: 'DELETE'
+						});
+						sap.m.MessageToast.show("Delete successfully");
+						reminder.close();
 					}
+
+				}),
+				endButton: new sap.m.Button({
+					text: "Cancel",
+					press: function() {
+						reminder.close();
+					}
+				}),
+				afterClose: function() {
+					reminder.destroy();
+				}
+			});
+			reminder.open();
+		},
+
+		onPrssToAllNotices: function(oEvent) {
+			var that = this;
+
+			var oItem = oEvent.getSource();
+			oItem.addStyleClass("ssmNotificationMasterItemSelected");
+			that.byId("notificationUnread").removeStyleClass("ssmNotificationMasterItemSelected");
+			if (bAll === false) {
+				that.getView().byId("notificationList").getItems().forEach(function(e) {
+					e.destroy();
 				});
+			}
+			bAll = true;
+			bUnread = false;
+
+			$.ajax({
+				type: "GET",
+				url: "/destinations/SSM_DEST/api/notify",
+				contentType: "application/json",
+				async: true,
+				success: function(data) {
+					that.byId("notificationAll").setCounter(data.length);
+					that.getView().byId("notificationList").getModel("NotificationModel").setData(data);
+				}
+			});
+		},
+
+		onPressToUnreadNotices: function(oEvent) {
+			var that = this;
+			var oItem = oEvent.getSource();
+			oItem.addStyleClass("ssmNotificationMasterItemSelected");
+			that.byId("notificationAll").removeStyleClass("ssmNotificationMasterItemSelected");
+			if (bUnread === false) {
+				that.getView().byId("notificationList").getItems().forEach(function(oNotify) {
+					oNotify.destroy();
+				});
+
+			}
+			bAll = false;
+			bUnread = true;
+			$.ajax({
+				type: "GET",
+				url: "/destinations/SSM_DEST/api/notify?checked=false",
+				contentType: "application/json",
+				async: true,
+				success: function(data) {
+					that.byId("notificationUnread").setCounter(data.length);
+					that.getView().byId("notificationList").getModel("NotificationModel").setData(data);
+				}
+			});
 		}
 	});
 

@@ -5,7 +5,12 @@ sap.ui.define([
 ], function(NotificationListItem,OverflowToolbar,InvisibleText) {
 	"use strict";
 	return NotificationListItem.extend("ssms.control.notificationListItem.notificationListItem", {
-		metadata: {},
+		metadata: {
+			properties : {
+			notificationId : {type : "string"},
+				notificationTarget : {type : "string"}
+		}
+		},
 
 		init : function() {
         var r = sap.ui.getCore().getLibraryResourceBundle('sap.m');
