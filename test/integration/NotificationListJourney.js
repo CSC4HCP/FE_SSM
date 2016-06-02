@@ -9,7 +9,7 @@ sap.ui.require(
 			Given.iStartMyApp({hash: "notificationList"});
 
 			//Actions
-			// When.onTheNotificationPage.iPressThePersonalButton();
+			When.onTheNotificationPage.iLookAtTheScreen();
 
 			// Assertions
 			Then.onTheNotificationPage.iShouldSeeTheSplitContainer();
@@ -19,7 +19,7 @@ sap.ui.require(
 		
 
 			//Actions
-			// When.onTheNotificationPage.iPressThePersonalButton();
+				When.onTheNotificationPage.iLookAtTheScreen();
 
 			// Assertions
 			Then.onTheNotificationPage.iShouldSeeTheNotificationList();
@@ -28,7 +28,7 @@ sap.ui.require(
 			opaTest("Should see the Masterpages", function(Given, When, Then) {
 	
 			//Actions
-			// When.onTheNotificationPage.iPressThePersonalButton();
+				When.onTheNotificationPage.iLookAtTheScreen();
 
 			// Assertions
 			Then.onTheNotificationPage.iShouldSeeTheMasterPage();

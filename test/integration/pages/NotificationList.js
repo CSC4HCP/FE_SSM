@@ -58,8 +58,9 @@ sap.ui.require([
 					},
 						iShouldSeeTheMasterPage: function() {
 						return this.waitFor({
+							
+							    id: "notificationAll",
 								viewName: "NotificationList",
-							id: "notificationList",
 							success: function() {
 								// we set the view busy, so we need to query the parent of the app
 								Opa5.assert.ok(true, "The Message is found");
