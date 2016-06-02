@@ -13,11 +13,11 @@ sap.ui.require([
 				actions: {
 					iPressThePersonalButton: function() {
 						return this.waitFor({
-							controlType: "sap.m.Button",
+							controlType: "sap.m.SplitApp",
 							success: function(aButtons) {
 							
 							},
-							errorMessage: "Did not find the Personal Button on the Home page"
+							errorMessage: "Did not find the SplitApp Control"
 						});
 					},
 				
@@ -34,9 +34,9 @@ sap.ui.require([
 
 				},
 				assertions: {
-					iShouldSeeThePersonalInformation: function() {
+					iShouldSeeTheSplitContainer: function() {
 						return this.waitFor({
-							controlType: "sap.m.Button",
+							controlType: "sap.m.SplitContainer",
 							success: function() {
 								// we set the view busy, so we need to query the parent of the app
 								Opa5.assert.ok(true, "The Message is found");
@@ -44,6 +44,30 @@ sap.ui.require([
 							errorMessage: "Did not "
 						});
 					},
+					
+					iShouldSeeTheNotificationList: function() {
+						return this.waitFor({
+							viewName: "NotificationList",
+							id: "notificationList",
+							success: function() {
+								// we set the view busy, so we need to query the parent of the app
+								Opa5.assert.ok(true, "The Message is found");
+							},
+							errorMessage: "Did not find the Notification List"
+						});
+					},
+						iShouldSeeTheMasterPage: function() {
+						return this.waitFor({
+								viewName: "NotificationList",
+							id: "notificationList",
+							success: function() {
+								// we set the view busy, so we need to query the parent of the app
+								Opa5.assert.ok(true, "The Message is found");
+							},
+							errorMessage: "Did not find the master page"
+						});
+					},
+					
 				
 				
 					iShouldSeeTheSeachInfo: function() {
