@@ -25,19 +25,19 @@
 								<Column width="14em" demandPopin="true">
 									<Text text="{i18n>TEXT_OWNSESSION_LOCATION}"/>
 								</Column>
-								<Column >
+								<Column>
 									<Text text="{i18n>TEXT_OWNSESSION_STATUS}"/>
 								</Column>
 							</columns>
 							<items>
-								<ColumnListItem press="onPressedColumnListItem" type="Navigation" counter="{UserModel1>id}">
+								<ColumnListItem press="onPressedColumnListItem" class="ssmsColorChangingText" type="Navigation" counter="{UserModel1>id}">
 									<cells>
 										<Text text="{UserModel1>topic}"/>
 										<Text text="{UserModel1>category}"/>
 										<Text text="{path:'UserModel1>visibility',formatter:'.formatter.formatVisibility'}"/>
 										<Text text="{path: 'UserModel1>meetingTime',formatter:'.formatter.formatDateTime'}"/>
 										<Text text="{UserModel1>meetingRoom}"/>
-										<ssms:ColorChangableText text="{UserModel1>status}"/>
+										<ObjectNumber emphasized="false" number="{UserModel1>status}" state="{path:'UserModel1>status',formatter:'.formatter.formatStatusToColor'}"/>
 									</cells>
 								</ColumnListItem>
 							</items>
@@ -62,19 +62,19 @@
 								<Column width="14em" demandPopin="true">
 									<Text text="{i18n>TEXT_OWNSESSION_LOCATION}"/>
 								</Column>
-								<Column >
+								<Column>
 									<Text text="{i18n>TEXT_OWNSESSION_STATUS}"/>
 								</Column>
 							</columns>
 							<items>
-								<ColumnListItem press="onPressedColumnListItem" counter="{UserModel1>id}" type="Navigation">
+								<ColumnListItem press="onPressedColumnListItem" class="ssmsColorChangingText" counter="{UserModel1>id}" type="Navigation">
 									<cells>
 										<Text text="{UserModel1>topic}"/>
 										<Text text="{UserModel1>category}"/>
 										<Text text="{path:'UserModel1>visibility',formatter:'.formatter.formatVisibility'}"/>
 										<Text text="{path: 'UserModel1>meetingTime',formatter:'.formatter.formatDateTime'}"/>
 										<Text text="{UserModel1>meetingRoom}"/>
-										<ssms:ColorChangableText text="{UserModel1>status}"/>
+										<ObjectNumber emphasized="false" number="{UserModel1>status}" state="{path:'UserModel1>status',formatter:'.formatter.formatStatusToColor'}"/>
 									</cells>
 								</ColumnListItem>
 							</items>
@@ -98,19 +98,19 @@
 								<Column width="14em" demandPopin="true">
 									<Text text="{i18n>TEXT_OWNSESSION_LOCATION}"/>
 								</Column>
-								<Column >
+								<Column>
 									<Text text="{i18n>TEXT_OWNSESSION_STATUS}"/>
 								</Column>
 							</columns>
 							<items>
-								<ColumnListItem press="onPressedColumnListItem" type="Navigation" counter="{UserModel1>id}">
+								<ColumnListItem press="onPressedColumnListItem" class="ssmsColorChangingText" type="Navigation" counter="{UserModel1>id}">
 									<cells>
 										<Text text="{UserModel1>topic}"/>
 										<Text text="{UserModel1>category}"/>
 										<Text text="{path:'UserModel1>visibility',formatter:'.formatter.formatVisibility'}"/>
 										<Text text="{path: 'UserModel1>meetingTime',formatter:'.formatter.formatDateTime'}"/>
 										<Text text="{UserModel1>meetingRoom}"/>
-										<ssms:ColorChangableText text="{UserModel1>status}"/>
+										<ObjectNumber emphasized="false" number="{UserModel1>status}" state="{path:'UserModel1>status',formatter:'.formatter.formatStatusToColor'}"/>
 									</cells>
 								</ColumnListItem>
 							</items>
@@ -135,19 +135,19 @@
 								<Column width="14em" demandPopin="true">
 									<Text text="{i18n>TEXT_OWNSESSION_LOCATION}"/>
 								</Column>
-								<Column >
+								<Column>
 									<Text text="{i18n>TEXT_OWNSESSION_STATUS}"/>
 								</Column>
 							</columns>
 							<items>
-								<ColumnListItem press="onPressedColumnListItem" type="Navigation" counter="{UserModel1>id}">
+								<ColumnListItem press="onPressedColumnListItem" class="ssmsColorChangingText" type="Navigation" counter="{UserModel1>id}">
 									<cells>
 										<Text text="{UserModel1>topic}"/>
 										<Text text="{UserModel1>category}"/>
 										<Text text="{path:'UserModel1>visibility',formatter:'.formatter.formatVisibility'}"/>
 										<Text text="{path: 'UserModel1>meetingTime',formatter:'.formatter.formatDateTime'}"/>
 										<Text text="{UserModel1>meetingRoom}"/>
-										<ssms:ColorChangableText text="{UserModel1>status}"/>
+										<ObjectNumber emphasized="false" number="{UserModel1>status}" state="{path:'UserModel1>status',formatter:'.formatter.formatStatusToColor'}"/>
 									</cells>
 								</ColumnListItem>
 							</items>
@@ -171,19 +171,19 @@
 								<Column width="14em" demandPopin="true">
 									<Text text="{i18n>TEXT_OWNSESSION_LOCATION}"/>
 								</Column>
-								<Column >
+								<Column>
 									<Text text="{i18n>TEXT_OWNSESSION_STATUS}"/>
 								</Column>
 							</columns>
 							<items>
-								<ColumnListItem press="onPressedColumnListItem" type="Navigation" counter="{UserModel1>id}">
+								<ColumnListItem press="onPressedColumnListItem" class="ssmsColorChangingText" type="Navigation" counter="{UserModel1>id}">
 									<cells>
 										<Text text="{UserModel1>topic}"/>
 										<Text text="{UserModel1>category}"/>
 										<Text text="{path:'UserModel1>visibility',formatter:'.formatter.formatVisibility'}"/>
 										<Text text="{path: 'UserModel1>meetingTime',formatter:'.formatter.formatDateTime'}"/>
 										<Text text="{UserModel1>meetingRoom}"/>
-										<ssms:ColorChangableText text="{UserModel1>status}"/>
+										<ObjectNumber emphasized="false" number="{UserModel1>status}" state="{path:'UserModel1>status',formatter:'.formatter.formatStatusToColor'}"/>
 									</cells>
 								</ColumnListItem>
 							</items>
