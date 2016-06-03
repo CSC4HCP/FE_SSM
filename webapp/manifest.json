@@ -136,6 +136,11 @@
 				    "pattern": "control_uploadCollection",
 				    "name": "control_uploadCollection",
 				    "target": "control_uploadCollection"
+				},
+				{
+					"pattern": "test_notificationList",
+					"name": "test_notificationList",
+					"target": "test_notificationList"
 				}
 			],
 			"targets": {
@@ -168,6 +173,11 @@
 				{
 				    "viewPath": "ssms.view.controls",
 				    "viewName": "AllControls"
+				},
+				"test_notificationList":
+				{
+					"viewPath": "ssms.view.test",
+					"viewName": "NotificationList"
 				}
 			}
 		}

@@ -7,7 +7,7 @@ sap.ui.require(
 		opaTest("Should see the Split Container", function(Given, When, Then) {
 			// Arrangements
 			Given.iStartMyApp({
-				hash: "notificationList"
+				hash: "test_notificationList"
 			});
 
 			//Actions

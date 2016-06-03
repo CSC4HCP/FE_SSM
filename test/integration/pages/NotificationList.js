@@ -7,7 +7,7 @@ sap.ui.require([
 	function(Opa5, AggregationLengthEquals, PropertyStrictEquals, Common) {
 		"use strict";
 		
-		var sViewName = "NotificationList";
+		var sViewName = "test.NotificationList";
 		var sAllItemsId = "notificationAll";
 		var sUnreadItemsId = "notificationUnread";
 
