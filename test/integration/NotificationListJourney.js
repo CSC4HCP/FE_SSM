@@ -28,6 +28,10 @@ sap.ui.require(
 			.and.theAllItemsShouldBeSelected();	
 		});
 		
+		opaTest("Should see 6 items in the detail page while 'All' item selected", function(Given, When, Then) {
+			Then.onNotificationListPage.theDetailPageShouldHaveAllEntries();
+		});
+		
 		opaTest("Should see item selected after click it", function(Give, When, Then) {
 			// Actions
 			When.onNotificationListPage.iPressOnItem();

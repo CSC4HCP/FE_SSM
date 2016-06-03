@@ -94,6 +94,20 @@ sap.ui.require([
 						});
 					},
 					
+					theDetailPageShouldHaveAllEntries: function() {
+						return this.waitFor({
+							controlType: "ssms.control.notificationListItem.notificationListItem",
+							viewName: sViewName,
+							matchers: function(oNotificationListItem) {
+								return oNotificationListItem.$().hasClass("ssmsNotificationDetail");
+							},
+							success: function(aNotificationListItems) {
+								Opa5.assert.strictEqual(aNotificationListItems.length, 6, "There were 6 items in the detail page while 'All' item selected.");
+							},
+							errorMessage: "Some items may lost in the detail page."
+						});
+					},
+					
 					theOtherItemShouldNotBeSelected: function() {
 						return this.waitFor({
 							id: sAllItemsId,
