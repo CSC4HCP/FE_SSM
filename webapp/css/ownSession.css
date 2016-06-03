@@ -1,18 +1,18 @@
-.ssmsYellowFontEva {
-    color: yellow !important;
-}
-.ssmsRedFontEva {
-    color: red !important;
-}
-.ssmsGreenFontEva {
-    color: green !important;
-}
-.ssmsGrayFontEva {
-    color: gray !important;
-}
 .sapMITBAll .sapMITBCount {
     font-size: 2.5rem ;
 }
 .sapMITBAll .sapMITBText{
     padding-top: 1rem;
+}
+.ssmsColorChangingText .sapMObjectNumberStatusWarning {
+	 color: red;
+}
+.ssmsColorChangingText .sapMObjectNumberStatusError {
+	 color: gray;
+}
+.ssmsColorChangingText .sapMObjectNumberStatusNone {
+	 color: yellow;
+}
+.ssmsColorChangingText .sapMObjectNumberStatusSuccess {
+	 color: green;
 }
