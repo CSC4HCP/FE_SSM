@@ -3,51 +3,38 @@ sap.ui.require(
 	function(opaTest) {
 		"use strict";
 
-		QUnit.module("Notification_OPA");
-		opaTest("Should see the SplitContainer", function(Given, When, Then) {
+		QUnit.module("Notification List Page");
+		opaTest("Should see the Split Container", function(Given, When, Then) {
 			// Arrangements
-			Given.iStartMyApp({hash: "notificationList"});
+			Given.iStartMyApp({
+				hash: "notificationList"
+			});
 
 			//Actions
-			When.onTheNotificationPage.iLookAtTheScreen();
+			When.onNotificationListPage.iLookAtTheScreen();
 
 			// Assertions
-			Then.onTheNotificationPage.iShouldSeeTheSplitContainer();
+			Then.onNotificationListPage.iShouldSeeTheSplitContainer();
 		});
 
-		opaTest("Should see the Notification List", function(Given, When, Then) {
-		
-
-			//Actions
-				When.onTheNotificationPage.iLookAtTheScreen();
-
+		opaTest("Should see both the Master and Detail Page", function(Given, When, Then) {
 			// Assertions
-			Then.onTheNotificationPage.iShouldSeeTheNotificationList();
+			Then.onNotificationListPage.iShouldSeeTheMasterPage()
+			.and.iShouldSeeTheDetailPage();
 		});
 		
-			opaTest("Should see the Masterpages", function(Given, When, Then) {
-	
-			//Actions
-				When.onTheNotificationPage.iLookAtTheScreen();
-
-			// Assertions
-			Then.onTheNotificationPage.iShouldSeeTheMasterPage();
+		opaTest("Should see 2 items in the master page and the 'All' item selected", function(Given, When, Then) {
+			Then.onNotificationListPage.theMasterPageShouldHaveTwoEntries()
+			.and.theAllItemsShouldBeSelected();	
 		});
-
-
-
-	
-			opaTest("Should see the searchfield", function(Given, When, Then) {
-	
-
-			//Actions
-			When.onTheNotificationPage.iPressTheSearchField();
-
-			// Assertions
-			Then.onTheNotificationPage.iShouldSeeTheSeachInfo();
+		
+		opaTest("Should see item selected after click it", function(Give, When, Then) {
+			// Actions
+			When.onNotificationListPage.iPressOnItem();
 			
-			Given.iTearDownMyApp();
+			// Assertions
+			Then.onNotificationListPage.theOtherItemShouldNotBeSelected()
+			.and.theItemShouldBeSelected();
 		});
-
 	}
 );
