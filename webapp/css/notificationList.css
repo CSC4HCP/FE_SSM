@@ -3,11 +3,6 @@
     border-radius: 5px;
     border-bottom: none;
 }
-.ssmsNotificationMaster.sapMLIB {
-}
-.ssmsNotificationMaster.sapMLBSelected {
-    background-color: #0099CC;
-}
 .ssmNotificationMasterItemSelected {
     background-color: #0099CC !important;
 }

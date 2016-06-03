@@ -6,18 +6,26 @@
 		</subHeader>
 		<content>
 			<SplitContainer id="notificationSplitCont">
-				<detailPages id="notificationDetail">
-					<Page>
+				<detailPages>
+					<Page id="notifyPageAll" showHeader="false">
 						<content>
-							<List id="notificationList" items="{NotificationModel>/}">
-								<ssms:NotificationListItem  title="Notice" description="{NotificationModel>content}" notificationId="{NotificationModel>id}" notificationTarget="{NotificationModel>target}"
-									class="ssmsNotificationDetail" priority="{path: 'NotificationModel>checked',formatter:'.formatter.formatRead'}" close="onPressClose" press="onListitemPress"/>
+							<List id="notificationListAll" items="{NotificationModelAll>/}">
+								<ssms:NotificationListItem  title="Notice" description="{NotificationModelAll>content}" notificationId="{NotificationModelAll>id}" notificationTarget="{NotificationModelAll>target}"
+									notificationChecked="{NotificationModelAll>checked}" class="ssmsNotificationDetail" priority="{path: 'NotificationModelAll>checked',formatter:'.formatter.formatRead'}" close="onPressClose" press="onListitemPress"/>
+							</List>
+						</content>
+					</Page>
+					<Page id="notifyPageUnread" showHeader="false">
+						<content>
+							<List id="notificationListUnread" items="{NotificationModelUnread>/}">
+								<ssms:NotificationListItem  title="Notice" description="{NotificationModelUnread>content}" notificationId="{NotificationModelUnread>id}" notificationTarget="{NotificationModelUnread>target}"
+									notificationChecked="{NotificationModelUnread>checked}" class="ssmsNotificationDetail" priority="{path: 'NotificationModelUnread>checked',formatter:'.formatter.formatRead'}" close="onPressClose" press="onListitemPress"/>
 							</List>
 						</content>
 					</Page>
 				</detailPages>
-				<masterPages id="notificationMaster">
-					<Page>
+				<masterPages>
+					<Page showHeader="false">
 						<content>
 							<List>
 								<items>
