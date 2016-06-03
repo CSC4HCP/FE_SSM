@@ -141,6 +141,11 @@
 					"pattern": "test_notificationList",
 					"name": "test_notificationList",
 					"target": "test_notificationList"
+				},
+				{
+					"pattern": "test_ownSession",
+					"name": "test_ownSession",
+					"target": "test_ownSession"
 				}
 			],
 			"targets": {
@@ -178,6 +183,11 @@
 				{
 					"viewPath": "ssms.view.test",
 					"viewName": "NotificationList"
+				},
+				"test_ownSession":
+				{
+					"viewPath": "ssms.view.test",
+					"viewName": "OwnSession"
 				}
 			}
 		}
