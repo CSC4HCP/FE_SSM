@@ -1,0 +1,39 @@
+[
+	{
+		"id": 1,
+		"target": "I326960",
+		"content": "test notification - readed",
+		"checked": true
+	},
+	
+	{
+		"id": 1,
+		"target": "I326960",
+		"content": "test notification - readed",
+		"checked": true
+	},
+		{
+		"id": 1,
+		"target": "I326960",
+		"content": "test notification -unreaded",
+		"checked": false
+	},
+		{
+		"id": 1,
+		"target": "I326960",
+		"content": "test notification - readed",
+		"checked": true
+	},
+		{
+		"id": 1,
+		"target": "I326960",
+		"content": "test notification - unreaded",
+		"checked": false
+	},
+		{
+		"id": 1,
+		"target": "I326960",
+		"content": "test notification - readed",
+		"checked": true
+	}
+]

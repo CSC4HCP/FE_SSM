@@ -5,7 +5,7 @@ sap.ui.define([
 	"use strict";
 	var bAll = true;
 	var bUnread = false;
-	return BaseController.extend("ssms.controller.NotificationList", {
+	return BaseController.extend("ssms.controller.test.NotificationList", {
 		/**
 		 * @event
 		 * @name onInit
@@ -14,17 +14,17 @@ sap.ui.define([
 		 */
 		onInit: function() {
 			var oModelAll = new sap.ui.model.json.JSONModel();
-			oModelAll.loadData("/destinations/SSM_DEST/api/notify", null, false);
+			oModelAll.loadData("mockData/notificationList.json", null, false);
 			this.byId("notificationList").setModel(oModelAll, "NotificationModel");
 			var oModelUnread = new sap.ui.model.json.JSONModel();
-			oModelUnread.loadData("/destinations/SSM_DEST/api/notify?checked=false", null, false);
+			oModelUnread.loadData("mockData/notificationListUn.json", null, false);
 			this.byId("notificationAll").setCounter(oModelAll.getData().length);
 			this.byId("notificationUnread").setCounter(oModelUnread.getData().length);
 			this.byId("notificationAll").addStyleClass("ssmNotificationMasterItemSelected");
 		},
 
 		onListitemPress: function(oEvent) {
-			var oNotificationData = new Object();
+			var oNotificationData = {};
 			var oUnread = this.byId("notificationUnread");
 			var oItem = oEvent.getSource();
 			if (oItem.getPriority() === "High") {
@@ -71,7 +71,7 @@ sap.ui.define([
 						oItem.destroy();
 						$.ajax({
 							url: "/destinations/SSM_DEST/api/notify/" + sNotificationId,
-							type: 'DELETE'
+							type: "DELETE"
 						});
 						sap.m.MessageToast.show("Delete successfully");
 						reminder.close();

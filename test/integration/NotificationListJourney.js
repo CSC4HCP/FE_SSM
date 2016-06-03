@@ -3,33 +3,42 @@ sap.ui.require(
 	function(opaTest) {
 		"use strict";
 
-		QUnit.module("Notification_OPA");
-		opaTest("Should do some test", function(Given, When, Then) {
+		QUnit.module("Notification List Page");
+		opaTest("Should see the Split Container", function(Given, When, Then) {
 			// Arrangements
-			Given.iStartMyApp({hash: "notificationList"});
+			Given.iStartMyApp({
+				hash: "test_notificationList"
+			});
 
 			//Actions
-			When.onTheNotificationPage.iPressThePersonalButton();
+			When.onNotificationListPage.iLookAtTheScreen();
 
 			// Assertions
-			Then.onTheNotificationPage.iShouldSeeThePersonalInformation();
+			Then.onNotificationListPage.iShouldSeeTheSplitContainer();
 		});
 
+		opaTest("Should see both the Master and Detail Page", function(Given, When, Then) {
+			// Assertions
+			Then.onNotificationListPage.iShouldSeeTheMasterPage()
+			.and.iShouldSeeTheDetailPage();
+		});
 		
-
-
-	
-			opaTest("Should see something", function(Given, When, Then) {
-	
-
-			//Actions
-			When.onTheNotificationPage.iPressTheSearchField();
-
-			// Assertions
-			Then.onTheNotificationPage.iShouldSeeTheSeachInfo();
-			
-			Given.iTearDownMyApp();
+		opaTest("Should see 2 items in the master page and the 'All' item selected", function(Given, When, Then) {
+			Then.onNotificationListPage.theMasterPageShouldHaveTwoEntries()
+			.and.theAllItemsShouldBeSelected();	
 		});
-
+		
+		opaTest("Should see 6 items in the detail page while 'All' item selected", function(Given, When, Then) {
+			Then.onNotificationListPage.theDetailPageShouldHaveAllEntries();
+		});
+		
+		opaTest("Should see item selected after click it", function(Give, When, Then) {
+			// Actions
+			When.onNotificationListPage.iPressOnItem();
+			
+			// Assertions
+			Then.onNotificationListPage.theOtherItemShouldNotBeSelected()
+			.and.theItemShouldBeSelected();
+		});
 	}
 );

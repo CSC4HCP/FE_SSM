@@ -1,0 +1,103 @@
+{
+	"All": [{
+		"id": 1,
+		"topic": "111",
+		"category": "USA",
+		"description": "",
+		"owner": "I326953",
+		"status": "Cancelled",
+		"meetingTime": "2016-05-30T16:00:00+0000",
+		"meetingRoom": null,
+		"file": 0,
+		"summary": null,
+		"visibility": true
+	}, {
+		"id": 2,
+		"topic": "111111",
+		"category": "England",
+		"description": "ssms-description",
+		"owner": "I326953",
+		"status": "Open",
+		"meetingTime": "2016-05-25T16:00:00+0000",
+		"meetingRoom": null,
+		"file": 0,
+		"summary": "ssms-summary",
+		"visibility": true
+	}, {
+		"id": 4,
+		"topic": "111",
+		"category": "England",
+		"description": "ssms-description",
+		"owner": "I326953",
+		"status": "In Progress",
+		"meetingTime": "2016-05-27T16:00:00+0000",
+		"meetingRoom": null,
+		"file": 0,
+		"summary": "ssms-summary",
+		"visibility": true
+	}, {
+		"id": 5,
+		"topic": "111",
+		"category": "Business",
+		"description": "",
+		"owner": "I326953",
+		"status": "Completed",
+		"meetingTime": "2016-05-27T16:00:00+0000",
+		"meetingRoom": null,
+		"file": 0,
+		"summary": null,
+		"visibility": true
+	}],
+    "Open": [{
+		"id": 2,
+		"topic": "111111",
+		"category": "England",
+		"description": "ssms-description",
+		"owner": "I326953",
+		"status": "Open",
+		"meetingTime": "2016-05-25T16:00:00+0000",
+		"meetingRoom": null,
+		"file": 0,
+		"summary": "ssms-summary",
+		"visibility": true
+	}],
+	"Completed": [{
+		"id": 5,
+		"topic": "111",
+		"category": "Business",
+		"description": "",
+		"owner": "I326953",
+		"status": "Completed",
+		"meetingTime": "2016-05-27T16:00:00+0000",
+		"meetingRoom": null,
+		"file": 0,
+		"summary": null,
+		"visibility": true
+	}],
+	"In Progress": [ {
+		"id": 4,
+		"topic": "111",
+		"category": "England",
+		"description": "ssms-description",
+		"owner": "I326953",
+		"status": "In Progress",
+		"meetingTime": "2016-05-27T16:00:00+0000",
+		"meetingRoom": null,
+		"file": 0,
+		"summary": "ssms-summary",
+		"visibility": true
+	}],
+	"Cancelled":[{
+		"id": 1,
+		"topic": "111",
+		"category": "USA",
+		"description": "",
+		"owner": "I326953",
+		"status": "Cancelled",
+		"meetingTime": "2016-05-30T16:00:00+0000",
+		"meetingRoom": null,
+		"file": 0,
+		"summary": null,
+		"visibility": true
+	}]
+}

@@ -1,5 +1,4 @@
-sap.ui.define([
-], function() {
+sap.ui.define([], function() {
 	"use strict";
 
 	return {
@@ -19,7 +18,7 @@ sap.ui.define([
 			}
 			return sResult;
 		},
-		
+
 		/**
 		 * @function
 		 * @name formatDateTime
@@ -30,7 +29,7 @@ sap.ui.define([
 		formatDateTime: function(sValue) {
 			return new Date(sValue).toLocaleString();
 		},
-		
+
 		/**
 		 * @function
 		 * @name formatDate
@@ -42,7 +41,7 @@ sap.ui.define([
 			var dDateTime = new Date(sValue).toLocaleString();
 			return dDateTime.substring(0, dDateTime.indexOf(","));
 		},
-		
+
 		/**
 		 * @function
 		 * @name formatTime
@@ -54,7 +53,7 @@ sap.ui.define([
 			var dDateTime = new Date(sValue).toLocaleString();
 			return dDateTime.substring(dDateTime.indexOf(",") + 2);
 		},
-		
+
 		/**
 		 * @function
 		 * @name getReadIconVisibility
@@ -65,7 +64,7 @@ sap.ui.define([
 		getReadIconVisibility: function(bValue) {
 			return !bValue;
 		},
-		
+
 		/**
 		 * @function
 		 * @name getUnreadIconVisibility
@@ -75,6 +74,36 @@ sap.ui.define([
 		 */
 		getUnreadIconVisibility: function(bValue) {
 			return bValue;
+		},
+
+		formatRead: function(bChecked) {
+			var sResult;
+			if (bChecked) {
+				sResult = "None";
+			} else {
+				sResult = "High";
+			}
+			return sResult;
+		},
+		/**
+		 * @function
+		 * @name formatStatusToColor
+		 * @description The function use to format the session status to change it's text.
+		 * @param {String} sValue -The status
+		 * @return {String} -state
+		 */
+		formatStatusToColor: function(sValue) {
+			switch (sValue) {
+				case "Open":
+					return "None";
+				case "In Progress":
+					return "Success";
+				case "Completed":
+					return "Error";
+				case "Cancelled":
+					return "Warning";
+			}
 		}
+
 	};
 });
