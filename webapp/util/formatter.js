@@ -98,7 +98,7 @@ sap.ui.define([], function() {
 					return "None";
 				case "In Progress":
 					return "Success";
-				case "Closed":
+				case "Completed":
 					return "Error";
 				case "Cancelled":
 					return "Warning";
