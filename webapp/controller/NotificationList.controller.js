@@ -9,26 +9,36 @@ sap.ui.define([
 		 * @event
 		 * @name onInit
 		 * @description Called when a controller is instantiated and its View controls (if available) are already created. Mainly set model.
-		 * @memberOf ssms.view.view.ownSession
+		 * @memberOf ssms.view.view.NotificationList
 		 */
 		onInit: function() {
+			var sUserId;
 			var oUserModel = new JSONModel();
+			this.getView().setBusy(true);
+
 			oUserModel.loadData("/services/userapi/currentUser", null, false);
 			this.getView().setModel(oUserModel, "UserModel");
-			
-			var sOwner = oUserModel.getData().name;
+			sUserId = oUserModel.getData().name;
+
 			var oModelAll = new JSONModel();
-			oModelAll.loadData("/destinations/SSM_DEST/api/notify?target=" + sOwner, null, false);
+			oModelAll.loadData("/destinations/SSM_DEST/api/notify?target=" + sUserId, null, false);
 			this.getView().setModel(oModelAll, "NotificationModelAll");
-			
+
 			var oModelUnread = new JSONModel();
 			this.getView().setModel(oModelUnread, "NotificationModelUnread");
+
+			this.getView().setBusy(false);
 			this.getFilterData(oModelAll.getData());
 			this.byId("notificationAll").setCounter(oModelAll.getData().length);
-			this.byId("notificationUnread").setCounter(oModelUnread.getData().length);
 			this.byId("notificationAll").addStyleClass("ssmNotificationMasterItemSelected");
 		},
 
+		/**
+		 * @function
+		 * @name onListitemPress
+		 * @description Event handler for changing the notification's status of checked, when click notification the checked will change to true.
+		 * @param {sap.ui.base.Event} - oEvent The fired event.
+		 */
 		onListitemPress: function(oEvent) {
 			var oUnread = this.byId("notificationUnread");
 			var oItem = oEvent.getSource();
@@ -58,6 +68,12 @@ sap.ui.define([
 
 		},
 
+		/**
+		 * @function
+		 * @name onPressClose
+		 * @description Event handler for closing the notification when click the closeButton. And there is a dialog to confirm the action
+		 * @param {sap.ui.base.Event} - oEvent The fired event.
+		 */
 		onPressClose: function(oEvent) {
 			var oItem = oEvent.getSource();
 			var oUnread = this.byId("notificationUnread");
@@ -106,31 +122,40 @@ sap.ui.define([
 			reminder.open();
 		},
 
+		/**
+		 * @function
+		 * @name onPrssToAllNotices
+		 * @description Event handler for changing to allNotices page when I click the "All" button
+		 * @param {sap.ui.base.Event} - oEvent The fired event.
+		 */
 		onPrssToAllNotices: function(oEvent) {
 			var that = this;
 			var oItem = oEvent.getSource();
 			var oModelAll = that.getView().getModel("NotificationModelAll");
-			//var notifyData = oModel.getData();
+			var sUserId = that.getView().getModel("UserModel").getData().name;
 			oItem.addStyleClass("ssmNotificationMasterItemSelected");
 			that.byId("notificationUnread").removeStyleClass("ssmNotificationMasterItemSelected");
+
 			that.getSplitContObj().toDetail(that.createId("notifyPageAll"));
-			var sOwner = that.getView().getModel("UserModel").getData().name;
 			$.ajax({
 				type: "GET",
-				url: "/destinations/SSM_DEST/api/notify?target=" + sOwner,
+				url: "/destinations/SSM_DEST/api/notify?target=" + sUserId,
 				contentType: "application/json",
 				async: true,
 				success: function(data) {
 					that.byId("notificationAll").setCounter(data.length);
 					oModelAll.setData(data);
-				    that.getFilterData(data);
-				},
-				error: function() {
-
+					that.getFilterData(data);
 				}
 			});
 		},
-
+		
+        /**
+		 * @function
+		 * @name onPressToUnreadNotices
+		 * @description Event handler for changing to unreadNotices page when I click the ""Unread" button
+		 * @param {sap.ui.base.Event} - oEvent The fired event.
+		 */
 		onPressToUnreadNotices: function(oEvent) {
 			var that = this;
 			var oItem = oEvent.getSource();
@@ -138,7 +163,12 @@ sap.ui.define([
 			that.byId("notificationAll").removeStyleClass("ssmNotificationMasterItemSelected");
 			that.getSplitContObj().toDetail(that.createId("notifyPageUnread"));
 		},
-
+		
+        /**
+		 * @function
+		 * @name getSplitContObj
+		 * @description Function to find the Splitcontainer
+		 */
 		getSplitContObj: function() {
 			var result = this.byId("notificationSplitCont");
 			if (!result) {
@@ -147,7 +177,13 @@ sap.ui.define([
 			return result;
 		},
 		
-		getFilterData: function(notificationData){
+        /**
+		 * @function
+		 * @name getFilterData
+		 * @description Function to filter the unread notifications
+		 * @param {object} - The data need to filter
+		 */
+		getFilterData: function(notificationData) {
 			var that = this;
 			var oModelUnread = that.getView().getModel("NotificationModelUnread");
 			var unreadData = notificationData.filter(function(notify) {
@@ -155,7 +191,7 @@ sap.ui.define([
 			});
 			that.byId("notificationUnread").setCounter(unreadData.length);
 			oModelUnread.setData(unreadData);
-			
+
 		}
 	});
 
