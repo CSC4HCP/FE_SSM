@@ -176,7 +176,7 @@
 				"personalCenter": {
 					"viewName":	"PersonalCenter"
 				},
-				"ownSession": {
+				"ownedSession": {
 					"viewName": "OwnedSession"
 				},
 				"commentedSession": {
