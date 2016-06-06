@@ -50,24 +50,7 @@ sap.ui.define([
 		 * @memberOf ssms.view.CreateSession
 		 */
 		onInit: function() {
-			var oUserModel = new sap.ui.model.json.JSONModel();
-
-			this.getView().setBusy(true);
-			oUserModel.loadData("/services/userapi/currentUser", null, false);
-			this._sUserId = oUserModel.getData().name;
-
-			$.ajax({
-				type: "GET",
-				async: false,
-				url: "/destinations/SSM_DEST/api/notify/" + this._sUserId,
-				data: this._sUserId,
-				dataType: "text",
-				contentType: "text/plain",
-				success: function(bHaveNotificationUnread) {
-					oUserModel.notificationUnread = bHaveNotificationUnread;
-				}
-			});
-
+			var oUserModel = this.getUserModel();
 			this.getView().setModel(oUserModel, "UserModel");
 			
 			var oRouter = this.getRouter();

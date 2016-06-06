@@ -9,6 +9,10 @@ sap.ui.define([
 
 	return Controller.extend("ssms.controller.BaseController", {
 		/**
+		 * @var {String} Returned ID of current user
+		 */
+		_sUserId: "",
+		/**
 		 * @function
 		 * @name getRouter
 		 * @description Convenience method for accessing the router in every controller of the application.
@@ -69,6 +73,31 @@ sap.ui.define([
 				var bReplace = true;
 				this.getRouter().navTo("home", {}, bReplace);
 			}
+		},
+		/**
+		 * @function
+		 * @name getUserModel
+		 * @description Get the current user and set data on model.
+		 */
+		getUserModel: function() {
+			var oUserModel = new sap.ui.model.json.JSONModel();
+
+			oUserModel.loadData("/services/userapi/currentUser", null, false);
+			this._sUserId = oUserModel.getData().name;
+
+			$.ajax({
+				type: "GET",
+				async: false,
+				url: "/destinations/SSM_DEST/api/notify/" + this._sUserId,
+				data: this._sUserId,
+				dataType: "text",
+				contentType: "text/plain",
+				success: function(bHaveNotificationUnread) {
+					oUserModel.notificationUnread = bHaveNotificationUnread;
+				}
+			});
+
+			return oUserModel;
 		},
 
 		/**
