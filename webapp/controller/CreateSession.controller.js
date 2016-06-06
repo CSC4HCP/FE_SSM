@@ -32,6 +32,10 @@ sap.ui.define([
 		 */
 		_oDialog: null,
 		/**
+		 * @var {String} Returned ID of current user
+		 */
+		_sUserId: "",
+		/**
 		 * @var {String} Returned ID of the new created session
 		 */
 		_iSessionId: 0,
@@ -46,31 +50,28 @@ sap.ui.define([
 		 * @memberOf ssms.view.CreateSession
 		 */
 		onInit: function() {
-			var sUserId;
 			var oUserModel = new sap.ui.model.json.JSONModel();
 
 			this.getView().setBusy(true);
 			oUserModel.loadData("/services/userapi/currentUser", null, false);
-			sUserId = oUserModel.getData().name;
-			
+			this._sUserId = oUserModel.getData().name;
+
 			$.ajax({
 				type: "GET",
 				async: false,
-				url: "/destinations/SSM_DEST/api/notify/" + sUserId,
-				data: sUserId,
+				url: "/destinations/SSM_DEST/api/notify/" + this._sUserId,
+				data: this._sUserId,
 				dataType: "text",
 				contentType: "text/plain",
 				success: function(bHaveNotificationUnread) {
 					oUserModel.notificationUnread = bHaveNotificationUnread;
 				}
 			});
-			
-			this.getView().setModel(oUserModel, "UserModel");
 
-			var oSessionModel = new sap.ui.model.json.JSONModel();
-			oSessionModel.loadData("mockData/newSession.json", null, false);
-			oSessionModel.getData().owner = sUserId;
-			this.byId("session").setModel(oSessionModel);
+			this.getView().setModel(oUserModel, "UserModel");
+			
+			var oRouter = this.getRouter();
+			oRouter.getRoute("createSession").attachMatched(this._onRouteMatched, this);
 
 			this.getView().setBusy(false);
 			this._oUploadCollection = this.byId("uploadCollection");
@@ -87,11 +88,9 @@ sap.ui.define([
 			var sValue = oEvent.getSource().getValue();
 
 			if (sValue === "") {
-				// this.byId("topicEmptyMsg").setVisible(true);
 				bTopicValid = false;
 				oTopicInput.setValueState(sap.ui.core.ValueState.Error);
 			} else {
-				// this.byId("topicEmptyMsg").setVisible(false);
 				bTopicValid = true;
 				oTopicInput.setValueState(sap.ui.core.ValueState.None);
 			}
@@ -109,13 +108,10 @@ sap.ui.define([
 			var bValid = oEvent.getParameter("valid");
 
 			if (!bValid) {
-				// this.byId("dateValidMsg").setVisible(true);
 				this.byId("dateErrorMsg").setVisible(false);
 				bDateValid = false;
 				oDatePicker.setValueState(sap.ui.core.ValueState.Error);
 			} else {
-				// this.byId("dateValidMsg").setVisible(false);
-
 				if (dSelectedDate <= dNowDate) {
 					this.byId("dateErrorMsg").setVisible(true);
 					bDateValid = false;
@@ -275,7 +271,19 @@ sap.ui.define([
 
 			this._oDialog = dialog;
 			this._oDialog.open();
+		},
+
+		/**
+		 * @function
+		 * @name _onRouteMatched
+		 * @description Reset data of this page.
+		 */
+		_onRouteMatched: function() {
+			var oSessionModel = new sap.ui.model.json.JSONModel();
+
+			oSessionModel.loadData("mockData/newSession.json", null, false);
+			oSessionModel.getData().owner = this._sUserId;
+			this.byId("session").setModel(oSessionModel);
 		}
 	});
-
 });
