@@ -3,21 +3,16 @@
 	"sap.app": {
 		"_version": "1.1.0",
 		"id": "ssms",
-
 		"type": "application",
 		"i18n": "i18n/i18n.properties",
 		"title": "{{appTitle}}",
 
 		"description": "{{appDescription}}",
 		"applicationVersion": {
-			"version":
-
-				"1.0.0"
+			"version":"1.0.0"
 		},
 		"sourceTemplate": {
-			"id":
-
-				"ui5template.basicSAPUI5ApplicationProject",
+			"id":"ui5template.basicSAPUI5ApplicationProject",
 			"version": "1.32.0"
 		}
 
@@ -26,44 +21,35 @@
 		"_version": "1.1.0",
 		"technology": "UI5",
 		"icons":
-
 		{
 			"icon": "",
 			"favIcon": "",
 			"phone": "",
-
 			"phone@2": "",
 			"tablet": "",
 			"tablet@2": ""
 		},
-
 		"deviceTypes": {
 			"desktop": true,
 			"tablet": true,
-
 			"phone": false
 		},
 		"supportedThemes": [
 			"sap_hcb",
-
 			"sap_bluecrystal"
 		]
 	},
 	"sap.ui5": {
 		"_version": "1.1.0",
-
 		"rootView": {
 			"viewName": "ssms.view.App",
 			"type": "XML"
-
 		},
 		"dependencies": {
 			"minUI5Version": "1.30.0",
-
 			"libs": {
 				"sap.ui.core": {},
 				"sap.m": {},
-
 				"sap.ui.layout": {}
 			}
 		},
@@ -71,15 +57,11 @@
 		"contentDensities": {
 			"compact": true,
 			"cozy": true
-
 		},
 		"models": {
 			"i18n": {
-				"type":
-
-					"sap.ui.model.resource.ResourceModel",
+				"type":"sap.ui.model.resource.ResourceModel",
 				"settings": {
-
 					"bundleName": "ssms.i18n.i18n"
 				}
 			}
@@ -87,184 +69,146 @@
 
 		"resources": {
 			"css": [{
-
 					"uri": "css/common.css"
-				}, {
-
+				}, 
+				{
 					"uri": "css/home.css"
-				}, {
-
+				}, 
+				{
 					"uri": "css/createSession.css"
 				},
-
 				{
 					"uri": "css/sessionDetail.css"
 				},
-
 				{
 					"uri": "css/personalCenter.css"
-
-				}, {
+				}, 
+				{
 					"uri": "css/ownSession.css"
-
-				}, {
-					"uri":
-
-						"css/notificationList.css"
+				},
+				{
+					"uri": "css/notificationList.css"
 				}
 			]
 		},
 
 		"routing": {
 			"config": {
-				"routerClass":
-
-					"sap.m.routing.Router",
+				"routerClass":"sap.m.routing.Router",
 				"viewType": "XML",
-
 				"viewPath": "ssms.view",
 				"controlId": "app",
-
 				"controlAggregation": "pages",
 				"transition": "slide"
 			},
-
 			"routes": [{
 					"pattern": "",
-
 					"name": "application",
 					"target": "home"
-
-				}, {
-					"pattern":
-
-						"createSession",
+				}, 
+				{
+					"pattern": "createSession",
 					"name": "createSession",
-
 					"target": "createSession"
-				}, {
-
+				}, 
+				{
 					"pattern": "sessionDetail/{id}",
-					"name":
-
-						"sessionDetail",
+					"name": "sessionDetail",
 					"target": "sessionDetail"
-
-				}, {
+				}, 
+				{
 					"pattern": "personalCenter",
-
 					"name": "personalCenter",
-					"target":
-
-						"personalCenter"
-				}, {
-
-					"pattern": "ownSession",
-					"name": "ownSession",
-
-					"target": "ownSession"
-				}, {
-
+					"target":"personalCenter"
+				}, 
+				{
+					"pattern": "ownedSession",
+					"name": "ownedSession",
+					"target": "ownedSession"
+				}, 
+				{
+					"pattern": "commentedSession",
+					"name": "commentedSession",
+					"target": "commentedSession"
+				}, 
+				{
+					"pattern": "joinedSession",
+					"name": "joinedSession",
+					"target": "joinedSession"
+				}, 
+				{
 					"pattern": "notificationList",
 					"name": "notificationList",
-
 					"target": "notificationList"
-				},
-
+				}, 
 				{
 					"pattern": "allControls",
-					"name":
-
-						"allControls",
+					"name":	"allControls",
 					"target": "allControls"
-				},
-
+				}, 
 				{
 					"pattern": "control_uploadCollection",
-
 					"name": "control_uploadCollection",
-					"target":
-
-						"control_uploadCollection"
-				}, {
-
+					"target":"control_uploadCollection"
+				}, 
+				{
 					"pattern": "test_notificationList",
-					"name":
-
-						"test_notificationList",
+					"name":	"test_notificationList",
 					"target": "test_notificationList"
-
-				}, {
-
+				}, 
+				{
 					"pattern": "test_ownSession",
 					"name": "test_ownSession",
-
 					"target": "test_ownSession"
 				}
 			],
 
 			"targets": {
 				"home": {
-
 					"viewName": "Home"
 				},
 				"createSession": {
-
 					"viewName": "CreateSession"
 				},
-
 				"sessionDetail": {
 					"viewName": "SessionDetail"
-
 				},
 				"personalCenter": {
-					"viewName":
-
-						"PersonalCenter"
+					"viewName":	"PersonalCenter"
 				},
-				"ownSession":
-
-				{
-					"viewName": "OwnSession"
+				"ownSession": {
+					"viewName": "OwnedSession"
 				},
-
+				"commentedSession": {
+					"viewName": "CommentedSession"
+				},
+				"joinedSession": {
+					"viewName": "JoinedSession"
+				},
 				"notificationList": {
-
 					"viewName": "NotificationList"
 				},
-
 				"control_uploadCollection": {
-					"viewPath":
-
-						"ssms.view.controls",
+					"viewPath":	"ssms.view.controls",
 					"viewName": "UploadCollection"
-
 				},
 				"allControls": {
-
 					"viewPath": "ssms.view.controls",
 					"viewName": "AllControls"
-
 				},
 				"test_notificationList": {
-
 					"viewPath": "ssms.view.test",
 					"viewName": "NotificationList"
 				},
-				"test_ownSession":
-
-				{
+				"test_ownSession": {
 					"viewPath": "ssms.view.test",
-
 					"viewName": "OwnSession"
 				}
 			}
-
 		}
 	},
 	"sap.platform.hcp": {
 		"uri": "webapp",
 		"_version": "1.1.0"
-
 	}
 }
