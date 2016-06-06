@@ -90,10 +90,9 @@ sap.ui.define([
 				async: false,
 				url: "/destinations/SSM_DEST/api/notify/" + this._sUserId,
 				data: this._sUserId,
-				dataType: "text",
 				contentType: "text/plain",
 				success: function(bHaveNotificationUnread) {
-					oUserModel.notificationUnread = bHaveNotificationUnread;
+					oUserModel.getData().notificationUnread = bHaveNotificationUnread;
 				}
 			});
 
