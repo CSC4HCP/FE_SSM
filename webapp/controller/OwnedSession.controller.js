@@ -7,7 +7,7 @@ sap.ui.define([
 
 	"use strict";
 
-	return BaseController.extend("ssms.controller.OwnSession", {
+	return BaseController.extend("ssms.controller.OwnedSession", {
 
 		/**
 
