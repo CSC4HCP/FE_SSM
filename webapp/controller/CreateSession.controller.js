@@ -32,10 +32,6 @@ sap.ui.define([
 		 */
 		_oDialog: null,
 		/**
-		 * @var {String} Returned ID of current user
-		 */
-		_sUserId: "",
-		/**
 		 * @var {String} Returned ID of the new created session
 		 */
 		_iSessionId: 0,
