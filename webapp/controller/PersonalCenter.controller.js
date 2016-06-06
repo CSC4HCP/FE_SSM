@@ -93,7 +93,7 @@ sap.ui.define([
 					MessageToast.show("Will go to the joinSession Page");
 					break;
 				case sId.indexOf("ownedSession") > -1:
-					this.getRouter().navTo("ownSession");
+					this.getRouter().navTo("ownedSession");
 					break;
 				case sId.indexOf("commentedSession") > -1:
 					MessageToast.show("Will go to the ownSession Page");
