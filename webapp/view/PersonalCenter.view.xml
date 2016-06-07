@@ -23,7 +23,7 @@
 				</VBox>
 				<VBox justifyContent="Center" class="sapUiMediumMarginTop">
 				<StandardTile id="commentedSession" icon="sap-icon://comment" title="{i18n>TITLE_PERSONALCENTER_COMMENTEDSESSION}" press="onPressTile" class="ssmsPersonalCenter_create ssmsPersonalCenter_common"/>
-				<StandardTile id="JoinedSession" icon="sap-icon://collaborate" title="{i18n>TITLE_PERSONALCENTER_JOINEDSESSION}" press="onPressTile" class="ssmsPersonalCenter_common"/>
+				<StandardTile id="joinedSession" icon="sap-icon://collaborate" title="{i18n>TITLE_PERSONALCENTER_JOINEDSESSION}" press="onPressTile" class="ssmsPersonalCenter_common"/>
 				</VBox>
 			</HBox>
 		</content>
