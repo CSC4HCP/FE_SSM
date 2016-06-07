@@ -23,11 +23,8 @@ sap.ui.define([
 
 		onInit: function() {
 
-			var oModel = new sap.ui.model.json.JSONModel();
-
-			oModel.loadData("/services/userapi/currentUser", null, false);
-
-			this.getView().setModel(oModel, "UserModel");
+			var oUserModel = this.getUserModel();
+			this.getView().setModel(oUserModel, "UserModel");
 
 			var oModel1 = new sap.ui.model.json.JSONModel();
 

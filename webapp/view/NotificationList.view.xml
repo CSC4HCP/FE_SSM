@@ -10,7 +10,7 @@
 					<Page id="notifyPageAll" showHeader="false">
 						<content>
 							<List id="notificationListAll" items="{NotificationModelAll>/}">
-								<ssms:NotificationListItem  title="Notice" description="{NotificationModelAll>content}" notificationId="{NotificationModelAll>id}" notificationTarget="{NotificationModelAll>target}"
+								<ssms:NotificationListItem  title="{i18n>TITLE_NOTIFY}" description="{NotificationModelAll>content}" notificationId="{NotificationModelAll>id}" notificationTarget="{NotificationModelAll>target}"
 									notificationChecked="{NotificationModelAll>checked}" class="ssmsNotificationDetail" priority="{path: 'NotificationModelAll>checked',formatter:'.formatter.formatRead'}" close="onPressClose" press="onListitemPress"/>
 							</List>
 						</content>
@@ -18,7 +18,7 @@
 					<Page id="notifyPageUnread" showHeader="false">
 						<content>
 							<List id="notificationListUnread" items="{NotificationModelUnread>/}">
-								<ssms:NotificationListItem  title="Notice" description="{NotificationModelUnread>content}" notificationId="{NotificationModelUnread>id}" notificationTarget="{NotificationModelUnread>target}"
+								<ssms:NotificationListItem  title="{i18n>TITLE_NOTIFY}" description="{NotificationModelUnread>content}" notificationId="{NotificationModelUnread>id}" notificationTarget="{NotificationModelUnread>target}"
 									notificationChecked="{NotificationModelUnread>checked}" class="ssmsNotificationDetail" priority="{path: 'NotificationModelUnread>checked',formatter:'.formatter.formatRead'}" close="onPressClose" press="onListitemPress"/>
 							</List>
 						</content>
@@ -29,9 +29,9 @@
 						<content>
 							<List>
 								<items>
-									<StandardListItem title="All" id="notificationAll" press="onPrssToAllNotices"  type="Active" selected="true"
+									<StandardListItem title="{i18n>TITLE_NOTIFICATION_ALL}" id="notificationAll" press="onPrssToAllNotices"  type="Active" selected="true"
 										class="ssmsNotificationMaster"/>
-									<StandardListItem title="Unread" id="notificationUnread" press="onPressToUnreadNotices" type="Active"  class="ssmsNotificationMaster"/>
+									<StandardListItem title="{i18n>TITLE_NOTIFICATION_UNREAD}" id="notificationUnread" press="onPressToUnreadNotices" type="Active"  class="ssmsNotificationMaster"/>
 								</items>
 							</List>
 						</content>

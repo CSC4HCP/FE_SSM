@@ -5,7 +5,7 @@ sap.ui.define([
 	"use strict";
 
 	return BaseController.extend("ssms.controller.PersonalCenter", {
-	    _oUser: null,
+		_oUser: null,
 		/**
 		 * @event
 		 * @name onInit
@@ -13,14 +13,13 @@ sap.ui.define([
 		 * @memberOf ssms.view.view.Home
 		 */
 		onInit: function() {
-			var oModel = new sap.ui.model.json.JSONModel();
-			oModel.loadData("/services/userapi/currentUser", null, false);
-			this.getView().setModel(oModel, "UserModel");
+			var oUserModel = this.getUserModel();
+			this.getView().setModel(oUserModel, "UserModel");
 
-			this._oUser = this.getUserRole(oModel.getData());
-            var oModel1 = new sap.ui.model.json.JSONModel();
-            oModel1.setData(this._oUser, null, false);
-            this.getView().setModel(oModel1, "UserModel1");
+			this._oUser = this.getUserRole(oUserModel.getData());
+			var oModel1 = new sap.ui.model.json.JSONModel();
+			oModel1.setData(this._oUser, null, false);
+			this.getView().setModel(oModel1, "UserModel1");
 		},
 
 		/**
@@ -90,13 +89,13 @@ sap.ui.define([
 					this.getRouter().navTo("createSession");
 					break;
 				case sId.indexOf("joinedSession") > -1:
-					MessageToast.show("Will go to the joinSession Page");
+					this.getRouter().navTo("joinedSession");
 					break;
 				case sId.indexOf("ownedSession") > -1:
 					this.getRouter().navTo("ownedSession");
 					break;
 				case sId.indexOf("commentedSession") > -1:
-					MessageToast.show("Will go to the ownSession Page");
+					MessageToast.show("Will go to the createSession Page");
 					break;
 				default:
 					break;
