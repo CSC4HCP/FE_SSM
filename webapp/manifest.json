@@ -6,7 +6,6 @@
 		"type": "application",
 		"i18n": "i18n/i18n.properties",
 		"title": "{{appTitle}}",
-
 		"description": "{{appDescription}}",
 		"applicationVersion": {
 			"version":"1.0.0"
@@ -84,7 +83,13 @@
 					"uri": "css/personalCenter.css"
 				}, 
 				{
-					"uri": "css/ownSession.css"
+					"uri": "css/ownedSession.css"
+				},
+				{
+					"uri": "css/commentedSession.css"
+				},
+				{
+					"uri": "css/joinedSession.css"
 				},
 				{
 					"uri": "css/notificationList.css"
