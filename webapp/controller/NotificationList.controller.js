@@ -22,10 +22,10 @@ sap.ui.define([
 
 			var oModelAll = new JSONModel();
 			oModelAll.loadData("/destinations/SSM_DEST/api/notify?target=" + sUserId, null, false);
-			this.getView().setModel(oModelAll, "NotificationModelAll");
+			this.byId("notificationListAll").setModel(oModelAll, "NotificationModelAll");
 
 			var oModelUnread = new JSONModel();
-			this.getView().setModel(oModelUnread, "NotificationModelUnread");
+			this.byId("notificationListUnread").setModel(oModelUnread, "NotificationModelUnread");
 
 			this.getView().setBusy(false);
 			this.getFilterData(oModelAll.getData());
@@ -75,10 +75,12 @@ sap.ui.define([
 		 * @param {sap.ui.base.Event} - oEvent The fired event.
 		 */
 		onPressClose: function(oEvent) {
+			var that = this;
 			var oItem = oEvent.getSource();
 			var oUnread = this.byId("notificationUnread");
 			var oAll = this.byId("notificationAll");
-			var sNotificationId = oEvent.getSource().getNotificationId();
+
+			var sNotificationId = oItem.getNotificationId();
 			var reminder = new sap.m.Dialog({
 				title: "Confirm",
 				type: "Message",
@@ -93,13 +95,21 @@ sap.ui.define([
 							url: "/destinations/SSM_DEST/api/notify/" + sNotificationId,
 							type: "DELETE",
 							success: function() {
-								oItem.destroy();
+								var sId = oItem.sId.split("-")[4];
+								var id = oItem.getId().split("-")[3];
+
+								if (id === "notificationListAll") {
+									var oNotification = that.byId(id).getModel("NotificationModelAll").getData();
+									oNotification.splice(sId, 1);
+								}
+								
 								if (oItem.getNotificationChecked()) {
 									oAll.setCounter(oAll.getCounter() - 1);
 								} else if (!oItem.getNotificationChecked()) {
 									oAll.setCounter(oAll.getCounter() - 1);
 									oUnread.setCounter(oUnread.getCounter() - 1);
 								}
+								oItem.destroy();
 								sap.m.MessageToast.show("Deleted successfully!");
 							},
 							error: function() {
@@ -107,7 +117,6 @@ sap.ui.define([
 							}
 						});
 					}
-
 				}),
 				endButton: new sap.m.Button({
 					text: "Cancel",
@@ -131,7 +140,7 @@ sap.ui.define([
 		onPrssToAllNotices: function(oEvent) {
 			var that = this;
 			var oItem = oEvent.getSource();
-			var oModelAll = that.getView().getModel("NotificationModelAll");
+			var oModelAll = that.byId("notificationListAll").getModel("NotificationModelAll");
 			var sUserId = that.getView().getModel("UserModel").getData().name;
 			oItem.addStyleClass("ssmNotificationMasterItemSelected");
 			that.byId("notificationUnread").removeStyleClass("ssmNotificationMasterItemSelected");
@@ -145,12 +154,12 @@ sap.ui.define([
 				success: function(data) {
 					that.byId("notificationAll").setCounter(data.length);
 					oModelAll.setData(data);
-					that.getFilterData(data);
+
 				}
 			});
 		},
-		
-        /**
+
+		/**
 		 * @function
 		 * @name onPressToUnreadNotices
 		 * @description Event handler for changing to unreadNotices page when I click the ""Unread" button
@@ -161,10 +170,12 @@ sap.ui.define([
 			var oItem = oEvent.getSource();
 			oItem.addStyleClass("ssmNotificationMasterItemSelected");
 			that.byId("notificationAll").removeStyleClass("ssmNotificationMasterItemSelected");
+			var oModelAll = that.byId("notificationListAll").getModel("NotificationModelAll");
+			that.getFilterData(oModelAll.getData());
 			that.getSplitContObj().toDetail(that.createId("notifyPageUnread"));
 		},
-		
-        /**
+
+		/**
 		 * @function
 		 * @name getSplitContObj
 		 * @description Function to find the Splitcontainer
@@ -176,8 +187,8 @@ sap.ui.define([
 			}
 			return result;
 		},
-		
-        /**
+
+		/**
 		 * @function
 		 * @name getFilterData
 		 * @description Function to filter the unread notifications
@@ -185,7 +196,7 @@ sap.ui.define([
 		 */
 		getFilterData: function(notificationData) {
 			var that = this;
-			var oModelUnread = that.getView().getModel("NotificationModelUnread");
+			var oModelUnread = that.byId("notificationListUnread").getModel("NotificationModelUnread");
 			var unreadData = notificationData.filter(function(notify) {
 				return notify.checked === false;
 			});
