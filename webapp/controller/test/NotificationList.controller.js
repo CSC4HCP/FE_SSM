@@ -72,11 +72,11 @@ sap.ui.define([
 
 						var sId = oItem.sId.split("-")[4];
 						var id = oItem.getId().split("-")[3];
-
 						if (id === "notificationListAll") {
 							var oNotification = that.byId(id).getModel("NotificationModelAll").getData();
 							oNotification.splice(sId, 1);
 						}
+						
 						if (oItem.getNotificationChecked()) {
 							oAll.setCounter(oAll.getCounter() - 1);
 						} else if (!oItem.getNotificationChecked()) {
@@ -110,20 +110,22 @@ sap.ui.define([
 		onPrssToAllNotices: function(oEvent) {
 			var that = this;
 			var oItem = oEvent.getSource();
-			var oModelAll = new JSONModel();
-
+			var iLength = that.byId("notificationAll").getCounter();
+			var oModelAll = that.byId("notificationListAll").getModel("NotificationModelAll");
+			oModelAll.getData().splice(0,iLength);
+			oModelAll.refresh(true);
+			// var newData = oModelAll.getData().splice(0,iLength);
+            //oModelAll.setData(newData);
+			
 			oItem.addStyleClass("ssmNotificationMasterItemSelected");
 			that.byId("notificationUnread").removeStyleClass("ssmNotificationMasterItemSelected");
 
-			that.getSplitContObj().toDetail(that.createId("notifyPageAll"));
-
 			oModelAll.loadData("mockData/notificationList.json", null, false);
-			this.getView().setModel(oModelAll, "NotificationModelAll");
+			that.byId("notificationListAll").setModel(oModelAll, "NotificationModelAll");
 
-			var NotificationData = oModelAll.getData();
-			that.byId("notificationAll").setCounter(NotificationData.length);
-			that.getFilterData(NotificationData);
-
+			that.byId("notificationAll").setCounter(oModelAll.getData().length);
+			this.getFilterData(oModelAll.getData());
+			that.getSplitContObj().toDetail(that.createId("notifyPageAll"));
 		},
 
 		/**
@@ -137,19 +139,21 @@ sap.ui.define([
 			var oItem = oEvent.getSource();
 			oItem.addStyleClass("ssmNotificationMasterItemSelected");
 			that.byId("notificationAll").removeStyleClass("ssmNotificationMasterItemSelected");
+			var oModelAll = that.byId("notificationListAll").getModel("NotificationModelAll");
+			that.getFilterData(oModelAll.getData());
 			that.getSplitContObj().toDetail(that.createId("notifyPageUnread"));
 		},
 
-		/**
-		 * @event
-		 * @name onExit
-		 * @description Called when the Controller is destroyed. Use this one to free resources and finalize activities.
-		 * @memberOf ssms.view.CreateSession
-		 */
-		onExit: function() {
-			this.getView().byId("notifyPageAll").destroy();
+		// /**
+		//  * @event
+		//  * @name onExit
+		//  * @description Called when the Controller is destroyed. Use this one to free resources and finalize activities.
+		//  * @memberOf ssms.view.CreateSession
+		//  */
+		// onExit: function() {
+		// 	this.getView().byId("notifyPageAll").destroy();
 
-		},
+		// },
 
 		/**
 		 * @function
@@ -172,7 +176,7 @@ sap.ui.define([
 		 */
 		getFilterData: function(notificationData) {
 			var that = this;
-			var oModelUnread = that.getView().getModel("NotificationModelUnread");
+			var oModelUnread = that.byId("notificationListUnread").getModel("NotificationModelUnread");
 			var unreadData = notificationData.filter(function(notify) {
 				return notify.checked === false;
 			});

@@ -153,9 +153,7 @@ sap.ui.define([
 				async: true,
 				success: function(data) {
 					that.byId("notificationAll").setCounter(data.length);
-					oModelAll.setData(data);
-
-				}
+					oModelAll.setData(data);				}
 			});
 		},
 
