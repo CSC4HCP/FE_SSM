@@ -207,7 +207,7 @@
 				},
 				"test_ownSession": {
 					"viewPath": "ssms.view.test",
-					"viewName": "OwnSession"
+					"viewName": "OwnedSession"
 				}
 			}
 		}
