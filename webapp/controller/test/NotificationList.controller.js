@@ -12,8 +12,7 @@ sap.ui.define([
 		 * @memberOf ssms.view.view.NotificationList
 		 */
 		onInit: function() {
-			var oUserModel = new JSONModel();
-			oUserModel.loadData("/services/userapi/currentUser", null, false);
+			var oUserModel = this.getUserModel();
 			this.getView().setModel(oUserModel, "UserModel");
 
 			var oModelAll = new JSONModel();

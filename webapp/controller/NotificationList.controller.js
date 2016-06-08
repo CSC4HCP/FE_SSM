@@ -13,11 +13,10 @@ sap.ui.define([
 		 */
 		onInit: function() {
 			var sUserId;
-			var oUserModel = new JSONModel();
+			var oUserModel = this.getUserModel();
+			this.getView().setModel(oUserModel, "UserModel");
 			this.getView().setBusy(true);
 
-			oUserModel.loadData("/services/userapi/currentUser", null, false);
-			this.getView().setModel(oUserModel, "UserModel");
 			sUserId = oUserModel.getData().name;
 
 			var oModelAll = new JSONModel();
