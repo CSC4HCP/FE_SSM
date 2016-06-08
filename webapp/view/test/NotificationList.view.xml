@@ -27,7 +27,7 @@
 				<masterPages>
 					<Page showHeader="false">
 						<content>
-							<List>
+							<List id="optionList">
 								<items>
 									<StandardListItem title="{i18n>TITLE_NOTIFICATION_ALL}" id="notificationAll" press="onPrssToAllNotices"  type="Active" selected="true"
 										class="ssmsNotificationMaster"/>
