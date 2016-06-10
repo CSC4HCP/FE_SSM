@@ -73,6 +73,9 @@ sap.ui.define([], function() {
 		 * @return {Boolean} fomattered result
 		 */
 		getUnreadIconVisibility: function(bValue) {
+			if (!bValue) {
+				return false;
+			}
 			return bValue;
 		},
 

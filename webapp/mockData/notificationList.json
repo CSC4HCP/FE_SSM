@@ -1,39 +1,34 @@
-[
-	{
-		"id": 1,
-		"target": "I326960",
-		"content": "test notification - readed",
-		"checked": true
-	},
-	
-	{
-		"id": 1,
-		"target": "I326960",
-		"content": "test notification - readed",
-		"checked": true
-	},
-		{
-		"id": 1,
-		"target": "I326960",
-		"content": "test notification -unreaded",
-		"checked": false
-	},
-		{
-		"id": 1,
-		"target": "I326960",
-		"content": "test notification - readed",
-		"checked": true
-	},
-		{
-		"id": 1,
-		"target": "I326960",
-		"content": "test notification - unreaded",
-		"checked": false
-	},
-		{
-		"id": 1,
-		"target": "I326960",
-		"content": "test notification - readed",
-		"checked": true
-	}
+[{
+				"id": 1,
+				"target": "I326960",
+				"content": "1: test notification - readed",
+				"checked": true
+			},
+
+			{
+				"id": 1,
+				"target": "I326960",
+				"content": "2: test notification - readed",
+				"checked": true
+			}, {
+				"id": 1,
+				"target": "I326960",
+				"content": "3: test notification -unreaded",
+				"checked": false
+			}, {
+				"id": 1,
+				"target": "I326960",
+				"content": "4: test notification - readed",
+				"checked": true
+			}, {
+				"id": 1,
+				"target": "I326960",
+				"content": "5: test notification - unreaded",
+				"checked": false
+			}, {
+				"id": 1,
+				"target": "I326960",
+				"content": "6: test notification - readed",
+				"checked": true
+			}
 ]

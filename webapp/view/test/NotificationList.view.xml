@@ -1,29 +1,37 @@
 <mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" controllerName="ssms.controller.test.NotificationList"
-	xmlns:f="sap.ui.layout.form" xmlns:html="http://www.w3.org/1999/xhtml" xmlns:l="sap.ui.layout" xmlns:ssms="ssms.control.notificationListItem">
+	xmlns:f="sap.ui.layout.form" xmlns:html="http://www.w3.org/1999/xhtml" xmlns:l="sap.ui.layout" xmlns:ssms="ssms.control.NotificationListItem">
 	<Page showHeader="false">
 		<subHeader>
 			<core:Fragment fragmentName="ssms.view.Header" type="XML"/>
 		</subHeader>
 		<content>
 			<SplitContainer id="notificationSplitCont">
-				<detailPages id="notificationDetail">
-					<Page>
+				<detailPages>
+					<Page id="notifyPageAll" showHeader="false">
 						<content>
-							<List id="notificationList" items="{NotificationModel>/}">
-								<ssms:notificationListItem  title="Notice" description="{NotificationModel>content}" notificationId="{NotificationModel>id}" notificationTarget="{NotificationModel>target}"
-									class="ssmsNotificationDetail" priority="{path: 'NotificationModel>checked',formatter:'.formatter.formatRead'}" close="onPressClose" press="onListitemPress"/>
+							<List id="notificationListAll" items="{NotificationModelAll>/}">
+								<ssms:NotificationListItem  title="{i18n>TITLE_NOTIFY}" description="{NotificationModelAll>content}" notificationId="{NotificationModelAll>id}" notificationTarget="{NotificationModelAll>target}"
+									notificationChecked="{NotificationModelAll>checked}" class="ssmsNotificationDetail" priority="{path: 'NotificationModelAll>checked',formatter:'.formatter.formatRead'}" close="onPressClose" press="onListitemPress"/>
+							</List>
+						</content>
+					</Page>
+					<Page id="notifyPageUnread" showHeader="false">
+						<content>
+							<List id="notificationListUnread" items="{NotificationModelUnread>/}">
+								<ssms:NotificationListItem  title="{i18n>TITLE_NOTIFY}" description="{NotificationModelUnread>content}" notificationId="{NotificationModelUnread>id}" notificationTarget="{NotificationModelUnread>target}"
+									notificationChecked="{NotificationModelUnread>checked}" class="ssmsNotificationDetail" priority="{path: 'NotificationModelUnread>checked',formatter:'.formatter.formatRead'}" close="onPressClose" press="onListitemPress"/>
 							</List>
 						</content>
 					</Page>
 				</detailPages>
-				<masterPages id="notificationMaster">
-					<Page>
+				<masterPages>
+					<Page showHeader="false">
 						<content>
-							<List>
+							<List id="optionList">
 								<items>
-									<StandardListItem title="All" id="notificationAll" press="onPrssToAllNotices"  type="Active" selected="true"
+									<StandardListItem title="{i18n>TITLE_NOTIFICATION_ALL}" id="notificationAll" press="onPrssToAllNotices"  type="Active" selected="true"
 										class="ssmsNotificationMaster"/>
-									<StandardListItem title="Unread" id="notificationUnread" press="onPressToUnreadNotices" type="Active"  class="ssmsNotificationMaster"/>
+									<StandardListItem title="{i18n>TITLE_NOTIFICATION_UNREAD}" id="notificationUnread" press="onPressToUnreadNotices" type="Active"  class="ssmsNotificationMaster"/>
 								</items>
 							</List>
 						</content>

@@ -13,26 +13,10 @@ sap.ui.define([
 		 * @memberOf ssms.view.Home
 		 */
 		onInit: function() {
-			var oUserModel = new sap.ui.model.json.JSONModel();
-			var sUserId;
+			var oUserModel = this.getUserModel();
 
 			this.getView().setBusy(true);
 			try {
-				oUserModel.loadData("/services/userapi/currentUser", null, false);
-				sUserId = oUserModel.getData().name;
-
-				$.ajax({
-					type: "GET",
-					async: false,
-					url: "/destinations/SSM_DEST/api/notify/" + sUserId,
-					data: sUserId,
-					dataType: "text",
-					contentType: "text/plain",
-					success: function(bHaveNotificationUnread) {
-						oUserModel.notificationUnread = bHaveNotificationUnread;
-					}
-				});
-				
 				this.getView().setModel(oUserModel, "UserModel");
 				this._oUser = this.getUserRole(oUserModel.getData());
 				this._attachEvent();
