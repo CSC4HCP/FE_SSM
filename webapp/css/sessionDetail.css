@@ -1,5 +1,11 @@
 .ssmsSessionDetail_Grid {
     line-height: 30px;
+    margin-bottom: 0;
+}
+.ssmsSessionDetail_Grid_Joined {
+    line-height: 10px;
+    margin-left: 20px;
+    margin-bottom: 0;
 }
 .ssmsSessionDetail_Grid Label {
     display: block;
@@ -11,6 +17,16 @@
 .ssmsSessionDetail_Grid Select {
     margin-top: -2px;
     margin-bottom: 0;
+}
+.ssmsSessionDetail_Grid_Joined Text {
+    margin-top: -5px;
+}
+.ssmsSessionDetail_Grid_UploadCollection {
+    margin-top: -7px;
+    margin-left: -10px;
+}
+.ssmsSessionDetail_FeedList {
+    margin-top: -7px;
 }
 .ssmsSessionDetail_Grid_RadioButtonGroup {
     margin-top: -5px;
@@ -33,4 +49,16 @@
 }
 .ssmsfailure {
     text-decoration: line-through;
+}
+.ssmsDialogInput {
+    height: 2.5rem;
+    margin: 0.25rem 0 0.25rem 0;
+    border: 1px solid #bfbfbf;
+    background: #ffffff;
+}
+.ssmsDialogInput:hover {
+    border-color: #007cc0;
+}
+.detail:hover {
+    background-color: #ccc;
 }
