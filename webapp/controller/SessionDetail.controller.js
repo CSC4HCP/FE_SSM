@@ -30,10 +30,13 @@ sap.ui.define([
 	 * @var {Object} oSessionModel The model of session detail.
 	 * @var {Object} oFileModel The model of attachment.
 	 * @var {Object} oSessionUserModel The model of session owner's information.
+	 * @var {Object} oJoinModel The model of joined person.
+	 * @var {Object} oCommentModel The model of comments in session.
 	 * @var {Integer} iSessionId The number of session's id.
 	 * @var {Array} aDocumentId The array to record the deleted items' document id.
 	 * @var {Integer} iDelete The number of deleted items.
 	 * @var {Object} oUploadCollection The controller of uploadcollection in edit panel.
+	 * @var {Integer} iMouseOver The number to control the mouseenter .
 	 * 
 	 */
 	var sUserRole;
@@ -50,10 +53,13 @@ sap.ui.define([
 	var oSessionModel;
 	var oFileModel;
 	var oSessionUserModel;
+	var oJoinModel;
+	var oCommentModel;
 	var iSessionId;
 	var aDocumentId = [];
 	var iDelete = 0;
 	var oUploadCollection;
+	var iMouseOver = 0;
 	return BaseController.extend("ssms.controller.SessionDetail", {
 		/**
 		 * @event
@@ -70,7 +76,20 @@ sap.ui.define([
 			oRouter.getRoute("sessionDetail").attachMatched(this._onRouteMatched, this);
 
 		},
-
+		
+		/**
+		 * @event
+		 * @name onAfterRendering
+		 * @description Called after a controller is rendered. Mainly set mouseenter and mouseleave event.
+		 * @memberOf ssms.view.SessionDetail
+		 */
+		onAfterRendering: function() {
+			var oItemList = this.getView().byId("ssms-commentList");
+			for (var i = 0; i < oItemList.getItems().length; i++) {
+				this._attachEvent(oItemList.getItems()[i]);
+			}
+		},
+		
 		/**
 		 * @function
 		 * @name _onRouteMatched
@@ -93,10 +112,6 @@ sap.ui.define([
 			this._formatStateColor(oControl, oControl.getText());
 
 			this.getUserRole(oModel.getData());
-			this.setUserPermission(oModel.getData(), oSessionModel.getData());
-			this.addAttachment();
-			this._getBeforeValue();
-			this.checkDetailPermission();
 		},
 
 		/**
@@ -115,10 +130,11 @@ sap.ui.define([
 				contentType: "application/json",
 				success: function(user) {
 					sUserRole = user.role;
+					that._getBeforeValue();
 					that.setUserPermission(oModel.getData(), oSessionModel.getData());
 					that.addAttachment();
-					that._getBeforeValue();
-					that.checkDetailPermission();
+					that.addJoinedPerson();
+					that.addConmment();
 					that.getView().setBusy(false);
 				}
 			});
@@ -132,7 +148,6 @@ sap.ui.define([
 		 * @param {Object} oSessionData - Session information got from the sessionAPI
 		 */
 		setUserPermission: function(oUserData, oSessionData) {
-			var oSendBtn = this.getView().byId("ssms-sendBtn");
 			var oEditBtn = this.getView().byId("ssms-editBtn");
 			var oCategory = this.getView().byId("ssms-category");
 			var oVisibility = this.getView().byId("ssms-radioBtn");
@@ -154,7 +169,6 @@ sap.ui.define([
 				oEditBtn.setVisible(true);
 
 				if (bOwner) {
-					oSendBtn.setVisible(true);
 					oCategory.setEnabled(true);
 					oVisibility.setEditable(true);
 					oMeetingRoom.setEnabled(false);
@@ -164,6 +178,7 @@ sap.ui.define([
 					oDescription.setEnabled(true);
 					oUploadCollection.setUploadEnabled(true);
 					oSummary.setEnabled(true);
+					this.checkOwnerPermission();
 				}
 
 				if (sUserRole === "Supporter") {
@@ -176,10 +191,10 @@ sap.ui.define([
 					oDescription.setEnabled(false);
 					oUploadCollection.setUploadEnabled(false);
 					oSummary.setEnabled(false);
+					this.checkSupporterAndOtherPermission();
 				}
 
 				if (bOwner && sUserRole === "Supporter") {
-					oSendBtn.setVisible(true);
 					oCategory.setEnabled(true);
 					oVisibility.setEditable(true);
 					oMeetingRoom.setEnabled(true);
@@ -189,11 +204,43 @@ sap.ui.define([
 					oDescription.setEnabled(true);
 					oUploadCollection.setUploadEnabled(true);
 					oSummary.setEnabled(true);
+					this.checkOwnerPermission();
 				}
 			} else {
 				oEditBtn.setVisible(false);
+				this.checkSupporterAndOtherPermission();
 			}
 
+		},
+
+		/**
+		 * @function
+		 * @name addJoinedPerson
+		 * @description Add Joined Person in Joined list.
+		 */
+		addJoinedPerson: function() {
+			oJoinModel = new sap.ui.model.json.JSONModel();
+			oJoinModel.loadData("/destinations/SSM_DEST/api/joined?session=" + iSessionId, null, false);
+			this.getView().setModel(oJoinModel, "JoinModel");
+
+			var oText = this.getView().byId("ssms-joinedperson");
+			oText.setText("");
+			var sTextContent = "";
+			for (var i = 0; i < oJoinModel.getData().length; i++) {
+				sTextContent += oJoinModel.getData()[i].userId + "; ";
+			}
+			oText.setText(sTextContent);
+		},
+
+		/**
+		 * @function
+		 * @name addConmment
+		 * @description Add comment in comment list.
+		 */
+		addConmment: function() {
+			oCommentModel = new sap.ui.model.json.JSONModel();
+			oCommentModel.loadData("/destinations/SSM_DEST/api/comment?session=" + iSessionId, null, false);
+			this.getView().setModel(oCommentModel, "CommentModel");
 		},
 
 		/**
@@ -208,6 +255,7 @@ sap.ui.define([
 			var data = oFileModel.getData();
 			var oShowCollection = this.byId("ssms-document");
 			var oEditCollection = this.byId("ssms-UploadCollection");
+			var oShowTitle = this.byId("ssms-attachmentTitle");
 			oShowCollection.removeAllItems();
 			oEditCollection.removeAllItems();
 			for (var i = 0; i < data.length; i++) {
@@ -220,6 +268,7 @@ sap.ui.define([
 					visibleEdit: false
 				});
 				oShowCollection.addItem(iShowItems);
+				oShowTitle.setText("Uploaded (" + data.length + ")");
 			}
 			for (var j = 0; j < data.length; j++) {
 				var iEditItems = new UploadCollectionItem({
@@ -294,7 +343,7 @@ sap.ui.define([
 				this._formatStateColor(oControl, oControl.getText());
 				this._getBeforeValue();
 				this.addAttachment();
-				this.checkDetailPermission();
+				this.setUserPermission(oModel.getData(), oSessionModel.getData());
 				oIdEdit.setVisible(false);
 				oIdShow.setVisible(true);
 			}
@@ -313,29 +362,43 @@ sap.ui.define([
 				this.getView().byId("ssms-downloadButton").setEnabled(false);
 			}
 		},
-
+		
 		/**
 		 * @function
-		 * @name checkDetailPermission
-		 * @description Set detail permission by visibility and status.
+		 * @name checkOwnerPermission
+		 * @description Set owner permission by visibility and status.
 		 */
-		checkDetailPermission: function() {
+		checkOwnerPermission: function() {
 			var oEditBtn = this.getView().byId("ssms-editBtn");
 			var oSendBtn = this.getView().byId("ssms-sendBtn");
-			if (!bBeforeSelect) {
-				this.byId("ssms-private").setSelected(true);
-			} else {
-				this.byId("ssms-private").setEditable(false);
-			}
+			var oComment = this.getView().byId("ssms-comment");
+			var oJoin = this.getView().byId("ssms-join");
+			
+			oJoin.setVisible(false);
 
 			if (sBeforeStatus === "Open") {
+				if (!bBeforeSelect) {
+				this.byId("ssms-private").setSelected(true);
+				this.byId("ssms-private").setEditable(true);
+				oSendBtn.setEnabled(false);
+				oComment.setEnabled(false);
+			} else {
+				this.byId("ssms-private").setEditable(false);
+				oSendBtn.setEnabled(true);
+				oComment.setEnabled(true);
+			}
+				oEditBtn.setEnabled(true);
 				this.byId("ssms-open").setEnabled(true);
 				this.byId("ssms-inprogress").setEnabled(false);
 				this.byId("ssms-closed").setEnabled(false);
 				this.byId("ssms-cancelled").setEnabled(true);
+				this.byId("ssms-location").removeStyleClass("ssmsfailure");
+				this.byId("ssms-editdatatime").removeStyleClass("ssmsfailure");
 			}
 			if (sBeforeStatus === "In progress") {
 				oSendBtn.setEnabled(false);
+				oEditBtn.setEnabled(true);
+				oComment.setEnabled(true);
 				this.byId("ssms-open").setEnabled(false);
 				this.byId("ssms-inprogress").setEnabled(true);
 				this.byId("ssms-closed").setEnabled(true);
@@ -345,13 +408,60 @@ sap.ui.define([
 			if (sBeforeStatus === "Completed") {
 				oEditBtn.setEnabled(false);
 				oSendBtn.setEnabled(false);
+				oComment.setEnabled(true);
 			}
 			if (sBeforeStatus === "Cancelled") {
 				oEditBtn.setEnabled(false);
 				oSendBtn.setEnabled(false);
+				oComment.setEnabled(false);
 				this.byId("ssms-location").addStyleClass("ssmsfailure");
 				this.byId("ssms-editdatatime").addStyleClass("ssmsfailure");
 			}
+		},
+		
+		/**
+		 * @function
+		 * @name checkSupporterPermission
+		 * @description Set supporter and other person permission.
+		 */
+		checkSupporterAndOtherPermission: function() {
+			var oEditBtn = this.getView().byId("ssms-editBtn");
+			var oSendBtn = this.getView().byId("ssms-sendBtn");
+			var oJoin = this.getView().byId("ssms-join");
+			var oComment = this.getView().byId("ssms-comment");
+			var bJoinBtn = true;
+			
+			oSendBtn.setVisible(false);
+			if (sBeforeStatus === "Open") {
+				oComment.setEnabled(true);
+				oEditBtn.setEnabled(true);
+				this.byId("ssms-location").removeStyleClass("ssmsfailure");
+				this.byId("ssms-editdatatime").removeStyleClass("ssmsfailure");
+			}
+			if (sBeforeStatus === "In progress") {
+				oEditBtn.setEnabled(true);
+				oComment.setEnabled(true);
+			}
+			if (sBeforeStatus === "Completed") {
+				oEditBtn.setEnabled(false);
+				bJoinBtn = false;
+				oComment.setEnabled(true);
+			}
+			if (sBeforeStatus === "Cancelled") {
+				bJoinBtn = false;
+				oEditBtn.setEnabled(false);
+				oComment.setEnabled(false);
+				this.byId("ssms-location").addStyleClass("ssmsfailure");
+				this.byId("ssms-editdatatime").addStyleClass("ssmsfailure");
+			}
+			var dNow = new Date();
+			var dMeetingTime = new Date(oSessionModel.getData().meetingTime);
+			if (dNow.getMonth() === dMeetingTime.getMonth() && dNow.getFullYear() === dMeetingTime.getFullYear()) {
+				if ((dNow.getDate() + 1) >= dMeetingTime.getDate()) {
+					bJoinBtn = false;
+				}
+			}
+			oJoin.setEnabled(bJoinBtn);
 		},
 
 		/**
@@ -515,7 +625,7 @@ sap.ui.define([
 				bEditVaild = false;
 				this.byId("ssms-UploadCollection").addStyleClass("ssmsSessionDetail_Upload");
 				this.addAttachment();
-				this.checkDetailPermission();
+				this.setUserPermission(oModel.getData(), oSessionModel.getData());
 				this.onCheckStatus();
 				this._oSupplier = jQuery.extend({}, this.getView().getModel().getData());
 			} else {
@@ -590,8 +700,14 @@ sap.ui.define([
 				oSummary.setEnabled(true);
 			}
 			if (sStatus === "Open" || sStatus === "In progress") {
-				this.setUserPermission(oModel.getData(), oSessionModel.getData());
-				this.checkDetailPermission();
+				oCategory.setEnabled(true);
+				oMeetingRoom.setEnabled(false);
+				oStatus.setEnabled(true);
+				oMeetingTime.setEnabled(false);
+				oTime.setEnabled(false);
+				oDescription.setEnabled(true);
+				oUploadCollection.setUploadEnabled(true);
+				oSummary.setEnabled(true);
 			}
 
 			if (sStatus === "Cancelled") {
@@ -684,7 +800,7 @@ sap.ui.define([
 
 					this.onSendSession();
 					var oSaveCollection = this.byId("ssms-UploadCollection");
-					oSessionData.file = oSaveCollection.getItems().length;
+					var iFileLength = oSaveCollection.getItems().length;
 
 					for (var i = 0; i < oFileModel.getData().length; i++) {
 						for (var j = 0; j < iDelete; j++) {
@@ -700,7 +816,7 @@ sap.ui.define([
 						}
 					}
 					var iRemoveId = 0;
-					for (var k = 0; k < oSessionData.file; k++) {
+					for (var k = 0; k < iFileLength; k++) {
 						if (oSaveCollection.getItems()[iRemoveId].getDocumentId()) {
 							oSaveCollection.removeItem(oSaveCollection.getItems()[iRemoveId]);
 						} else {
@@ -787,6 +903,287 @@ sap.ui.define([
 			});
 
 			dialog.open();
+		},
+
+		/**
+		 * @function
+		 * @name onJoinPress
+		 * @description Add current user into session.
+		 */
+		onJoinPress: function() {
+			var oJoin = this.getView().byId("ssms-joinpage");
+			//	var oErrorJoin = this.getView().byId("ssms-errorJoin");
+			var that = this;
+			var bRepeatJoin = true;
+			for (var i = 0; i < oJoinModel.getData().length; i++) {
+				if (oJoinModel.getData()[i].userId === oModel.getData().displayName) {
+					bRepeatJoin = false;
+				}
+			}
+			if (bRepeatJoin) {
+				oJoin.setBusy(true);
+				//		oErrorJoin.setVisible(false);
+				$.ajax({
+					async: false,
+					type: "POST",
+					url: "/destinations/SSM_DEST/api/joined",
+					data: JSON.stringify({
+						userId: oModel.getData().displayName,
+						session: iSessionId,
+						date: Date.parse(new Date())
+					}),
+					dataType: "json",
+					contentType: "application/json",
+					success: function() {
+						that.addJoinedPerson();
+						oJoin.setBusy(false);
+					}
+				});
+			} else {
+				var dJoinDialog = new Dialog({
+					title: "Error",
+					type: "Message",
+					state: "Error",
+					content: new Text({
+						text: "You had joined this session!"
+					}),
+					beginButton: new Button({
+						text: "OK",
+						press: function() {
+							dJoinDialog.close();
+						}
+					}),
+					afterClose: function() {
+						dJoinDialog.destroy();
+					}
+				});
+
+				dJoinDialog.open();
+			}
+		},
+
+		/**
+		 * @function
+		 * @name onAddComment
+		 * @description Add comment by user into session.
+		 */
+		onAddComment: function() {
+			var oForm = new sap.ui.layout.form.SimpleForm({
+				layout: sap.ui.layout.form.SimpleFormLayout.GridLayout,
+				editable: true,
+				content: [
+					new sap.m.Label({
+						text: this.getResourceBundle().getText("OBJECTPAGESECTION_SESSIONDETAIL_DIALOG_AUTHOR"),
+						design: "Bold"
+					}),
+					new sap.m.Text({
+						text: oModel.getData().displayName,
+						design: "Bold"
+					}),
+					new sap.m.Label({
+						text: this.getResourceBundle().getText("OBJECTPAGESECTION_SESSIONDETAIL_DIALOG_COMMENT"),
+						design: "Bold"
+					}),
+					new sap.m.TextArea({
+						id: "ssms-commentcontent",
+						width: "100%",
+						rows: 5
+					})
+				]
+			});
+			var that = this;
+			var dAddComment = new Dialog({
+				title: "Add Comment",
+				type: "Message",
+				contentWidth: "700px",
+				content: oForm,
+				beginButton: new Button({
+					text: "Submit",
+					type: "Accept",
+					press: function() {
+						var sText = sap.ui.getCore().byId("ssms-commentcontent").getValue();
+						if (sText) {
+							sap.ui.getCore().byId("ssms-commentcontent").setValueState(sap.ui.core.ValueState.None);
+							$.ajax({
+								async: false,
+								type: "POST",
+								url: "/destinations/SSM_DEST/api/comment",
+								data: JSON.stringify({
+									author: oModel.getData().displayName,
+									session: iSessionId,
+									content: sText,
+									date: Date.parse(new Date())
+								}),
+								dataType: "json",
+								contentType: "application/json",
+								success: function() {
+									that.addConmment();
+									var oItem = that.getView().byId("ssms-commentList").getItems();
+									that._attachEvent(oItem[oItem.length - 1]);
+									dAddComment.close();
+								}
+							});
+						} else {
+							sap.ui.getCore().byId("ssms-commentcontent").setValueState(sap.ui.core.ValueState.Error);
+						}
+
+					}
+				}),
+				endButton: new Button({
+					text: "Cancel",
+					press: function() {
+						dAddComment.close();
+					}
+				}),
+				afterClose: function() {
+					dAddComment.destroy();
+				}
+			});
+
+			dAddComment.open();
+		},
+
+		/**
+		 * @function
+		 * @name onEditComment
+		 * @description Edit comment by user into session.
+		 */
+		onEditComment: function(oEvent) {
+			var sInfo = oEvent.getSource().getInfo();
+			var iId = parseInt(sInfo.substring(sInfo.indexOf(":") + 2));
+			var iNum;
+			for (var i = 0; i < oCommentModel.getData().length; i++) {
+				if (oCommentModel.getData()[i].id === iId) {
+					iNum = i;
+				}
+			}
+			var oEditForm = new sap.ui.layout.form.SimpleForm({
+				layout: sap.ui.layout.form.SimpleFormLayout.GridLayout,
+				editable: true,
+				content: [
+					new sap.m.Label({
+						text: this.getResourceBundle().getText("OBJECTPAGESECTION_SESSIONDETAIL_DIALOG_AUTHOR"),
+						design: "Bold"
+					}),
+					new sap.m.Text({
+						text: oCommentModel.getData()[iNum].author,
+						design: "Bold"
+					}),
+					new sap.m.Label({
+						text: this.getResourceBundle().getText("OBJECTPAGESECTION_SESSIONDETAIL_DIALOG_CREATED"),
+						design: "Bold"
+					}),
+					new sap.m.Text({
+						text: new Date(oCommentModel.getData()[iNum].date).toLocaleDateString(),
+						design: "Bold"
+					}),
+					new sap.m.Label({
+						text: this.getResourceBundle().getText("OBJECTPAGESECTION_SESSIONDETAIL_DIALOG_COMMENT"),
+						design: "Bold"
+					}),
+					new sap.m.TextArea({
+						id: "ssms-commentcontent",
+						width: "100%",
+						value: oCommentModel.getData()[iNum].content,
+						rows: 5
+					})
+				]
+			});
+			var that = this;
+			var dEditComment = new Dialog({
+				title: "Edit Comment",
+				type: "Message",
+				contentWidth: "700px",
+				content: oEditForm,
+				beginButton: new Button({
+					text: "Submit",
+					type: "Accept",
+					press: function() {
+						var sText = sap.ui.getCore().byId("ssms-commentcontent").getValue();
+						if (sText) {
+							sap.ui.getCore().byId("ssms-commentcontent").setValueState(sap.ui.core.ValueState.None);
+							$.ajax({
+								async: false,
+								type: "PUT",
+								url: "/destinations/SSM_DEST/api/comment/" + iId,
+								data: JSON.stringify({
+									id: iId,
+									author: oCommentModel.getData()[iNum].author,
+									session: iSessionId,
+									content: sText,
+									date: oCommentModel.getData()[iNum].date
+								}),
+								dataType: "json",
+								contentType: "application/json",
+								success: function() {
+									that.addConmment();
+									dEditComment.close();
+								}
+							});
+						} else {
+							sap.ui.getCore().byId("ssms-commentcontent").setValueState(sap.ui.core.ValueState.Error);
+						}
+
+					}
+				}),
+				endButton: new Button({
+					text: "Cancel",
+					press: function() {
+						dEditComment.close();
+					}
+				}),
+				afterClose: function() {
+					dEditComment.destroy();
+				}
+			});
+
+			dEditComment.open();
+		},
+
+		/**
+		 * @function
+		 * @name _attachEvent
+		 * @description Event handler when click on the box. Will go to the next view.
+		 * @param {Object} oItem - The Items which is mouse overed.
+		 */
+		_attachEvent: function(oItem) {
+			var that = this;
+
+			oItem.attachBrowserEvent("mouseenter", function() {
+				if (oItem.getSender() === oModel.getData().displayName) {
+					if (oItem.getType() !== "Detail") {
+						if (iMouseOver === 0) {
+							oItem.setType("Detail");
+							iMouseOver++;
+						} else {
+							var oItemList = that.getView().byId("ssms-commentList");
+							for (var j = 0; j < oItemList.getItems().length; j++) {
+								oItemList.getItems()[j].setType("Inactive");
+							}
+							iMouseOver = 0;
+							oItem.setType("Detail");
+							iMouseOver++;
+						}
+					}
+				} else {
+					oItem.setType("Inactive");
+				}
+			});
+			oItem.attachBrowserEvent("mouseleave", function() {
+				if (oItem.getSender() === oModel.getData().displayName) {
+					if (oItem.getType() === "Detail") {
+						oItem.setType("Inactive");
+						iMouseOver--;
+					}
+					if (iMouseOver > 0) {
+						var oItemList = that.getView().byId("ssms-commentList");
+						for (var j = 0; j < oItemList.getItems().length; j++) {
+							oItemList.getItems()[j].setType("Inactive");
+						}
+						iMouseOver = 0;
+					}
+				}
+			});
 		}
 
 	});

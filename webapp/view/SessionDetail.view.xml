@@ -1,6 +1,6 @@
-<mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" xmlns:uxap="sap.uxap" xmlns:ssms="ssms.control.uploadcollection"
-	controllerName="ssms.controller.SessionDetail" xmlns:f="sap.ui.layout.form" xmlns:l="sap.ui.layout"
-	xmlns:html="http://www.w3.org/1999/xhtml">
+<mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" xmlns:uxap="sap.uxap"
+	xmlns:ssms="ssms.control.uploadcollection" controllerName="ssms.controller.SessionDetail" xmlns:f="sap.ui.layout.form"
+	xmlns:l="sap.ui.layout" xmlns:html="http://www.w3.org/1999/xhtml">
 	<Page showHeader="false">
 		<subHeader>
 			<core:Fragment fragmentName="ssms.view.Header" type="XML"/>
@@ -15,10 +15,10 @@
 						<uxap:subSections>
 							<uxap:ObjectPageSubSection title="">
 								<uxap:blocks>
-									<l:Grid id="ssms-showVBox" defaultSpan="L4 M4 S8" class="ssmsSessionDetail_Grid" width="100%" hSpacing="2">
+									<l:Grid id="ssms-showVBox" defaultSpan="L4 M4 S8" class="ssmsSessionDetail_Grid" vSpacing="0.5" width="100%" hSpacing="2">
 										<l:content>
 											<HBox alignItems="End" justifyContent="End">
-												<Button id="ssms-sendBtn" icon="sap-icon://action" type="Transparent" tooltip="Send notification to supporter" press="onSendSession" visible = "false"/>
+												<Button id="ssms-sendBtn" icon="sap-icon://action" type="Transparent" tooltip="Send notification to supporter" press="onSendSession"/>
 												<Button id="ssms-editBtn" icon="sap-icon://edit" type="Transparent" press="onEditSession"/>
 												<layoutData>
 													<l:GridData span="L12 M12 S12"/>
@@ -75,12 +75,17 @@
 													<l:GridData span="L2 M2 S4"/>
 												</layoutData>
 											</Label>
-											<UploadCollection id="ssms-document" selectionChange="onSelectionChange" mode="MultiSelect" multiple="true"
-												showSeparators="All">
+											<UploadCollection id="ssms-document" class="ssmsSessionDetail_Grid_UploadCollection" selectionChange="onSelectionChange" mode="MultiSelect"
+												multiple="true">
 												<toolbar>
-													<OverflowToolbar id="myId">
+													<OverflowToolbar >
+														<Title id="ssms-attachmentTitle"/>
 														<ToolbarSpacer/>
-														<Button id="ssms-downloadButton" icon="sap-icon://download" press="onDownloadAttachment" enabled="false" type="Transparent"></Button>
+														<Button id="ssms-downloadButton" icon="sap-icon://download" type="Transparent" press="onDownloadAttachment" enabled="false">
+															<layoutData>
+																<OverflowToolbarLayoutData priority="NeverOverflow"/>
+															</layoutData>
+														</Button>
 													</OverflowToolbar>
 												</toolbar>
 												<items id="ssms-documentItems"></items>
@@ -162,7 +167,7 @@
 												</layoutData>
 											</Label>
 											<!--DateTimeInput type="DateTime" id="ssms-datetime" value="{/meetingTime}" valueFormat="yyyy-MM-ddTHH:mm:ss+0000" change="onCheckDate"/-->
-											<HBox class="sapUiSmallMarginBottom">
+											<HBox>
 												<DatePicker id="ssms-datetime" value="{path:'/meetingTime',formatter:'.formatter.formatDate'}" valueFormat="M/dd/yyyy"
 													displayFormat="yyyy-MM-dd" change="onCheckDate">
 													<layoutData>
@@ -191,8 +196,8 @@
 													<l:GridData span="L2 M2 S4"/>
 												</layoutData>
 											</Label>
-											<ssms:SSMSUploadCollection id="ssms-UploadCollection" multiple="true" instantUpload="false" fileDeleted="onFileDeleted" uploadComplete= "onUploadComplete"  >
-											
+											<ssms:SSMSUploadCollection id="ssms-UploadCollection" class="ssmsSessionDetail_Grid_UploadCollection" multiple="true" instantUpload="false"
+												fileDeleted="onFileDeleted" uploadComplete="onUploadComplete">
 												<ssms:items id="ssms-UploadCollectionItems"></ssms:items>
 												<ssms:layoutData>
 													<l:GridData span="L10 M10 S8"/>
@@ -218,15 +223,12 @@
 						<uxap:subSections>
 							<uxap:ObjectPageSubSection title="">
 								<uxap:blocks>
-									<l:Grid defaultSpan="L12 M12 S12" class="ssmsSessionDetail_Grid" width="100%">
+									<l:Grid id="ssms-joinpage" defaultSpan="L12 M12 S12" vSpacing="0" class="ssmsSessionDetail_Grid_Joined" width="100%">
 										<l:content>
 											<HBox alignItems="End" justifyContent="End">
-												<Button icon="sap-icon://add-contact" type="Transparent"/>
-												<layoutData>
-													<l:GridData span="L12 M12 S12"/>
-												</layoutData>
+												<Button id="ssms-join" icon="sap-icon://add-contact" type="Transparent" tooltip="Click to join in this session." press="onJoinPress"/>
 											</HBox>
-											<Text text="[username];[username]"/>
+											<Text id="ssms-joinedperson"/>
 										</l:content>
 									</l:Grid>
 								</uxap:blocks>
@@ -237,18 +239,19 @@
 						<uxap:subSections>
 							<uxap:ObjectPageSubSection title="">
 								<uxap:blocks>
-									<l:Grid defaultSpan="L12 M12 S12" class="ssmsSessionDetail_Grid" width="100%">
+									<l:Grid defaultSpan="L12 M12 S12" vSpacing="0" class="ssmsSessionDetail_Grid" width="100%">
 										<l:content>
 											<HBox alignItems="End" justifyContent="End">
-												<Button icon="sap-icon://comment" type="Transparent"/>
+												<Button id="ssms-comment" icon="sap-icon://comment" type="Transparent" press="onAddComment"/>
 												<layoutData>
 													<l:GridData span="L12 M12 S12"/>
 												</layoutData>
 											</HBox>
-											<Label text="[username] add a comments -[addDate]"/>
-											<Text text="[comments]"/>
-											<Label text="[username] add a comments -[addDate]"/>
-											<Text text="[comments]"/>
+											<List id="ssms-commentList" class="ssmsSessionDetail_FeedList" items="{CommentModel>/}">
+												<FeedListItem class="detail" sender="{CommentModel>author}" senderActive="false" iconDensityAware="false"
+													info="add a comment: {CommentModel>id}" timestamp="{path:'CommentModel>date',formatter:'.formatter.formatDateTime'}"
+													text="{CommentModel>content}" detailPress="onEditComment"/>
+											</List>
 										</l:content>
 									</l:Grid>
 								</uxap:blocks>
