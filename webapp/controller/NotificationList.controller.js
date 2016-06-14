@@ -81,13 +81,13 @@ sap.ui.define([
 
 			var sNotificationId = oItem.getNotificationId();
 			var reminder = new sap.m.Dialog({
-				title: "Confirm",
+				title: "{i18n>TITLE_DIALOG}",
 				type: "Message",
 				content: new sap.m.Text({
-					text: "Are you sure you want to delete this notification?"
+					text: "{i18n>CONTENT_DIALOG}"
 				}),
 				beginButton: new sap.m.Button({
-					text: "OK",
+					text: "{i18n>BUTTON_LEFT_DIALOG}",
 					press: function() {
 						reminder.close();
 						$.ajax({
@@ -109,16 +109,18 @@ sap.ui.define([
 									oUnread.setCounter(oUnread.getCounter() - 1);
 								}
 								oItem.destroy();
-								sap.m.MessageToast.show("Deleted successfully!");
+								var message = sap.ui.getCore().getModel("i18n").getResourceBundle().getText("MESSAGE_DIALOG_SUCCESS");
+						sap.m.MessageToast.show(message);
 							},
 							error: function() {
-								sap.m.MessageToast.show("Delete failed.");
+								var message = sap.ui.getCore().getModel("i18n").getResourceBundle().getText("MESSAGE_DIALOG_FAILED");
+						sap.m.MessageToast.show(message);
 							}
 						});
 					}
 				}),
 				endButton: new sap.m.Button({
-					text: "Cancel",
+					text: "{i18n>BUTTON_RIFGT_DIALOG}",
 					press: function() {
 						reminder.close();
 					}
@@ -179,8 +181,9 @@ sap.ui.define([
 		 */
 		getSplitContObj: function() {
 			var result = this.byId("notificationSplitCont");
+			var message = sap.ui.getCore().getModel("i18n").getResourceBundle().getText("MESSAGE_SPLIT_PAGE");
 			if (!result) {
-				jQuery.sap.log.error("Notification page can't be found");
+				jQuery.sap.log.error(message);
 			}
 			return result;
 		},
