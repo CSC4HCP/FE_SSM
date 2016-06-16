@@ -7,10 +7,10 @@ sap.ui.define([
 
 	"use strict";
 	var bJoinsessions;
-    var aJoinsessions;
-    var cJoinsessions;
-    var dJoinsessions;
-    var eJoinsessions;
+	var aJoinsessions;
+	var cJoinsessions;
+	var dJoinsessions;
+	var eJoinsessions;
 	return BaseController.extend("ssms.controller.JoinedSession", {
 
 		/**
@@ -20,8 +20,9 @@ sap.ui.define([
 		* @name onInit
 
 		* @description Called when a controller is instantiated and its View controls (if available) are already created. Mainly set model.
+		* Get joined session information  
 
-		* @memberOf ssms.view.view.ownSession
+		* @memberOf ssms.view.view.joinedSession
 
 		*/
 
@@ -35,6 +36,11 @@ sap.ui.define([
 			this.byId("iconTabFilterAll").setCount(oModel1.getData().length);
 			var oModel2 = new sap.ui.model.json.JSONModel();
 			var sSessionLenth = this.getView().getModel("joinModel").getData().length;
+			aJoinsessions = new Array();
+			bJoinsessions = new Array();
+			cJoinsessions = new Array();
+			dJoinsessions = new Array();
+			eJoinsessions = new Array();
 			for (var i = 0; i < sSessionLenth; i++) {
 				var sSessionId = this.getView().getModel("joinModel").getData()[i].session;
 
@@ -46,29 +52,28 @@ sap.ui.define([
 
 					contentType: "application/json",
 
-					async: true,
+					async: false,
 
 					success: function(aSessions) {
-						
-						aJoinsessions = new Array();
 						aJoinsessions.push(aSessions);
-						oModel2.setData(aJoinsessions);
-						if(aSessions.status === "Open"){
-						 bJoinsessions = new Array();
-						bJoinsessions.push(aSessions);	
-						}else if(aSessions.status === "In Progress"){
-						 cJoinsessions = new Array();
-					 	cJoinsessions.push(aSessions);
-						}else if(aSessions.status === "Cancelled"){
-						dJoinsessions = new Array();
-					 	dJoinsessions.push(aSessions);
-						}else if(aSessions.status === "Completed"){
-						 eJoinsessions = new Array();
-					 	eJoinsessions.push(aSessions);
+						switch(aSessions.status){
+										case "Open":
+									bJoinsessions.push(aSessions);
+									break;
+								case "In Progress":
+									cJoinsessions.push(aSessions);
+									break;
+								case "Cancelled":
+									dJoinsessions.push(aSessions);
+									break;
+								case "Completed":
+									eJoinsessions.push(aSessions);
+									break;
 						}
 					}
 
 				});
+					oModel2.setData(aJoinsessions);
 			}
 			this.getView().setModel(oModel2, "UserModel1");
 		},
@@ -91,19 +96,16 @@ sap.ui.define([
 			var sStatus = oEvent.getSource().mProperties.selectedKey;
 			var _that = this;
 			if (sStatus === "All") {
-            _that.getView().getModel("UserModel1").setData(aJoinsessions);
-			} 
-			else if (sStatus === "Open") {
-            _that.getView().getModel("UserModel1").setData(bJoinsessions);
+				_that.getView().getModel("UserModel1").setData(aJoinsessions);
+			} else if (sStatus === "Open") {
+				_that.getView().getModel("UserModel1").setData(bJoinsessions);
 			} else if (sStatus === "In Progress") {
-            _that.getView().getModel("UserModel1").setData(cJoinsessions);
-			} 
-			else if (sStatus === "Cancelled") {
-            _that.getView().getModel("UserModel1").setData(dJoinsessions);
-			} 
-			else if (sStatus === "Cancelled") {
-            _that.getView().getModel("UserModel1").setData(eJoinsessions);
-			} 
+				_that.getView().getModel("UserModel1").setData(cJoinsessions);
+			} else if (sStatus === "Cancelled") {
+				_that.getView().getModel("UserModel1").setData(dJoinsessions);
+			} else if (sStatus === "Cancelled") {
+				_that.getView().getModel("UserModel1").setData(eJoinsessions);
+			}
 		},
 
 		/**
