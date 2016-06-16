@@ -27,8 +27,9 @@ sap.ui.define([
 			this.getView().setModel(oUserModel, "UserModel");
 
 			var oModel1 = new sap.ui.model.json.JSONModel();
+			var sOwner = this.getView().getModel("UserModel").getData().name;
 
-			oModel1.loadData("/destinations/SSM_DEST/api/session", null, false);
+			oModel1.loadData("/destinations/SSM_DEST/api/session?owner=" + sOwner, null, false);
 
 			this.getView().setModel(oModel1, "UserModel1");
 
