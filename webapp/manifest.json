@@ -93,6 +93,9 @@
 				},
 				{
 					"uri": "css/notificationList.css"
+				},
+				{
+					"uri": "css/sessionList.css"
 				}
 			]
 		},
@@ -147,6 +150,11 @@
 					"target": "notificationList"
 				}, 
 				{
+					"pattern": "sessionList",
+					"name": "sessionList",
+					"target": "sessionList"
+				}, 
+				{
 					"pattern": "allControls",
 					"name":	"allControls",
 					"target": "allControls"
@@ -192,6 +200,9 @@
 				},
 				"notificationList": {
 					"viewName": "NotificationList"
+				},
+				"sessionList": {
+					"viewName": "SessionList"
 				},
 				"control_uploadCollection": {
 					"viewPath":	"ssms.view.controls",
