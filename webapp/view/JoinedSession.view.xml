@@ -30,7 +30,7 @@
 								</Column>
 							</columns>
 							<items>
-								<ColumnListItem press="onPressedColumnListItem" class="ssmsColorChangingText" type="Navigation">
+								<ColumnListItem press="onPressedColumnListItem" class="ssmsColorChangingText" type="Navigation" counter="{UserModel1>id}">
 									<cells>
 										<Text text="{UserModel1>topic}"/>
 										<Text text="{UserModel1>category}"/>
