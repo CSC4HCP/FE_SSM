@@ -626,7 +626,6 @@ sap.ui.define([
 				this.byId("ssms-UploadCollection").addStyleClass("ssmsSessionDetail_Upload");
 				this.addAttachment();
 				this.setUserPermission(oModel.getData(), oSessionModel.getData());
-				this.onCheckStatus();
 				this._oSupplier = jQuery.extend({}, this.getView().getModel().getData());
 			} else {
 				this.onPressCreate();
