@@ -1,7 +1,6 @@
 sap.ui.define([
-	"ssms/controller/BaseController",
-	"sap/m/MessageToast"
-], function(BaseController, MessageToast) {
+	"ssms/controller/BaseController"
+], function(BaseController) {
 	"use strict";
 
 	return BaseController.extend("ssms.controller.PersonalCenter", {
@@ -95,7 +94,7 @@ sap.ui.define([
 					this.getRouter().navTo("ownedSession");
 					break;
 				case sId.indexOf("commentedSession") > -1:
-					MessageToast.show("Will go to the createSession Page");
+					this.getRouter().navTo("commentedSession");
 					break;
 				default:
 					break;

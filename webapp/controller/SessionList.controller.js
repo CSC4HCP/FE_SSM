@@ -7,7 +7,7 @@ sap.ui.define([
 
 	"use strict";
 
-	return BaseController.extend("ssms.controller.OwnedSession", {
+	return BaseController.extend("ssms.controller.SessionList", {
 
 		/**
 
@@ -27,9 +27,8 @@ sap.ui.define([
 			this.getView().setModel(oUserModel, "UserModel");
 
 			var oModel1 = new sap.ui.model.json.JSONModel();
-			var sOwner = this.getView().getModel("UserModel").getData().name;
 
-			oModel1.loadData("/destinations/SSM_DEST/api/session?owner=" + sOwner, null, false);
+			oModel1.loadData("/destinations/SSM_DEST/api/session", null, false);
 
 			this.getView().setModel(oModel1, "UserModel1");
 
@@ -55,8 +54,6 @@ sap.ui.define([
 
 			var sStatus = oEvent.getSource().mProperties.selectedKey;
 
-			var sOwner = this.getView().getModel("UserModel").getData().name;
-
 			var _that = this;
 
 			if (sStatus === "All") {
@@ -65,7 +62,7 @@ sap.ui.define([
 
 					type: "GET",
 
-					url: "/destinations/SSM_DEST/api/session?owner=" + sOwner,
+					url: "/destinations/SSM_DEST/api/session",
 
 					contentType: "application/json",
 
@@ -85,7 +82,7 @@ sap.ui.define([
 
 					type: "GET",
 
-					url: "/destinations/SSM_DEST/api/session?status=" + sStatus + "&&owner=" + sOwner,
+					url: "/destinations/SSM_DEST/api/session?status=" + sStatus,
 
 					contentType: "application/json",
 

@@ -120,8 +120,7 @@ sap.ui.define([
 			});
 
 			oImgSessionList.attachBrowserEvent("mouseup", function() {
-				// that.getRouter().navTo("sessionList");
-				MessageToast.show("Will go to the sessionList Page");
+				that.getRouter().navTo("sessionList");
 			});
 
 			oCreateSessionBox.attachBrowserEvent("mouseup", function() {
@@ -129,8 +128,7 @@ sap.ui.define([
 			});
 
 			oSessionListBox.attachBrowserEvent("mouseup", function() {
-				// that.getRouter().navTo("sessionList");
-				MessageToast.show("Will go to the sessionList Page");
+				that.getRouter().navTo("sessionList");
 			});
 		}
 	});

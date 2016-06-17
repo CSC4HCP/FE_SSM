@@ -1,0 +1,23 @@
+.commentedSession-vbox{
+	margin-left:2rem;
+	margin-right:4rem;
+}
+.ssmsCommentedSession{
+	margin-left:4rem;
+}
+.ssmsCommentedSession-header{
+	border-bottom:0px;
+}
+.ssmsCommentedSession-color{
+    color: #0099CC;	
+}
+.ssmsCommentedSession .sapMBtnIcon{
+    color: #0099CC ;	
+}
+.ssmsCommentedSession .sapMNLI-None{
+    background-color: #FFFFFF ;
+}
+.ssmsCommentedSession .sapMNLI-Header>.sapMText {
+    margin-bottom: 0rem;
+    color: #0099CC;
+}

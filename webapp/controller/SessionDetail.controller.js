@@ -395,7 +395,7 @@ sap.ui.define([
 				this.byId("ssms-location").removeStyleClass("ssmsfailure");
 				this.byId("ssms-editdatatime").removeStyleClass("ssmsfailure");
 			}
-			if (sBeforeStatus === "In progress") {
+			if (sBeforeStatus === "In Progress") {
 				oSendBtn.setEnabled(false);
 				oEditBtn.setEnabled(true);
 				oComment.setEnabled(true);
@@ -438,7 +438,7 @@ sap.ui.define([
 				this.byId("ssms-location").removeStyleClass("ssmsfailure");
 				this.byId("ssms-editdatatime").removeStyleClass("ssmsfailure");
 			}
-			if (sBeforeStatus === "In progress") {
+			if (sBeforeStatus === "In Progress") {
 				oEditBtn.setEnabled(true);
 				oComment.setEnabled(true);
 			}
@@ -477,7 +477,7 @@ sap.ui.define([
 					oControl.removeStyleClass("ssmsRedFont");
 					oControl.addStyleClass("ssmsYellowFont");
 					break;
-				case "In progress":
+				case "In Progress":
 					oControl.removeStyleClass("ssmsYellowFont");
 					oControl.removeStyleClass("ssmsGrayFont");
 					oControl.removeStyleClass("ssmsRedFont");
@@ -537,7 +537,7 @@ sap.ui.define([
 				});
 
 			}
-			if (sBeforeStatus === "Open" && sStatus === "In progress") {
+			if (sBeforeStatus === "Open" && sStatus === "In Progress") {
 				var dDateTime = this.byId("ssms-datetime").getValue() + ", " + this.byId("ssms-timepicker").getValue();
 				var meetingTime = new Date(dDateTime);
 				var oLocation = this.byId("ssms-meetingRoom");
@@ -571,7 +571,7 @@ sap.ui.define([
 					}
 				});
 			}
-			if (sBeforeStatus === "In progress" && sStatus === "Cancelled") {
+			if (sBeforeStatus === "In Progress" && sStatus === "Cancelled") {
 				sContent = "User " + oModel.displayName + " closed the session '" + oSessionModel.getData().topic + "', please check it.";
 				$.ajax({
 					type: "POST",
@@ -698,7 +698,7 @@ sap.ui.define([
 				oUploadCollection.setUploadEnabled(true);
 				oSummary.setEnabled(true);
 			}
-			if (sStatus === "Open" || sStatus === "In progress") {
+			if (sStatus === "Open" || sStatus === "In Progress") {
 				oCategory.setEnabled(true);
 				oMeetingRoom.setEnabled(false);
 				oStatus.setEnabled(true);
@@ -778,9 +778,9 @@ sap.ui.define([
 		onPressCreate: function() {
 			var oSessionData = this.byId("ssms-editVBox").getModel().getData();
 			if (bSupporterT && bSupporterW) {
-				if (oSessionData.status !== "In progress") {
-					oSessionData.status = "In progress";
-					this.byId("ssms-Status").setText("In progress");
+				if (oSessionData.status !== "In Progress") {
+					oSessionData.status = "In Progress";
+					this.byId("ssms-Status").setText("In Progress");
 				}
 			}
 			this.onCheckDate();

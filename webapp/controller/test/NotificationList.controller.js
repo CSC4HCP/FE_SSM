@@ -59,13 +59,13 @@ sap.ui.define([
 			var oAll = this.byId("notificationAll");
 
 			var reminder = new sap.m.Dialog({
-				title: "Confirm",
+				title: "{i18n>TITLE_DIALOG}",
 				type: "Message",
 				content: new sap.m.Text({
-					text: "Are you sure you want to delete this notification?"
+					text: "{i18n>CONTENT_DIALOG}"
 				}),
 				beginButton: new sap.m.Button({
-					text: "OK",
+					text: "{i18n>BUTTON_LEFT_DIALOG}",
 					press: function() {
 						reminder.close();
 
@@ -78,17 +78,18 @@ sap.ui.define([
 						
 						if (oItem.getNotificationChecked()) {
 							oAll.setCounter(oAll.getCounter() - 1);
-						} else if (!oItem.getNotificationChecked()) {
+						} else{
 							oAll.setCounter(oAll.getCounter() - 1);
 							oUnread.setCounter(oUnread.getCounter() - 1);
 						}
 						oItem.destroy();
-						sap.m.MessageToast.show("Deleted successfully!");
+						var message = sap.ui.getCore().getModel("i18n").getResourceBundle().getText("MESSAGE_DIALOG_SUCCESS");
+						sap.m.MessageToast.show(message);
 					}
 
 				}),
 				endButton: new sap.m.Button({
-					text: "Cancel",
+					text: "{i18n>BUTTON_RIFGT_DIALOG}",
 					press: function() {
 						reminder.close();
 					}
@@ -113,8 +114,6 @@ sap.ui.define([
 			var oModelAll = that.byId("notificationListAll").getModel("NotificationModelAll");
 			oModelAll.getData().splice(0,iLength);
 			oModelAll.refresh(true);
-			// var newData = oModelAll.getData().splice(0,iLength);
-            //oModelAll.setData(newData);
 			
 			oItem.addStyleClass("ssmNotificationMasterItemSelected");
 			that.byId("notificationUnread").removeStyleClass("ssmNotificationMasterItemSelected");
@@ -143,17 +142,6 @@ sap.ui.define([
 			that.getSplitContObj().toDetail(that.createId("notifyPageUnread"));
 		},
 
-		// /**
-		//  * @event
-		//  * @name onExit
-		//  * @description Called when the Controller is destroyed. Use this one to free resources and finalize activities.
-		//  * @memberOf ssms.view.CreateSession
-		//  */
-		// onExit: function() {
-		// 	this.getView().byId("notifyPageAll").destroy();
-
-		// },
-
 		/**
 		 * @function
 		 * @name getSplitContObj
@@ -161,8 +149,9 @@ sap.ui.define([
 		 */
 		getSplitContObj: function() {
 			var result = this.byId("notificationSplitCont");
+			var message = sap.ui.getCore().getModel("i18n").getResourceBundle().getText("MESSAGE_SPLIT_PAGE");
 			if (!result) {
-				jQuery.sap.log.error("Notification page can't be found");
+				jQuery.sap.log.error(message);
 			}
 			return result;
 		},

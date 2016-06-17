@@ -30,7 +30,7 @@ sap.ui.define([
 
 			var oModel1 = new sap.ui.model.json.JSONModel();
 
-			oModel1.loadData("mockData/ownSession.json", null, false);
+			oModel1.loadData("mockData/ownedSession.json", null, false);
 
 			this.getView().setModel(oModel1, "UserModel1");
 
