@@ -1,0 +1,26 @@
+<mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" controllerName="ssms.controller.CommentedSession"
+	xmlns:f="sap.ui.layout.form" xmlns:html="http://www.w3.org/1999/xhtml" xmlns:l="sap.ui.layout"
+	xmlns:ssms="ssms.control.NotificationListItem">
+	<Page showHeader="false">
+		<subHeader>
+			<core:Fragment fragmentName="ssms.view.Header" type="XML"/>
+		</subHeader>
+		<content>
+			<VBox class="commentedSession-vbox">
+				<List id="listAll" items="{CommentModel>/}">
+					<headerToolbar>
+						<Toolbar class="ssmsCommentedSession-header">
+							<Button icon="sap-icon://comment" press="handleButtonPress" type="default" class="ssmsCommentedSession"/>
+							<Title level="H3" text="Comment" class="ssmsCommentedSession-color"/>
+						</Toolbar>
+					</headerToolbar>
+					<items>
+						<ssms:NotificationListItem showCloseButton="false" title="{CommentModel>author}" description="{CommentModel>content}"
+							notificationId="{CommentModel>session}" datetime="{path:'CommentModel>date',formatter:'.formatter.formatDateTime'}"
+							class="ssmsCommentedSession" priority="None" truncate="false" press="onListitemPress"/>
+					</items>
+				</List>
+			</VBox>
+		</content>
+	</Page>
+</mvc:View>
