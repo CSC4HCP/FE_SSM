@@ -52,7 +52,6 @@ sap.ui.define([
 	var oModel;
 	var oSessionModel;
 	var oFileModel;
-	var oSessionUserModel;
 	var oJoinModel;
 	var oCommentModel;
 	var iSessionId;
@@ -102,10 +101,6 @@ sap.ui.define([
 			oSessionModel = new sap.ui.model.json.JSONModel();
 			oSessionModel.loadData("/destinations/SSM_DEST/api/session/" + iSessionId, null, false);
 			this.getView().setModel(oSessionModel);
-
-			oSessionUserModel = new sap.ui.model.json.JSONModel();
-			oSessionUserModel.loadData("/destinations/SSM_DEST/api/user/" + oSessionModel.getData().owner, null, false);
-			this.getView().setModel(oSessionUserModel, "OwnerModel");
 
 			var oControl = this.getView().byId("ssms-Status");
 			this._formatStateColor(oControl, oControl.getText());
@@ -164,7 +159,7 @@ sap.ui.define([
 				bOwner = false;
 			}
 
-			if (bOwner || sUserRole === "Supporter") {
+			if ((bOwner || sUserRole === "Supporter") && oVisibility === "Private") {
 				oEditBtn.setVisible(true);
 
 				if (bOwner) {
