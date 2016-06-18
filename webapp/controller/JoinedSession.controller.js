@@ -42,7 +42,7 @@ sap.ui.define([
 			var oUserModel = this.getUserModel();
 			this.getView().setModel(oUserModel, "UserModel");
 			var oJoinModel = new sap.ui.model.json.JSONModel();
-			var sOwner = this.getView().getModel("UserModel").getData().name;
+			var sOwner = this.getView().getModel("UserModel").getData().displayName;
 			oJoinModel.loadData("/destinations/SSM_DEST/api/joined?userId=" + sOwner, null, false);
 			this.getView().setModel(oJoinModel, "JoinModel");
 			this.byId("iconTabFilterAll").setCount(oJoinModel.getData().length);
@@ -132,11 +132,11 @@ sap.ui.define([
 
 		onPressedColumnListItem: function(oEvent) {
 
-			var Sid = oEvent.getSource().getCounter();
+			var sId = oEvent.getSource().getCounter();
 
 			this.getRouter().navTo("sessionDetail", {
 
-				id: Sid
+				id: sId
 
 			});
 

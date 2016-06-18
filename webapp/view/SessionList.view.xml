@@ -5,27 +5,25 @@
 			<core:Fragment fragmentName="ssms.view.Header" type="XML"/>
 		</subHeader>
 		<content>
-			<IconTabBar id="ssms-IconTabBar" select="getSessionByStatus" class="sapUiResponsiveContentPadding ssmsSessionList-IconTabBar" expandable="false">
+			<IconTabBar id="ssms-IconTabBar" select="getSessionByStatus" class="sapUiResponsiveContentPadding ssmsSessionList-IconTabBar"
+				expandable="false">
 				<items>
 					<IconTabFilter showAll="true" id="iconTabFilterAll" text="{i18n>TEXT_OWNSESSION_SESSIONS}" key="All">
 						<Table id="ssmsSessionList-All" inset="false" items="{SessionModel>/}">
 							<columns>
-								<Column width="15em">
+								<Column width="16em">
 									<Text text="{i18n>TEXT_OWNSESSION_TOPIC}"/>
 								</Column>
-								<Column width="11em" demandPopin="true">
+								<Column width="12em" demandPopin="true">
 									<Text text="{i18n>TEXT_OWNSESSION_OWNER}"/>
 								</Column>
-								<Column width="10em" demandPopin="true">
+								<Column width="11em" demandPopin="true">
 									<Text text="{i18n>TEXT_OWNSESSION_CATEGORY}"/>
 								</Column>
-								<Column width="9em" demandPopin="true">
-									<Text text="{i18n>TEXT_OWNSESSION_VISIBILITY}"/>
-								</Column>
-								<Column width="12em" demandPopin="true">
+								<Column width="14em" demandPopin="true">
 									<Text text="{i18n>TEXT_OWNSESSION_TIME}"/>
 								</Column>
-								<Column width="10em" demandPopin="true">
+								<Column width="14em" demandPopin="true">
 									<Text text="{i18n>TEXT_OWNSESSION_LOCATION}"/>
 								</Column>
 								<Column>
@@ -38,10 +36,10 @@
 										<Text text="{SessionModel>topic}"/>
 										<Text text="{SessionModel>owner}"/>
 										<Text text="{SessionModel>category}"/>
-										<Text text="{path:'SessionModel>visibility',formatter:'.formatter.formatVisibility'}"/>
 										<Text text="{path: 'SessionModel>meetingTime',formatter:'.formatter.formatDateTime'}"/>
 										<Text text="{SessionModel>meetingRoom}"/>
-										<ObjectNumber emphasized="false" number="{SessionModel>status}" state="{path:'SessionModel>status',formatter:'.formatter.formatStatusToColor'}"/>
+										<ObjectNumber emphasized="false" number="{SessionModel>status}"
+											state="{path:'SessionModel>status',formatter:'.formatter.formatStatusToColor'}"/>
 									</cells>
 								</ColumnListItem>
 							</items>
@@ -51,22 +49,19 @@
 					<IconTabFilter icon="sap-icon://accept" id="iconTabFilterOpen" iconColor="Default" text="{i18n>TEXT_OWNSESSION_OPEN}" key="Open">
 						<Table id="ssmsSessionList-Open" inset="false" items="{SessionModel>/}">
 							<columns>
-								<Column width="15em">
+								<Column width="16em">
 									<Text text="{i18n>TEXT_OWNSESSION_TOPIC}"/>
 								</Column>
-								<Column width="11em" demandPopin="true">
+								<Column width="12em" demandPopin="true">
 									<Text text="{i18n>TEXT_OWNSESSION_OWNER}"/>
 								</Column>
-								<Column width="10em" demandPopin="true">
+								<Column width="11em" demandPopin="true">
 									<Text text="{i18n>TEXT_OWNSESSION_CATEGORY}"/>
 								</Column>
-								<Column width="9em" demandPopin="true">
-									<Text text="{i18n>TEXT_OWNSESSION_VISIBILITY}"/>
-								</Column>
-								<Column width="12em" demandPopin="true">
+								<Column width="14em" demandPopin="true">
 									<Text text="{i18n>TEXT_OWNSESSION_TIME}"/>
 								</Column>
-								<Column width="10em" demandPopin="true">
+								<Column width="14em" demandPopin="true">
 									<Text text="{i18n>TEXT_OWNSESSION_LOCATION}"/>
 								</Column>
 								<Column>
@@ -79,10 +74,10 @@
 										<Text text="{SessionModel>topic}"/>
 										<Text text="{SessionModel>owner}"/>
 										<Text text="{SessionModel>category}"/>
-										<Text text="{path:'SessionModel>visibility',formatter:'.formatter.formatVisibility'}"/>
 										<Text text="{path: 'SessionModel>meetingTime',formatter:'.formatter.formatDateTime'}"/>
 										<Text text="{SessionModel>meetingRoom}"/>
-										<ObjectNumber emphasized="false" number="{SessionModel>status}" state="{path:'SessionModel>status',formatter:'.formatter.formatStatusToColor'}"/>
+										<ObjectNumber emphasized="false" number="{SessionModel>status}"
+											state="{path:'SessionModel>status',formatter:'.formatter.formatStatusToColor'}"/>
 									</cells>
 								</ColumnListItem>
 							</items>
@@ -91,22 +86,19 @@
 					<IconTabFilter icon="sap-icon://begin" iconColor="Positive" text="{i18n>TEXT_OWNSESSION_INPROCESS}" key="In Progress">
 						<Table id="ssmsSessionList-InProgress" inset="false" items="{SessionModel>/}">
 							<columns>
-								<Column width="15em">
+								<Column width="16em">
 									<Text text="{i18n>TEXT_OWNSESSION_TOPIC}"/>
 								</Column>
-								<Column width="11em" demandPopin="true">
+								<Column width="12em" demandPopin="true">
 									<Text text="{i18n>TEXT_OWNSESSION_OWNER}"/>
 								</Column>
-								<Column width="10em" demandPopin="true">
+								<Column width="11em" demandPopin="true">
 									<Text text="{i18n>TEXT_OWNSESSION_CATEGORY}"/>
 								</Column>
-								<Column width="9em" demandPopin="true">
-									<Text text="{i18n>TEXT_OWNSESSION_VISIBILITY}"/>
-								</Column>
-								<Column width="12em" demandPopin="true">
+								<Column width="14em" demandPopin="true">
 									<Text text="{i18n>TEXT_OWNSESSION_TIME}"/>
 								</Column>
-								<Column width="10em" demandPopin="true">
+								<Column width="14em" demandPopin="true">
 									<Text text="{i18n>TEXT_OWNSESSION_LOCATION}"/>
 								</Column>
 								<Column>
@@ -115,14 +107,14 @@
 							</columns>
 							<items>
 								<ColumnListItem press="onPressedColumnListItem" class="ssmsColorChangingText" type="Navigation" counter="{SessionModel>id}">
-								<cells>
+									<cells>
 										<Text text="{SessionModel>topic}"/>
 										<Text text="{SessionModel>owner}"/>
 										<Text text="{SessionModel>category}"/>
-										<Text text="{path:'SessionModel>visibility',formatter:'.formatter.formatVisibility'}"/>
 										<Text text="{path: 'SessionModel>meetingTime',formatter:'.formatter.formatDateTime'}"/>
 										<Text text="{SessionModel>meetingRoom}"/>
-										<ObjectNumber emphasized="false" number="{SessionModel>status}" state="{path:'SessionModel>status',formatter:'.formatter.formatStatusToColor'}"/>
+										<ObjectNumber emphasized="false" number="{SessionModel>status}"
+											state="{path:'SessionModel>status',formatter:'.formatter.formatStatusToColor'}"/>
 									</cells>
 								</ColumnListItem>
 							</items>
@@ -132,22 +124,19 @@
 						key="Cancelled">
 						<Table id="ssmsSessionList-Cancelled" inset="false" items="{SessionModel>/}">
 							<columns>
-								<Column width="15em">
+								<Column width="16em">
 									<Text text="{i18n>TEXT_OWNSESSION_TOPIC}"/>
 								</Column>
-								<Column width="11em" demandPopin="true">
+								<Column width="12em" demandPopin="true">
 									<Text text="{i18n>TEXT_OWNSESSION_OWNER}"/>
 								</Column>
-								<Column width="10em" demandPopin="true">
+								<Column width="11em" demandPopin="true">
 									<Text text="{i18n>TEXT_OWNSESSION_CATEGORY}"/>
 								</Column>
-								<Column width="9em" demandPopin="true">
-									<Text text="{i18n>TEXT_OWNSESSION_VISIBILITY}"/>
-								</Column>
-								<Column width="12em" demandPopin="true">
+								<Column width="14em" demandPopin="true">
 									<Text text="{i18n>TEXT_OWNSESSION_TIME}"/>
 								</Column>
-								<Column width="10em" demandPopin="true">
+								<Column width="14em" demandPopin="true">
 									<Text text="{i18n>TEXT_OWNSESSION_LOCATION}"/>
 								</Column>
 								<Column>
@@ -160,10 +149,10 @@
 										<Text text="{SessionModel>topic}"/>
 										<Text text="{SessionModel>owner}"/>
 										<Text text="{SessionModel>category}"/>
-										<Text text="{path:'SessionModel>visibility',formatter:'.formatter.formatVisibility'}"/>
 										<Text text="{path: 'SessionModel>meetingTime',formatter:'.formatter.formatDateTime'}"/>
 										<Text text="{SessionModel>meetingRoom}"/>
-										<ObjectNumber emphasized="false" number="{SessionModel>status}" state="{path:'SessionModel>status',formatter:'.formatter.formatStatusToColor'}"/>
+										<ObjectNumber emphasized="false" number="{SessionModel>status}"
+											state="{path:'SessionModel>status',formatter:'.formatter.formatStatusToColor'}"/>
 									</cells>
 								</ColumnListItem>
 							</items>
@@ -172,22 +161,19 @@
 					<IconTabFilter icon="sap-icon://complete" iconColor="Negative" id="iconTabFilterClosed" text="{i18n>TEXT_OWNSESSION_CLOSED}" key="Closed">
 						<Table id="ssmsSessionList-Completed" inset="false" items="{SessionModel>/}">
 							<columns>
-								<Column width="15em">
+								<Column width="16em">
 									<Text text="{i18n>TEXT_OWNSESSION_TOPIC}"/>
 								</Column>
-								<Column width="11em" demandPopin="true">
+								<Column width="12em" demandPopin="true">
 									<Text text="{i18n>TEXT_OWNSESSION_OWNER}"/>
 								</Column>
-								<Column width="10em" demandPopin="true">
+								<Column width="11em" demandPopin="true">
 									<Text text="{i18n>TEXT_OWNSESSION_CATEGORY}"/>
 								</Column>
-								<Column width="9em" demandPopin="true">
-									<Text text="{i18n>TEXT_OWNSESSION_VISIBILITY}"/>
-								</Column>
-								<Column width="12em" demandPopin="true">
+								<Column width="14em" demandPopin="true">
 									<Text text="{i18n>TEXT_OWNSESSION_TIME}"/>
 								</Column>
-								<Column width="10em" demandPopin="true">
+								<Column width="14em" demandPopin="true">
 									<Text text="{i18n>TEXT_OWNSESSION_LOCATION}"/>
 								</Column>
 								<Column>
@@ -200,10 +186,10 @@
 										<Text text="{SessionModel>topic}"/>
 										<Text text="{SessionModel>owner}"/>
 										<Text text="{SessionModel>category}"/>
-										<Text text="{path:'SessionModel>visibility',formatter:'.formatter.formatVisibility'}"/>
 										<Text text="{path: 'SessionModel>meetingTime',formatter:'.formatter.formatDateTime'}"/>
 										<Text text="{SessionModel>meetingRoom}"/>
-										<ObjectNumber emphasized="false" number="{SessionModel>status}" state="{path:'SessionModel>status',formatter:'.formatter.formatStatusToColor'}"/>
+										<ObjectNumber emphasized="false" number="{SessionModel>status}"
+											state="{path:'SessionModel>status',formatter:'.formatter.formatStatusToColor'}"/>
 									</cells>
 								</ColumnListItem>
 							</items>
