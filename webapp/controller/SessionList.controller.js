@@ -17,7 +17,7 @@ sap.ui.define([
 
 		* @description Called when a controller is instantiated and its View controls (if available) are already created. Mainly set model.
 
-		* @memberOf ssms.view.view.ownSession
+		* @memberOf ssms.view.view.SessionList
 
 		*/
 
@@ -26,13 +26,13 @@ sap.ui.define([
 			var oUserModel = this.getUserModel();
 			this.getView().setModel(oUserModel, "UserModel");
 
-			var oModel1 = new sap.ui.model.json.JSONModel();
+			var oSessionModel = new sap.ui.model.json.JSONModel();
 
-			oModel1.loadData("/destinations/SSM_DEST/api/session", null, false);
+			oSessionModel.loadData("/destinations/SSM_DEST/api/session?visibility=true", null, false);
 
-			this.getView().setModel(oModel1, "UserModel1");
+			this.getView().setModel(oSessionModel, "SessionModel");
 
-			this.byId("iconTabFilterAll").setCount(oModel1.getData().length);
+			this.byId("iconTabFilterAll").setCount(oSessionModel.getData().length);
 
 		},
 
@@ -54,7 +54,7 @@ sap.ui.define([
 
 			var sStatus = oEvent.getSource().mProperties.selectedKey;
 
-			var _that = this;
+			var that = this;
 
 			if (sStatus === "All") {
 
@@ -70,7 +70,7 @@ sap.ui.define([
 
 					success: function(aSessions) {
 
-						_that.getView().getModel("UserModel1").setData(aSessions);
+						that.getView().getModel("SessionModel").setData(aSessions);
 
 					}
 
@@ -90,7 +90,7 @@ sap.ui.define([
 
 					success: function(aSessions) {
 
-						_that.getView().getModel("UserModel1").setData(aSessions);
+						that.getView().getModel("SessionModel").setData(aSessions);
 
 					}
 

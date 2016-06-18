@@ -9,16 +9,16 @@ sap.ui.define([
 		 * @event
 		 * @name onInit
 		 * @description Called when a controller is instantiated and its View controls (if available) are already created. Mainly set model.
-		 * @memberOf ssms.view.view.Home
+		 * @memberOf ssms.view.view.PersonalCenter
 		 */
 		onInit: function() {
 			var oUserModel = this.getUserModel();
 			this.getView().setModel(oUserModel, "UserModel");
 
 			this._oUser = this.getUserRole(oUserModel.getData());
-			var oModel1 = new sap.ui.model.json.JSONModel();
-			oModel1.setData(this._oUser, null, false);
-			this.getView().setModel(oModel1, "UserModel1");
+			var oInfoModel = new sap.ui.model.json.JSONModel();
+			oInfoModel.setData(this._oUser, null, false);
+			this.getView().setModel(oInfoModel, "InfoModel");
 		},
 
 		/**

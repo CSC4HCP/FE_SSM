@@ -6,6 +6,12 @@ sap.ui.define([
 ], function(BaseController) {
 
 	"use strict";
+	/**
+	 * @private
+	 * @description Some specified variables of this controller. Can't be access out of this controller.
+	 * @var {Array} aCommentSession The array to save comment sessions.
+	 * 
+	 */
 	var aCommentSession;
 	return BaseController.extend("ssms.controller.CommentedSession", {
 
@@ -17,7 +23,7 @@ sap.ui.define([
 
 		* @description Called when a controller is instantiated and its View controls (if available) are already created. Mainly set model.
 
-		* @memberOf ssms.view.view.ownSession
+		* @memberOf ssms.view.view.commentedSession
 
 		*/
 
@@ -26,12 +32,12 @@ sap.ui.define([
 			var oUserModel = this.getUserModel();
 			this.getView().setModel(oUserModel, "UserModel");
 
-			var oModel1 = new sap.ui.model.json.JSONModel();
-			var oModel2 = new sap.ui.model.json.JSONModel();
+			var oCommentModel = new sap.ui.model.json.JSONModel();
+			var oSessionModel = new sap.ui.model.json.JSONModel();
 
-			oModel1.loadData("/destinations/SSM_DEST/api/comment", null, false);
-			this.getView().setModel(oModel2, "CommentModel2");
-			this.getView().setModel(oModel1, "CommentModel");
+			oCommentModel.loadData("/destinations/SSM_DEST/api/comment", null, false);
+			this.getView().setModel(oSessionModel, "SessionModel");
+			this.getView().setModel(oCommentModel, "CommentModel");
 			this.getCommentByName();
 			this.getSessionById();
 		},
@@ -52,7 +58,7 @@ sap.ui.define([
 		getSessionById: function() {
 			var sSessionLenth = this.getView().getModel("CommentModel").getData().length;
 			var _that = this;
-			aCommentSession = new Array();
+			aCommentSession = [];
 			for (var i = 0; i < sSessionLenth; i++) {
 				var sSessionId = this.getView().getModel("CommentModel").getData()[i].session;
 
@@ -69,7 +75,7 @@ sap.ui.define([
 					success: function(aSessions) {
 
 						aCommentSession.push(aSessions);
-						_that.getView().getModel("CommentModel2").setData(aCommentSession);
+						_that.getView().getModel("SessionModel").setData(aCommentSession);
 					}
 
 				});

@@ -1,4 +1,4 @@
-.commentedSession-vbox{
+.commentedSession-List{
 	margin-left:2rem;
 	margin-right:4rem;
 }
@@ -12,7 +12,8 @@
     color: #0099CC;	
 }
 .ssmsCommentedSession .sapMBtnIcon{
-    color: #0099CC ;	
+    color: #0099CC ;
+    font-size: 2rem;
 }
 .ssmsCommentedSession .sapMNLI-None{
     background-color: #FFFFFF ;
