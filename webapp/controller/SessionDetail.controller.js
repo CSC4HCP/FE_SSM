@@ -159,7 +159,7 @@ sap.ui.define([
 				bOwner = false;
 			}
 
-			if ((bOwner || sUserRole === "Supporter") && oVisibility === "Private") {
+			if (bOwner || sUserRole === "Supporter") {
 				oEditBtn.setVisible(true);
 
 				if (bOwner) {
