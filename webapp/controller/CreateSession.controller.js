@@ -261,7 +261,7 @@ sap.ui.define([
 			var oSessionModel = new sap.ui.model.json.JSONModel();
 
 			oSessionModel.loadData("mockData/newSession.json", null, false);
-			oSessionModel.getData().owner = this._sUserId;
+			oSessionModel.getData().owner =  this.getView().getModel("UserModel").getData().displayName;
 			this.byId("session").setModel(oSessionModel);
 		}
 	});

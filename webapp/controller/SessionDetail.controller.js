@@ -68,8 +68,7 @@ sap.ui.define([
 		 * @memberOf ssms.view.SessionDetail
 		 */
 		onInit: function() {
-			oModel = new sap.ui.model.json.JSONModel();
-			oModel.loadData("/services/userapi/currentUser", null, false);
+			oModel = this.getUserModel();
 			this.getView().setModel(oModel, "UserModel");
 
 			var oRouter = this.getRouter();
@@ -375,7 +374,7 @@ sap.ui.define([
 			var oJoin = this.getView().byId("ssms-join");
 			
 			oJoin.setVisible(false);
-
+			oSendBtn.setVisible(true);
 			if (sBeforeStatus === "Open") {
 				if (!bBeforeSelect) {
 				this.byId("ssms-private").setSelected(true);
@@ -431,6 +430,7 @@ sap.ui.define([
 			var oComment = this.getView().byId("ssms-comment");
 			var bJoinBtn = true;
 			
+			oJoin.setVisible(true);
 			oSendBtn.setVisible(false);
 			if (sBeforeStatus === "Open") {
 				oComment.setEnabled(true);
@@ -806,6 +806,7 @@ sap.ui.define([
 							if (aDocumentId[j]) {
 								if (oFileModel.getData()[i].fileId === aDocumentId[j]) {
 									$.ajax({
+										async: false,
 										type: "DELETE",
 										url: "/destinations/SSM_DEST/api/document/delete/" + aDocumentId[j],
 										contentType: "application/json"
