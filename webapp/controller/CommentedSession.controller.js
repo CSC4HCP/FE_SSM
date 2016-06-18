@@ -57,7 +57,7 @@ sap.ui.define([
 
 		getSessionById: function() {
 			var sSessionLenth = this.getView().getModel("CommentModel").getData().length;
-			var _that = this;
+			var that = this;
 			aCommentSession = [];
 			for (var i = 0; i < sSessionLenth; i++) {
 				var sSessionId = this.getView().getModel("CommentModel").getData()[i].session;
@@ -75,7 +75,7 @@ sap.ui.define([
 					success: function(aSessions) {
 
 						aCommentSession.push(aSessions);
-						_that.getView().getModel("SessionModel").setData(aCommentSession);
+						that.getView().getModel("SessionModel").setData(aCommentSession);
 					}
 
 				});
@@ -135,11 +135,11 @@ sap.ui.define([
 
 		onListitemPress: function(oEvent) {
 
-			var Sid = oEvent.getSource().mProperties.notificationId;
+			var sId = oEvent.getSource().mProperties.notificationId;
 
 			this.getRouter().navTo("sessionDetail", {
 
-				id: Sid
+				id: sId
 
 			});
 

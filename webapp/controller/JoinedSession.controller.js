@@ -132,11 +132,11 @@ sap.ui.define([
 
 		onPressedColumnListItem: function(oEvent) {
 
-			var Sid = oEvent.getSource().getCounter();
+			var sId = oEvent.getSource().getCounter();
 
 			this.getRouter().navTo("sessionDetail", {
 
-				id: Sid
+				id: sId
 
 			});
 
