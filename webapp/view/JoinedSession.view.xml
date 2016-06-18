@@ -5,10 +5,10 @@
 			<core:Fragment fragmentName="ssms.view.Header" type="XML"/>
 		</subHeader>
 		<content>
-			<IconTabBar id="ssms-IconTabBar" select="getSessionByStatus" class="sapUiResponsiveContentPadding" expandable="false">
+			<IconTabBar id="ssms-IconTabBar" select="getSessionByStatus" class="sapUiResponsiveContentPadding ssmsJoinedSession-IconTabBar" expandable="false">
 				<items>
 					<IconTabFilter showAll="true" id="iconTabFilterAll" text="{i18n>TEXT_OWNSESSION_SESSIONS}" key="All">
-						<Table id="ssms_ownsession_Table" inset="false" items="{UserModel1>/}">
+						<Table id="ssmsJoinedsession-All" inset="false" items="{SessionModel>/}">
 							<columns>
 								<Column width="14em">
 									<Text text="{i18n>TEXT_OWNSESSION_TOPIC}"/>
@@ -30,14 +30,15 @@
 								</Column>
 							</columns>
 							<items>
-								<ColumnListItem press="onPressedColumnListItem" class="ssmsColorChangingText" type="Navigation" counter="{UserModel1>id}">
+								<ColumnListItem press="onPressedColumnListItem" class="ssmsColorChangingText" type="Navigation" counter="{SessionModel>id}">
 									<cells>
-										<Text text="{UserModel1>topic}"/>
-										<Text text="{UserModel1>category}"/>
-										<Text text="{path:'UserModel1>visibility',formatter:'.formatter.formatVisibility'}"/>
-										<Text text="{path: 'UserModel1>meetingTime',formatter:'.formatter.formatDateTime'}"/>
-										<Text text="{UserModel1>meetingRoom}"/>
-										<ObjectNumber emphasized="false" number="{UserModel1>status}" state="{path:'UserModel1>status',formatter:'.formatter.formatStatusToColor'}"/>
+										<Text text="{SessionModel>topic}"/>
+										<Text text="{SessionModel>category}"/>
+										<Text text="{path:'SessionModel>visibility',formatter:'.formatter.formatVisibility'}"/>
+										<Text text="{path: 'SessionModel>meetingTime',formatter:'.formatter.formatDateTime'}"/>
+										<Text text="{SessionModel>meetingRoom}"/>
+										<ObjectNumber emphasized="false" number="{SessionModel>status}"
+											state="{path:'SessionModel>status',formatter:'.formatter.formatStatusToColor'}"/>
 									</cells>
 								</ColumnListItem>
 							</items>
@@ -45,7 +46,7 @@
 					</IconTabFilter>
 					<IconTabSeparator/>
 					<IconTabFilter icon="sap-icon://accept" id="iconTabFilterOpen" iconColor="Default" text="{i18n>TEXT_OWNSESSION_OPEN}" key="Open">
-						<Table id="ssms_ownsession_Table1" inset="false" items="{UserModel1>/}">
+						<Table id="ssmsJoinedsession-Open" inset="false" items="{SessionModel>/}">
 							<columns>
 								<Column width="14em">
 									<Text text="{i18n>TEXT_OWNSESSION_TOPIC}"/>
@@ -67,21 +68,22 @@
 								</Column>
 							</columns>
 							<items>
-								<ColumnListItem press="onPressedColumnListItem" class="ssmsColorChangingText" counter="{UserModel1>id}" type="Navigation">
+								<ColumnListItem press="onPressedColumnListItem" class="ssmsColorChangingText" counter="{SessionModel>id}" type="Navigation">
 									<cells>
-										<Text text="{UserModel1>topic}"/>
-										<Text text="{UserModel1>category}"/>
-										<Text text="{path:'UserModel1>visibility',formatter:'.formatter.formatVisibility'}"/>
-										<Text text="{path: 'UserModel1>meetingTime',formatter:'.formatter.formatDateTime'}"/>
-										<Text text="{UserModel1>meetingRoom}"/>
-										<ObjectNumber emphasized="false" number="{UserModel1>status}" state="{path:'UserModel1>status',formatter:'.formatter.formatStatusToColor'}"/>
+										<Text text="{SessionModel>topic}"/>
+										<Text text="{SessionModel>category}"/>
+										<Text text="{path:'SessionModel>visibility',formatter:'.formatter.formatVisibility'}"/>
+										<Text text="{path: 'SessionModel>meetingTime',formatter:'.formatter.formatDateTime'}"/>
+										<Text text="{SessionModel>meetingRoom}"/>
+										<ObjectNumber emphasized="false" number="{SessionModel>status}"
+											state="{path:'SessionModel>status',formatter:'.formatter.formatStatusToColor'}"/>
 									</cells>
 								</ColumnListItem>
 							</items>
 						</Table>
 					</IconTabFilter>
 					<IconTabFilter icon="sap-icon://begin" iconColor="Positive" text="{i18n>TEXT_OWNSESSION_INPROCESS}" key="In Progress">
-						<Table id="ssms_ownsession_Table2" inset="false" items="{UserModel1>/}">
+						<Table id="ssmsJoinedsession-InProgress" inset="false" items="{SessionModel>/}">
 							<columns>
 								<Column width="14em">
 									<Text text="{i18n>TEXT_OWNSESSION_TOPIC}"/>
@@ -103,14 +105,15 @@
 								</Column>
 							</columns>
 							<items>
-								<ColumnListItem press="onPressedColumnListItem" class="ssmsColorChangingText" type="Navigation" counter="{UserModel1>id}">
+								<ColumnListItem press="onPressedColumnListItem" class="ssmsColorChangingText" type="Navigation" counter="{SessionModel>id}">
 									<cells>
-										<Text text="{UserModel1>topic}"/>
-										<Text text="{UserModel1>category}"/>
-										<Text text="{path:'UserModel1>visibility',formatter:'.formatter.formatVisibility'}"/>
-										<Text text="{path: 'UserModel1>meetingTime',formatter:'.formatter.formatDateTime'}"/>
-										<Text text="{UserModel1>meetingRoom}"/>
-										<ObjectNumber emphasized="false" number="{UserModel1>status}" state="{path:'UserModel1>status',formatter:'.formatter.formatStatusToColor'}"/>
+										<Text text="{SessionModel>topic}"/>
+										<Text text="{SessionModel>category}"/>
+										<Text text="{path:'SessionModel>visibility',formatter:'.formatter.formatVisibility'}"/>
+										<Text text="{path: 'SessionModel>meetingTime',formatter:'.formatter.formatDateTime'}"/>
+										<Text text="{SessionModel>meetingRoom}"/>
+										<ObjectNumber emphasized="false" number="{SessionModel>status}"
+											state="{path:'SessionModel>status',formatter:'.formatter.formatStatusToColor'}"/>
 									</cells>
 								</ColumnListItem>
 							</items>
@@ -118,7 +121,7 @@
 					</IconTabFilter>
 					<IconTabFilter icon="sap-icon://decline" id="iconTabFilterCanceled" iconColor="Critical" text="{i18n>TEXT_OWNSESSION_CANCELED}"
 						key="Cancelled">
-						<Table id="ssms_ownsession_Table3" inset="false" items="{UserModel1>/}">
+						<Table id="ssmsJoinedsession-Cancelled" inset="false" items="{SessionModel>/}">
 							<columns>
 								<Column width="14em">
 									<Text text="{i18n>TEXT_OWNSESSION_TOPIC}"/>
@@ -140,21 +143,22 @@
 								</Column>
 							</columns>
 							<items>
-								<ColumnListItem press="onPressedColumnListItem" class="ssmsColorChangingText" type="Navigation" counter="{UserModel1>id}">
+								<ColumnListItem press="onPressedColumnListItem" class="ssmsColorChangingText" type="Navigation" counter="{SessionModel>id}">
 									<cells>
-										<Text text="{UserModel1>topic}"/>
-										<Text text="{UserModel1>category}"/>
-										<Text text="{path:'UserModel1>visibility',formatter:'.formatter.formatVisibility'}"/>
-										<Text text="{path: 'UserModel1>meetingTime',formatter:'.formatter.formatDateTime'}"/>
-										<Text text="{UserModel1>meetingRoom}"/>
-										<ObjectNumber emphasized="false" number="{UserModel1>status}" state="{path:'UserModel1>status',formatter:'.formatter.formatStatusToColor'}"/>
+										<Text text="{SessionModel>topic}"/>
+										<Text text="{SessionModel>category}"/>
+										<Text text="{path:'SessionModel>visibility',formatter:'.formatter.formatVisibility'}"/>
+										<Text text="{path: 'SessionModel>meetingTime',formatter:'.formatter.formatDateTime'}"/>
+										<Text text="{SessionModel>meetingRoom}"/>
+										<ObjectNumber emphasized="false" number="{SessionModel>status}"
+											state="{path:'SessionModel>status',formatter:'.formatter.formatStatusToColor'}"/>
 									</cells>
 								</ColumnListItem>
 							</items>
 						</Table>
 					</IconTabFilter>
 					<IconTabFilter icon="sap-icon://complete" iconColor="Negative" id="iconTabFilterClosed" text="{i18n>TEXT_OWNSESSION_CLOSED}" key="Closed">
-						<Table id="ssms_ownsession_Table4" inset="false" items="{UserModel1>/}">
+						<Table id="ssmsJoinedsession-Completed" inset="false" items="{SessionModel>/}">
 							<columns>
 								<Column width="14em">
 									<Text text="{i18n>TEXT_OWNSESSION_TOPIC}"/>
@@ -176,14 +180,15 @@
 								</Column>
 							</columns>
 							<items>
-								<ColumnListItem press="onPressedColumnListItem" class="ssmsColorChangingText" type="Navigation" counter="{UserModel1>id}">
+								<ColumnListItem press="onPressedColumnListItem" class="ssmsColorChangingText" type="Navigation" counter="{SessionModel>id}">
 									<cells>
-										<Text text="{UserModel1>topic}"/>
-										<Text text="{UserModel1>category}"/>
-										<Text text="{path:'UserModel1>visibility',formatter:'.formatter.formatVisibility'}"/>
-										<Text text="{path: 'UserModel1>meetingTime',formatter:'.formatter.formatDateTime'}"/>
-										<Text text="{UserModel1>meetingRoom}"/>
-										<ObjectNumber emphasized="false" number="{UserModel1>status}" state="{path:'UserModel1>status',formatter:'.formatter.formatStatusToColor'}"/>
+										<Text text="{SessionModel>topic}"/>
+										<Text text="{SessionModel>category}"/>
+										<Text text="{path:'SessionModel>visibility',formatter:'.formatter.formatVisibility'}"/>
+										<Text text="{path: 'SessionModel>meetingTime',formatter:'.formatter.formatDateTime'}"/>
+										<Text text="{SessionModel>meetingRoom}"/>
+										<ObjectNumber emphasized="false" number="{SessionModel>status}"
+											state="{path:'SessionModel>status',formatter:'.formatter.formatStatusToColor'}"/>
 									</cells>
 								</ColumnListItem>
 							</items>

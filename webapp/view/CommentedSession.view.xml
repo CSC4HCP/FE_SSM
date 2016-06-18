@@ -6,7 +6,7 @@
 			<core:Fragment fragmentName="ssms.view.Header" type="XML"/>
 		</subHeader>
 		<content>
-			<VBox class="commentedSession-vbox">
+			<VBox class="commentedSession-List">
 				<List id="listAll" items="{CommentModel>/}">
 					<headerToolbar>
 						<Toolbar class="ssmsCommentedSession-header">

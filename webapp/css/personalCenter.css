@@ -1,4 +1,4 @@
-.ssmsPersonalCenter_vbox1 {
+.ssmsPersonalCenter-personalInfo{
     width: 16rem;
     height: 31.7rem;
     margin-left: 3rem;
@@ -11,24 +11,24 @@
     border:1px solid #0099cc;
     border-radius:10px;
 }
-.ssmsPersonalCenter_vbox_name{
+.ssmsPersonalCenter-personalInfo-name{
 	font-size: 2rem ;
 	color:#0099cc;
     font-family: Arial,Helvetica,sans-serif;
     line-height: normal;
     padding-bottom: 1rem;
 }
-.ssmsPersonalCenter_vbox_id{
+.ssmsPersonalCenter-personalInfo-common{
 	 padding-bottom: 2rem ;
 }
-.ssmsPersonalCenter_vbox2{
+.ssmsPersonalCenter-sessions{
     margin-right: 5rem;
 }
-.ssmsPersonalCenter_create{
+.ssmsPersonalCenter-create{
      margin-bottom: 3rem;
     
 }
-.ssmsPersonalCenter_common{
+.ssmsPersonalCenter-common{
      background-color: rgba(255,255,255,0.6);
      border-radius: 10px;
      width:16rem;

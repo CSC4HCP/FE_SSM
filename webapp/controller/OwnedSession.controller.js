@@ -26,14 +26,14 @@ sap.ui.define([
 			var oUserModel = this.getUserModel();
 			this.getView().setModel(oUserModel, "UserModel");
 
-			var oModel1 = new sap.ui.model.json.JSONModel();
+			var oSessionModel = new sap.ui.model.json.JSONModel();
 			var sOwner = this.getView().getModel("UserModel").getData().name;
 
-			oModel1.loadData("/destinations/SSM_DEST/api/session?owner=" + sOwner, null, false);
+			oSessionModel.loadData("/destinations/SSM_DEST/api/session?owner=" + sOwner, null, false);
 
-			this.getView().setModel(oModel1, "UserModel1");
+			this.getView().setModel(oSessionModel, "SessionModel");
 
-			this.byId("iconTabFilterAll").setCount(oModel1.getData().length);
+			this.byId("iconTabFilterAll").setCount(oSessionModel.getData().length);
 
 		},
 
@@ -73,7 +73,7 @@ sap.ui.define([
 
 					success: function(aSessions) {
 
-						_that.getView().getModel("UserModel1").setData(aSessions);
+						_that.getView().getModel("SessionModel").setData(aSessions);
 
 					}
 
@@ -93,7 +93,7 @@ sap.ui.define([
 
 					success: function(aSessions) {
 
-						_that.getView().getModel("UserModel1").setData(aSessions);
+						_that.getView().getModel("SessionModel").setData(aSessions);
 
 					}
 

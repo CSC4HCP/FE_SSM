@@ -6,11 +6,21 @@ sap.ui.define([
 ], function(BaseController) {
 
 	"use strict";
-	var bJoinsessions;
-	var aJoinsessions;
-	var cJoinsessions;
-	var dJoinsessions;
-	var eJoinsessions;
+	/**
+	 * @private
+	 * @description Some specified variables of this controller. Can't be access out of this controller.
+	 * @var {Array} aAllJoinSessions The array to save all sessions.
+	 * @var {Array} aDocumentId The array to save open sessions.
+	 * @var {Array} aDocumentId The array to save in progress sessions.
+	 * @var {Array} aDocumentId The array to save cancelled sessions.
+	 * @var {Array} aDocumentId The array to save completed sessions.
+	 * 
+	 */
+	var aAllJoinSessions;
+	var aOpenJoinSessions;
+	var aInProgressJoinSessions;
+	var aCancelledJoinSessions;
+	var aCompletedJoinSessions;
 	return BaseController.extend("ssms.controller.JoinedSession", {
 
 		/**
@@ -20,7 +30,8 @@ sap.ui.define([
 		* @name onInit
 
 		* @description Called when a controller is instantiated and its View controls (if available) are already created. Mainly set model.
-		* Get joined session information  
+		
+		* Get joined session information From joined API and get session information from session API
 
 		* @memberOf ssms.view.view.joinedSession
 
@@ -30,19 +41,20 @@ sap.ui.define([
 
 			var oUserModel = this.getUserModel();
 			this.getView().setModel(oUserModel, "UserModel");
-			var oModel1 = new sap.ui.model.json.JSONModel();
-			oModel1.loadData("/destinations/SSM_DEST/api/joined", null, false);
-			this.getView().setModel(oModel1, "joinModel");
-			this.byId("iconTabFilterAll").setCount(oModel1.getData().length);
-			var oModel2 = new sap.ui.model.json.JSONModel();
-			var sSessionLenth = this.getView().getModel("joinModel").getData().length;
-			aJoinsessions = new Array();
-			bJoinsessions = new Array();
-			cJoinsessions = new Array();
-			dJoinsessions = new Array();
-			eJoinsessions = new Array();
+			var oJoinModel = new sap.ui.model.json.JSONModel();
+			var sOwner = this.getView().getModel("UserModel").getData().name;
+			oJoinModel.loadData("/destinations/SSM_DEST/api/joined?userId=" + sOwner, null, false);
+			this.getView().setModel(oJoinModel, "JoinModel");
+			this.byId("iconTabFilterAll").setCount(oJoinModel.getData().length);
+			var oSessionModel = new sap.ui.model.json.JSONModel();
+			var sSessionLenth = this.getView().getModel("JoinModel").getData().length;
+			aAllJoinSessions = [];
+			aOpenJoinSessions = [];
+			aInProgressJoinSessions = [];
+			aCancelledJoinSessions = [];
+			aCompletedJoinSessions = [];
 			for (var i = 0; i < sSessionLenth; i++) {
-				var sSessionId = this.getView().getModel("joinModel").getData()[i].session;
+				var sSessionId = this.getView().getModel("JoinModel").getData()[i].session;
 
 				$.ajax({
 
@@ -55,56 +67,54 @@ sap.ui.define([
 					async: false,
 
 					success: function(aSessions) {
-						aJoinsessions.push(aSessions);
-						switch(aSessions.status){
-										case "Open":
-									bJoinsessions.push(aSessions);
-									break;
-								case "In Progress":
-									cJoinsessions.push(aSessions);
-									break;
-								case "Cancelled":
-									dJoinsessions.push(aSessions);
-									break;
-								case "Completed":
-									eJoinsessions.push(aSessions);
-									break;
+						aAllJoinSessions.push(aSessions);
+						switch (aSessions.status) {
+							case "Open":
+								aOpenJoinSessions.push(aSessions);
+								break;
+							case "In Progress":
+								aInProgressJoinSessions.push(aSessions);
+								break;
+							case "Cancelled":
+								aCancelledJoinSessions.push(aSessions);
+								break;
+							case "Completed":
+								aCompletedJoinSessions.push(aSessions);
+								break;
 						}
 					}
 
 				});
-					oModel2.setData(aJoinsessions);
+				oSessionModel.setData(aAllJoinSessions);
 			}
-			this.getView().setModel(oModel2, "UserModel1");
+			this.getView().setModel(oSessionModel, "SessionModel");
 		},
 		/**
 
 		* @function
-
+	
 		* @name getSessionByStatus
 
-		* @description Session by Status and then set the Model
+		* @description Session by Status and then set the Model.
 
 		* @param {sap.ui.base.Event} - oEvent The fired event.
-
-		* @param {Object} aSessions - Session information got from the sessionAPI
-
+		
 		*/
 
 		getSessionByStatus: function(oEvent) {
 
 			var sStatus = oEvent.getSource().mProperties.selectedKey;
-			var _that = this;
+			var that = this;
 			if (sStatus === "All") {
-				_that.getView().getModel("UserModel1").setData(aJoinsessions);
+				that.getView().getModel("SessionModel").setData(aAllJoinSessions);
 			} else if (sStatus === "Open") {
-				_that.getView().getModel("UserModel1").setData(bJoinsessions);
+				that.getView().getModel("SessionModel").setData(aOpenJoinSessions);
 			} else if (sStatus === "In Progress") {
-				_that.getView().getModel("UserModel1").setData(cJoinsessions);
+				that.getView().getModel("SessionModel").setData(aInProgressJoinSessions);
 			} else if (sStatus === "Cancelled") {
-				_that.getView().getModel("UserModel1").setData(dJoinsessions);
+				that.getView().getModel("SessionModel").setData(aCancelledJoinSessions);
 			} else if (sStatus === "Cancelled") {
-				_that.getView().getModel("UserModel1").setData(eJoinsessions);
+				that.getView().getModel("SessionModel").setData(aCompletedJoinSessions);
 			}
 		},
 
