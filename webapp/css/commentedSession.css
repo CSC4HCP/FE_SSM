@@ -22,3 +22,6 @@
     margin-bottom: 0rem;
     color: #0099CC;
 }
+.ssmsCommentedSession .sapMNLI-Body .sapMNLI-Details {
+    color: darkgrey;
+}
