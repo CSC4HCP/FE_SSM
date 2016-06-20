@@ -153,7 +153,7 @@ sap.ui.define([
 			oUploadCollection = this.getView().byId("ssms-UploadCollection");
 			var oSummary = this.getView().byId("ssms-summary");
 
-			if (oUserData.name === oSessionData.owner) {
+			if (oUserData.displayName === oSessionData.owner) {
 				bOwner = true;
 			} else {
 				bOwner = false;
@@ -262,8 +262,8 @@ sap.ui.define([
 					visibleEdit: false
 				});
 				oShowCollection.addItem(iShowItems);
-				oShowTitle.setText("Uploaded (" + data.length + ")");
 			}
+			oShowTitle.setText("Uploaded (" + data.length + ")");
 			for (var j = 0; j < data.length; j++) {
 				var iEditItems = new UploadCollectionItem({
 					fileName: data[j].fileName,
@@ -935,6 +935,7 @@ sap.ui.define([
 					}
 				});
 			} else {
+				oJoin.setEnabled(false);
 				var dJoinDialog = new Dialog({
 					title: "Error",
 					type: "Message",

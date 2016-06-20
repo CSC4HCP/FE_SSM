@@ -119,7 +119,7 @@
 													<l:GridData span="L2 M2 S4"/>
 												</layoutData>
 											</Label>
-											<Text text="{OwnerModel>/firstName} {OwnerModel>/lastName} ({OwnerModel>/name})"/>
+											<Text text="{/owner}"/>
 											<Label text="{i18n>OBJECTPAGESECTION_SESSIONDETAIL_CATEGORY}:">
 												<layoutData>
 													<l:GridData span="L2 M2 S4"/>
