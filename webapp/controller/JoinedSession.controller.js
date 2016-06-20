@@ -88,6 +88,11 @@ sap.ui.define([
 				oSessionModel.setData(aAllJoinSessions);
 			}
 			this.getView().setModel(oSessionModel, "SessionModel");
+			this.byId("iconTabFilterOpen").setCount(aOpenJoinSessions.length);
+			this.byId("iconTabFilterInProgress").setCount(aInProgressJoinSessions.length);
+			this.byId("iconTabFilterCanceled").setCount(aCancelledJoinSessions.length);
+			this.byId("iconTabFilterClosed").setCount(aCompletedJoinSessions.length);
+
 		},
 		/**
 
@@ -116,6 +121,7 @@ sap.ui.define([
 			} else if (sStatus === "Cancelled") {
 				that.getView().getModel("SessionModel").setData(aCompletedJoinSessions);
 			}
+			
 		},
 
 		/**
