@@ -69,7 +69,7 @@
 								</Column>
 							</columns>
 							<items>
-								<ColumnListItem press="onPressedColumnListItem" class="ssmsColorChangingText" counter="{SessionModel>id}" type="Navigation">
+								<ColumnListItem press="onPressedColumnListItem"  class="ssmsColorChangingText" counter="{SessionModel>id}" type="Navigation">
 									<cells>
 										<Text text="{SessionModel>topic}"/>
 										<Text text="{SessionModel>owner}"/>
@@ -83,7 +83,7 @@
 							</items>
 						</Table>
 					</IconTabFilter>
-					<IconTabFilter icon="sap-icon://begin" iconColor="Positive" text="{i18n>TEXT_OWNSESSION_INPROCESS}" key="In Progress">
+					<IconTabFilter icon="sap-icon://begin" id="iconTabFilterInProgress" iconColor="Positive" text="{i18n>TEXT_OWNSESSION_INPROCESS}" key="In Progress">
 						<Table id="ssmsSessionList-InProgress" inset="false" items="{SessionModel>/}">
 							<columns>
 								<Column width="16em">

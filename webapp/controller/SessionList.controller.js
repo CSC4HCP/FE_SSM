@@ -6,6 +6,20 @@ sap.ui.define([
 ], function(BaseController) {
 
 	"use strict";
+	/**
+	 * @private
+	 * @description Some specified variables of this controller. Can't be access out of this controller.
+	 * @var {Array} aAllJoinSessions The array to save all sessions.
+	 * @var {Array} aDocumentId The array to save open sessions.
+	 * @var {Array} aDocumentId The array to save in progress sessions.
+	 * @var {Array} aDocumentId The array to save cancelled sessions.
+	 * @var {Array} aDocumentId The array to save completed sessions.
+	 * 
+	 */
+	var aOpenJoinSessions;
+	var aInProgressJoinSessions;
+	var aCancelledJoinSessions;
+	var aCompletedJoinSessions;
 
 	return BaseController.extend("ssms.controller.SessionList", {
 
@@ -25,14 +39,47 @@ sap.ui.define([
 
 			var oUserModel = this.getUserModel();
 			this.getView().setModel(oUserModel, "UserModel");
-
 			var oSessionModel = new sap.ui.model.json.JSONModel();
-
 			oSessionModel.loadData("/destinations/SSM_DEST/api/session?visibility=true", null, false);
-
 			this.getView().setModel(oSessionModel, "SessionModel");
-
 			this.byId("iconTabFilterAll").setCount(oSessionModel.getData().length);
+			aOpenJoinSessions = [];
+			aInProgressJoinSessions = [];
+			aCancelledJoinSessions = [];
+			aCompletedJoinSessions = [];
+			$.ajax({
+
+				type: "GET",
+
+				url: "/destinations/SSM_DEST/api/session",
+
+				contentType: "application/json",
+
+				async: false,
+
+				success: function(aSessions) {
+					aSessions.forEach(function(assesion) {
+						switch (assesion.status) {
+							case "Open":
+								aOpenJoinSessions.push(assesion);
+								break;
+							case "In Progress":
+								aInProgressJoinSessions.push(assesion);
+								break;
+							case "Cancelled":
+								aCancelledJoinSessions.push(assesion);
+								break;
+							case "Completed":
+								aCompletedJoinSessions.push(assesion);
+								break;
+						}
+					});
+				}
+			});
+			this.byId("iconTabFilterOpen").setCount(aOpenJoinSessions.length);
+			this.byId("iconTabFilterInProgress").setCount(aInProgressJoinSessions.length);
+			this.byId("iconTabFilterCanceled").setCount(aCancelledJoinSessions.length);
+			this.byId("iconTabFilterClosed").setCount(aCompletedJoinSessions.length);
 
 		},
 
