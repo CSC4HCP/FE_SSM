@@ -6,6 +6,20 @@ sap.ui.define([
 ], function(BaseController) {
 
 	"use strict";
+	/**
+	 * @private
+	 * @description Some specified variables of this controller. Can't be access out of this controller.
+	 * @var {Array} aAllJoinSessions The array to save all sessions.
+	 * @var {Array} aDocumentId The array to save open sessions.
+	 * @var {Array} aDocumentId The array to save in progress sessions.
+	 * @var {Array} aDocumentId The array to save cancelled sessions.
+	 * @var {Array} aDocumentId The array to save completed sessions.
+	 * 
+	 */
+	var aOpenJoinSessions;
+	var aInProgressJoinSessions;
+	var aCancelledJoinSessions;
+	var aCompletedJoinSessions;
 
 	return BaseController.extend("ssms.controller.OwnedSession", {
 
@@ -27,13 +41,49 @@ sap.ui.define([
 			this.getView().setModel(oUserModel, "UserModel");
 
 			var oSessionModel = new sap.ui.model.json.JSONModel();
-			var sOwner = this.getView().getModel("UserModel").getData().name;
+			var sOwner = this.getView().getModel("UserModel").getData().displayName;
 
 			oSessionModel.loadData("/destinations/SSM_DEST/api/session?owner=" + sOwner, null, false);
 
 			this.getView().setModel(oSessionModel, "SessionModel");
-
+			aOpenJoinSessions = [];
+			aInProgressJoinSessions = [];
+			aCancelledJoinSessions = [];
+			aCompletedJoinSessions = [];
 			this.byId("iconTabFilterAll").setCount(oSessionModel.getData().length);
+				$.ajax({
+
+					type: "GET",
+
+					url: "/destinations/SSM_DEST/api/session?owner=" + sOwner,
+
+					contentType: "application/json",
+
+					async: false,
+
+					success: function(aSessions) {
+						aSessions.forEach(function(assesion) {
+						switch (assesion.status) {
+							case "Open":
+								aOpenJoinSessions.push(assesion);
+								break;
+							case "In Progress":
+								aInProgressJoinSessions.push(assesion);
+								break;
+							case "Cancelled":
+								aCancelledJoinSessions.push(assesion);
+								break;
+							case "Completed":
+								aCompletedJoinSessions.push(assesion);
+								break;
+						}
+					});
+					}
+				});
+				this.byId("iconTabFilterOpen").setCount(aOpenJoinSessions.length);
+			    this.byId("iconTabFilterInProgress").setCount(aInProgressJoinSessions.length);
+			    this.byId("iconTabFilterCanceled").setCount(aCancelledJoinSessions.length);
+			    this.byId("iconTabFilterClosed").setCount(aCompletedJoinSessions.length);
 
 		},
 
@@ -55,7 +105,7 @@ sap.ui.define([
 
 			var sStatus = oEvent.getSource().mProperties.selectedKey;
 
-			var sOwner = this.getView().getModel("UserModel").getData().name;
+			var sOwner = this.getView().getModel("UserModel").getData().displayName;
 
 			var _that = this;
 
@@ -94,7 +144,6 @@ sap.ui.define([
 					success: function(aSessions) {
 
 						_that.getView().getModel("SessionModel").setData(aSessions);
-
 					}
 
 				});
