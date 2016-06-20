@@ -82,7 +82,7 @@
 							</items>
 						</Table>
 					</IconTabFilter>
-					<IconTabFilter icon="sap-icon://begin" iconColor="Positive" text="{i18n>TEXT_OWNSESSION_INPROCESS}" key="In Progress">
+					<IconTabFilter icon="sap-icon://begin" id="iconTabFilterInProgress" iconColor="Positive" text="{i18n>TEXT_OWNSESSION_INPROCESS}" key="In Progress">
 						<Table id="ssmsJoinedsession-InProgress" inset="false" items="{SessionModel>/}">
 							<columns>
 								<Column width="14em">
