@@ -1,5 +1,5 @@
 <mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" controllerName="ssms.controller.OwnedSession"
-	xmlns:f="sap.ui.layout.form" xmlns:html="http://www.w3.org/1999/xhtml" xmlns:l="sap.ui.layout">
+	xmlns:f="sap.ui.layout.form" xmlns:html="http://www.w3.org/1999/xhtml" xmlns:l="sap.ui.layout" xmlns:c="sap.ui.commons">
 	<Page showHeader="false">
 		<subHeader>
 			<core:Fragment fragmentName="ssms.view.Header" type="XML"/>
@@ -158,7 +158,7 @@
 							</items>
 						</Table>
 					</IconTabFilter>
-					<IconTabFilter icon="sap-icon://complete" iconColor="Negative" id="iconTabFilterClosed" text="{i18n>TEXT_OWNSESSION_CLOSED}" key="Closed">
+					<IconTabFilter icon="sap-icon://complete" iconColor="Negative" id="iconTabFilterClosed" text="{i18n>TEXT_OWNSESSION_CLOSED}" key="Completed">
 						<Table id="ssmsOwnsession-Closed" inset="false" items="{SessionModel>/}">
 							<columns>
 								<Column width="14em">
@@ -198,5 +198,6 @@
 				</items>
 			</IconTabBar>
 		</content>
+			<c:Paginator id="ownSessionPaginator" currentPage="1" page="onPressedPage" class="ssmsOwnedSession-Paginator"/>
 	</Page>
 </mvc:View>
